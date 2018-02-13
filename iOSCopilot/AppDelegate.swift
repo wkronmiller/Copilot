@@ -8,14 +8,31 @@
 
 import UIKit
 
+// http://paletton.com/#uid=14H0u0kllllaFw0g0qFqFg0w0aF
+
+// Weather icons - https://www.uplabs.com/posts/material-design-weather-icon-set
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
 
-
+    private func configureTabBar() {
+        let normalTitleAttributes = [
+            NSAttributedStringKey.foregroundColor: UIColor.white,
+            NSAttributedStringKey.font: UIFont(name: "Helvetica", size: 15.0)
+        ]
+        UITabBarItem.appearance().setTitleTextAttributes(normalTitleAttributes, for: UIControlState.normal)
+        
+        let selectedTitleAttributes = [
+            NSAttributedStringKey.foregroundColor: UIColor.purple,
+            NSAttributedStringKey.font: UIFont(name: "Helvetica", size: 15.0)
+        ]
+        UITabBarItem.appearance().setTitleTextAttributes(selectedTitleAttributes, for: UIControlState.selected)
+        
+    }
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        configureTabBar()
         return true
     }
 
