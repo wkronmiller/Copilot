@@ -7,23 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49561110202F449600464A53 /* LocationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4956110F202F449600464A53 /* LocationModels.swift */; };
+		49561112202F451B00464A53 /* WebUplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49561111202F451B00464A53 /* WebUplink.swift */; };
 		496BCFB42027A157001C6B48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFB32027A157001C6B48 /* AppDelegate.swift */; };
-		496BCFB62027A157001C6B48 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFB52027A157001C6B48 /* FirstViewController.swift */; };
-		496BCFB82027A157001C6B48 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFB72027A157001C6B48 /* SecondViewController.swift */; };
+		496BCFB62027A157001C6B48 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFB52027A157001C6B48 /* MapViewController.swift */; };
 		496BCFBB2027A157001C6B48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 496BCFB92027A157001C6B48 /* Main.storyboard */; };
 		496BCFBD2027A157001C6B48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 496BCFBC2027A157001C6B48 /* Assets.xcassets */; };
 		496BCFC02027A157001C6B48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 496BCFBE2027A157001C6B48 /* LaunchScreen.storyboard */; };
+		496BCFC92027A234001C6B48 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 496BCFC82027A234001C6B48 /* MapKit.framework */; };
+		496BCFCE2028807A001C6B48 /* LocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFCD2028807A001C6B48 /* LocationTracker.swift */; };
+		496BCFD02029AB1B001C6B48 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 496BCFCF2029AB1B001C6B48 /* CoreData.framework */; };
+		49B69D3B2031B32700ACD609 /* WeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B69D3A2031B32700ACD609 /* WeatherController.swift */; };
+		49C288C2203085C200D5C212 /* TrafficStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C1203085C200D5C212 /* TrafficStatus.swift */; };
+		49C288C42030B13A00D5C212 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C32030B13A00D5C212 /* Configuration.swift */; };
+		49C288CB203103FD00D5C212 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288CA203103FD00D5C212 /* MainTabController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4956110F202F449600464A53 /* LocationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModels.swift; sourceTree = "<group>"; };
+		49561111202F451B00464A53 /* WebUplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUplink.swift; sourceTree = "<group>"; };
 		496BCFB02027A157001C6B48 /* iOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		496BCFB32027A157001C6B48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		496BCFB52027A157001C6B48 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		496BCFB72027A157001C6B48 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		496BCFB52027A157001C6B48 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		496BCFBA2027A157001C6B48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		496BCFBC2027A157001C6B48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		496BCFBF2027A157001C6B48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		496BCFC12027A157001C6B48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		496BCFC82027A234001C6B48 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		496BCFCA2027A2C6001C6B48 /* iOSCopilot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOSCopilot.entitlements; sourceTree = "<group>"; };
+		496BCFCD2028807A001C6B48 /* LocationTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTracker.swift; sourceTree = "<group>"; };
+		496BCFCF2029AB1B001C6B48 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		49B69D3A2031B32700ACD609 /* WeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherController.swift; sourceTree = "<group>"; };
+		49C288C1203085C200D5C212 /* TrafficStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficStatus.swift; sourceTree = "<group>"; };
+		49C288C32030B13A00D5C212 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		49C288C52030DAE600D5C212 /* mapbox-ios-sdk-3 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "mapbox-ios-sdk-3"; sourceTree = "<group>"; };
+		49C288C62030DB0700D5C212 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
+		49C288CA203103FD00D5C212 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +50,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				496BCFD02029AB1B001C6B48 /* CoreData.framework in Frameworks */,
+				496BCFC92027A234001C6B48 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,8 +61,11 @@
 		496BCFA72027A157001C6B48 = {
 			isa = PBXGroup;
 			children = (
+				49C288C62030DB0700D5C212 /* Mapbox.framework */,
+				49C288C52030DAE600D5C212 /* mapbox-ios-sdk-3 */,
 				496BCFB22027A157001C6B48 /* iOSCopilot */,
 				496BCFB12027A157001C6B48 /* Products */,
+				496BCFC72027A234001C6B48 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +80,31 @@
 		496BCFB22027A157001C6B48 /* iOSCopilot */ = {
 			isa = PBXGroup;
 			children = (
+				496BCFCA2027A2C6001C6B48 /* iOSCopilot.entitlements */,
 				496BCFB32027A157001C6B48 /* AppDelegate.swift */,
-				496BCFB52027A157001C6B48 /* FirstViewController.swift */,
-				496BCFB72027A157001C6B48 /* SecondViewController.swift */,
+				496BCFB52027A157001C6B48 /* MapViewController.swift */,
 				496BCFB92027A157001C6B48 /* Main.storyboard */,
 				496BCFBC2027A157001C6B48 /* Assets.xcassets */,
 				496BCFBE2027A157001C6B48 /* LaunchScreen.storyboard */,
 				496BCFC12027A157001C6B48 /* Info.plist */,
+				496BCFCD2028807A001C6B48 /* LocationTracker.swift */,
+				4956110F202F449600464A53 /* LocationModels.swift */,
+				49561111202F451B00464A53 /* WebUplink.swift */,
+				49C288C1203085C200D5C212 /* TrafficStatus.swift */,
+				49C288C32030B13A00D5C212 /* Configuration.swift */,
+				49C288CA203103FD00D5C212 /* MainTabController.swift */,
+				49B69D3A2031B32700ACD609 /* WeatherController.swift */,
 			);
 			path = iOSCopilot;
+			sourceTree = "<group>";
+		};
+		496BCFC72027A234001C6B48 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				496BCFCF2029AB1B001C6B48 /* CoreData.framework */,
+				496BCFC82027A234001C6B48 /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -100,6 +140,20 @@
 					496BCFAF2027A157001C6B48 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -139,9 +193,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				496BCFB82027A157001C6B48 /* SecondViewController.swift in Sources */,
+				49C288C2203085C200D5C212 /* TrafficStatus.swift in Sources */,
+				49C288CB203103FD00D5C212 /* MainTabController.swift in Sources */,
+				49561112202F451B00464A53 /* WebUplink.swift in Sources */,
+				49561110202F449600464A53 /* LocationModels.swift in Sources */,
+				496BCFCE2028807A001C6B48 /* LocationTracker.swift in Sources */,
 				496BCFB42027A157001C6B48 /* AppDelegate.swift in Sources */,
-				496BCFB62027A157001C6B48 /* FirstViewController.swift in Sources */,
+				49C288C42030B13A00D5C212 /* Configuration.swift in Sources */,
+				496BCFB62027A157001C6B48 /* MapViewController.swift in Sources */,
+				49B69D3B2031B32700ACD609 /* WeatherController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,8 +338,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = iOSCopilot/iOSCopilot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H64UU5B675;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = iOSCopilot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.kronmiller.william.motorcycle.iOSCopilot;
@@ -293,8 +358,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = iOSCopilot/iOSCopilot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H64UU5B675;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = iOSCopilot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.kronmiller.william.motorcycle.iOSCopilot;
