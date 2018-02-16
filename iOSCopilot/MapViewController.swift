@@ -64,7 +64,7 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let delegateConfig = LocationDelegateConfig()
+        let delegateConfig = LocationReceiverConfig()
         delegateConfig.delegate = self
         delegateConfig.maxUpdateFrequencyMs = 1
         LocationTracker.shared.setDelegate(delegateConfig: delegateConfig)
@@ -80,7 +80,7 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         // Dispose of any resources that can be recreated.
     }
     
-    private func updatePoliceAnnotations(locationStats: LocationStats) {
+    private func updatePoliceAnnotations(trafficConditions: TrafficConditions) {
         if(processingAnnotations) {
             return
         }
@@ -94,8 +94,8 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         self.processingAnnotations = true
         
         NSLog("Updating police locations")
-
-        let police = locationStats.getTrafficConditions().alerts
+        
+        let police = trafficConditions.alerts
             .filter { alert in
                 return (alert.type == "POLICE")
             }
@@ -134,34 +134,37 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
 
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         
-        
-        
         DispatchQueue.main.async {
             self.mapView.region.center = center
             //self.mapView.setRegion(region, animated: true)
         }
 
+        let distanceFromHome = "\(Int(locationStats.getDistanceFromHome() / 1000)) km"
         DispatchQueue.main.async {
-            self.distanceFromHome.text = "\(Int(locationStats.getDistanceFromHome() / 1000)) km"
+            NSLog("Updating distance from home \(distanceFromHome)")
+            self.distanceFromHome.text = distanceFromHome
         }
         
         let maxDistance: Double = 10 * 1000 // 10 km
         
-        let jams = locationStats.getTrafficConditions().jams.filter{jam in
-            return jam.line
-                .filter{coordinate in
-                    return coordinate.distance(from: location) < maxDistance
-                }
-                .isEmpty == false
+        if let trafficConditions = locationStats.getTrafficConditions() {
+            let jams = trafficConditions.jams.filter{jam in
+                return jam.line
+                    .filter{coordinate in
+                        return coordinate.distance(from: location) < maxDistance
+                    }
+                    .isEmpty == false
+            }
+            
+            DispatchQueue.main.async {
+                self.trafficConditions.text = "\(jams.count)"
+            }
+            
+            DispatchQueue.main.async {
+                self.updatePoliceAnnotations(trafficConditions: trafficConditions)
+            }
         }
         
-        DispatchQueue.main.async {
-            self.trafficConditions.text = "\(jams.count)"
-        }
-        
-        DispatchQueue.main.async {
-            self.updatePoliceAnnotations(locationStats: locationStats)
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -10,37 +10,12 @@ import UIKit
 import Foundation
 import CoreLocation
 
-public class LocationStats: NSObject {
-    private let homeLocation = CLLocation(latitude: 39.1595230, longitude: -77.2219680)
-    private var lastLocation: CLLocation? = nil
-    private var lastConditions: TrafficConditions? = nil
-    
-    func getDistanceFromHome() -> CLLocationDistance {
-        return lastLocation!.distance(from: homeLocation)
-    }
-    
-    func getLastLocation() -> CLLocation {
-        return lastLocation!
-    }
-    
-    func getTrafficConditions() -> TrafficConditions {
-        return lastConditions!
-    }
-    
-    func update(location: CLLocation, completionHandler: @escaping () -> Void) {
-        lastLocation = location
-        TrafficStatus.shared.fetch(location: location, completionHandler: {trafficConditions in
-            self.lastConditions = trafficConditions
-            completionHandler()
-        })
-    }
-}
-
 public protocol LocationTrackerDelegate: NSObjectProtocol {
     func didUpdateLocationStats(locationStats: LocationStats) -> Void
 }
 
-class LocationDelegateConfig {
+class LocationReceiverConfig {
+    private var isUpdating: Bool = false
     var delegate: LocationTrackerDelegate? = nil
     var maxUpdateFrequencyMs: Double = Configuration.shared.defaultLocationDelegateUpdateFrequencyMs
     var delegateLastUpdated: Date? = nil
@@ -48,24 +23,33 @@ class LocationDelegateConfig {
     var lastUpdated: Date? = nil
     
     func shouldUpdate() -> Bool {
+        if isUpdating {
+            return false
+        }
         if let updatedDate = lastUpdated {
-            return Date().timeIntervalSince(updatedDate) >= self.maxUpdateFrequencyMs
+            return (Date().timeIntervalSince(updatedDate) * 1000) >= self.maxUpdateFrequencyMs
         } else {
             return true
         }
     }
     
+    func setUpdating() {
+        self.isUpdating = true
+    }
+    
     func didUpdate() {
+        self.isUpdating = false
         self.lastUpdated = Date()
     }
 }
 
 class LocationTracker: NSObject, CLLocationManagerDelegate {
-    private var delegateConfig: LocationDelegateConfig = LocationDelegateConfig()
+    private var delegateConfig: LocationReceiverConfig = LocationReceiverConfig()
     
     private var endpoint: URL? = nil
     private let locationManager = CLLocationManager()
     private var isTracking = false
+    var privacyEnabled = false
     private let locationStats = LocationStats()
     
     private var segmentBuffer: [LocationSegment] = []
@@ -82,22 +66,30 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         self.segmentBuffer = []
         NSLog("Sending \(self.segmentBuffer.count) locations to \(endpoint)")
         WebUplink.shared.post(url: endpoint!, body: trace){ (data, error) in
+            if error != nil {
+                NSLog("Send Location Error \(error!)")
+            }
             NSLog("Data POST result \(data ?? [:])")
-            //TODO
         }
     }
     
-    func setDelegate(delegateConfig: LocationDelegateConfig) {
+    func setDelegate(delegateConfig: LocationReceiverConfig) {
         self.delegateConfig = delegateConfig
+        
+        // Initialize delegate with cached data
+        if let delegate = self.delegateConfig.delegate {
+            if self.locationStats.hasData() {
+                delegate.didUpdateLocationStats(locationStats: locationStats)
+            }
+        }
     }
     
     func setDelegate(delegate: LocationTrackerDelegate) {
-        self.delegateConfig = LocationDelegateConfig()
+        self.delegateConfig = LocationReceiverConfig()
         self.delegateConfig.delegate = delegate
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         let locationSegments = locations.map { location in
             return LocationSegment(
                 altitude: location.altitude,
@@ -105,7 +97,8 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
                 latitude: location.coordinate.latitude,
                 longitude: location.coordinate.longitude,
                 speed: location.speed,
-                epochMs: location.timestamp.timeIntervalSince1970 * 1000
+                epochMs: location.timestamp.timeIntervalSince1970 * 1000,
+                privacyEnabled: privacyEnabled
             )
         }
         

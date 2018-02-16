@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 // http://paletton.com/#uid=14H0u0kllllaFw0g0qFqFg0w0aF
 
@@ -33,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         configureTabBar()
+        
         return true
     }
 

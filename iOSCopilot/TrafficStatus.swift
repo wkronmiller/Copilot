@@ -27,11 +27,14 @@ struct TrafficConditions {
 }
 
 class TrafficStatus: NSObject {
+    private let receiverConfig: LocationReceiverConfig
     private let webUplink: WebUplink
     private var lastFetched: Date? = nil
     private var lastStatus: TrafficConditions? = nil
     
     private override init() {
+        self.receiverConfig = LocationReceiverConfig()
+        self.receiverConfig.maxUpdateFrequencyMs = 1000 * 60 // 1 minute
         self.webUplink = WebUplink.shared
         super.init()
     }
@@ -85,22 +88,13 @@ class TrafficStatus: NSObject {
             return TrafficAlert(type: type, uuid: uuid, location: location)
         }
     }
-    
-    private func shouldFetch() -> Bool {
-        if let date = lastFetched {
-           return Date().timeIntervalSince(date) > 1000 * 60 * 1
-        } else {
-            return true
-        }
-    }
 
-
-    func fetch(location: CLLocation, completionHandler: @escaping (TrafficConditions) -> Void) {
+    func fetch(location: CLLocation, completionHandler: @escaping (TrafficConditions?) -> Void) {
         let url = mkUrl(location: location)
-        //TODO: replace with update logic in LocationTracker
-        if(shouldFetch()) {
-            NSLog("Fetching URL \(url)")
-            
+        
+        if self.receiverConfig.shouldUpdate() {
+            self.receiverConfig.setUpdating()
+            NSLog("Updating traffic status")
             WebUplink.shared.get(url: url, completionHandler: {(data, error) in
                 if error != nil {
                     NSLog("Error loading traffic \(error!)")
@@ -110,10 +104,11 @@ class TrafficStatus: NSObject {
                 let jams = self.extractJams(data: data!)
                 let alerts = self.extractAlerts(data: data!)
                 self.lastStatus = TrafficConditions(jams: jams, alerts: alerts)
-                completionHandler(self.lastStatus!)
+                self.receiverConfig.didUpdate()
+                completionHandler(self.lastStatus)
             })
-        } else if self.lastStatus != nil {
-            completionHandler(self.lastStatus!)
+        } else {
+            completionHandler(self.lastStatus)
         }
     }
     
