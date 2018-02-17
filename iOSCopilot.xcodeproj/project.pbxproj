@@ -21,6 +21,10 @@
 		49C288C2203085C200D5C212 /* TrafficStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C1203085C200D5C212 /* TrafficStatus.swift */; };
 		49C288C42030B13A00D5C212 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C32030B13A00D5C212 /* Configuration.swift */; };
 		49C288CB203103FD00D5C212 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288CA203103FD00D5C212 /* MainTabController.swift */; };
+		49D85CC520345A000088B633 /* WeatherStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CC420345A000088B633 /* WeatherStatus.swift */; };
+		49D85CC7203482240088B633 /* AudioAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CC6203482240088B633 /* AudioAlerts.swift */; };
+		49D85CC92035ACEA0088B633 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CC82035ACEA0088B633 /* SettingsController.swift */; };
+		49D85CCB203879560088B633 /* LocationStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CCA203879560088B633 /* LocationStats.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,9 +44,11 @@
 		49B69D3A2031B32700ACD609 /* WeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherController.swift; sourceTree = "<group>"; };
 		49C288C1203085C200D5C212 /* TrafficStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficStatus.swift; sourceTree = "<group>"; };
 		49C288C32030B13A00D5C212 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
-		49C288C52030DAE600D5C212 /* mapbox-ios-sdk-3 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "mapbox-ios-sdk-3"; sourceTree = "<group>"; };
-		49C288C62030DB0700D5C212 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		49C288CA203103FD00D5C212 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
+		49D85CC420345A000088B633 /* WeatherStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherStatus.swift; sourceTree = "<group>"; };
+		49D85CC6203482240088B633 /* AudioAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAlerts.swift; sourceTree = "<group>"; };
+		49D85CC82035ACEA0088B633 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		49D85CCA203879560088B633 /* LocationStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStats.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +67,6 @@
 		496BCFA72027A157001C6B48 = {
 			isa = PBXGroup;
 			children = (
-				49C288C62030DB0700D5C212 /* Mapbox.framework */,
-				49C288C52030DAE600D5C212 /* mapbox-ios-sdk-3 */,
 				496BCFB22027A157001C6B48 /* iOSCopilot */,
 				496BCFB12027A157001C6B48 /* Products */,
 				496BCFC72027A234001C6B48 /* Frameworks */,
@@ -87,13 +91,17 @@
 				496BCFBC2027A157001C6B48 /* Assets.xcassets */,
 				496BCFBE2027A157001C6B48 /* LaunchScreen.storyboard */,
 				496BCFC12027A157001C6B48 /* Info.plist */,
-				496BCFCD2028807A001C6B48 /* LocationTracker.swift */,
 				4956110F202F449600464A53 /* LocationModels.swift */,
+				496BCFCD2028807A001C6B48 /* LocationTracker.swift */,
 				49561111202F451B00464A53 /* WebUplink.swift */,
 				49C288C1203085C200D5C212 /* TrafficStatus.swift */,
+				49D85CC420345A000088B633 /* WeatherStatus.swift */,
 				49C288C32030B13A00D5C212 /* Configuration.swift */,
 				49C288CA203103FD00D5C212 /* MainTabController.swift */,
 				49B69D3A2031B32700ACD609 /* WeatherController.swift */,
+				49D85CC6203482240088B633 /* AudioAlerts.swift */,
+				49D85CC82035ACEA0088B633 /* SettingsController.swift */,
+				49D85CCA203879560088B633 /* LocationStats.swift */,
 			);
 			path = iOSCopilot;
 			sourceTree = "<group>";
@@ -193,10 +201,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49D85CC92035ACEA0088B633 /* SettingsController.swift in Sources */,
 				49C288C2203085C200D5C212 /* TrafficStatus.swift in Sources */,
 				49C288CB203103FD00D5C212 /* MainTabController.swift in Sources */,
+				49D85CC520345A000088B633 /* WeatherStatus.swift in Sources */,
 				49561112202F451B00464A53 /* WebUplink.swift in Sources */,
+				49D85CC7203482240088B633 /* AudioAlerts.swift in Sources */,
 				49561110202F449600464A53 /* LocationModels.swift in Sources */,
+				49D85CCB203879560088B633 /* LocationStats.swift in Sources */,
 				496BCFCE2028807A001C6B48 /* LocationTracker.swift in Sources */,
 				496BCFB42027A157001C6B48 /* AppDelegate.swift in Sources */,
 				49C288C42030B13A00D5C212 /* Configuration.swift in Sources */,

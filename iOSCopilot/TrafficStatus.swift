@@ -32,9 +32,9 @@ class TrafficStatus: NSObject {
     private var lastFetched: Date? = nil
     private var lastStatus: TrafficConditions? = nil
     
-    private override init() {
+    override init() {
         self.receiverConfig = LocationReceiverConfig()
-        self.receiverConfig.maxUpdateFrequencyMs = 1000 * 60 // 1 minute
+        self.receiverConfig.maxUpdateFrequencyMs = 60 * 1000 // 1 minute
         self.webUplink = WebUplink.shared
         super.init()
     }
@@ -88,7 +88,15 @@ class TrafficStatus: NSObject {
             return TrafficAlert(type: type, uuid: uuid, location: location)
         }
     }
-
+    
+    func getLastStatus() -> TrafficConditions? {
+        return self.lastStatus
+    }
+    
+    func getLastFetched() -> Date? {
+        return self.lastFetched
+    }
+    
     func fetch(location: CLLocation, completionHandler: @escaping (TrafficConditions?) -> Void) {
         let url = mkUrl(location: location)
         
@@ -111,6 +119,4 @@ class TrafficStatus: NSObject {
             completionHandler(self.lastStatus)
         }
     }
-    
-    static let shared = TrafficStatus()
 }

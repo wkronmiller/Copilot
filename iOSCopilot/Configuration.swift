@@ -10,6 +10,7 @@ import Foundation
 import CoreLocation
 
 class Configuration: NSObject {
+    let homeLocation = CLLocation(latitude: 39.1595230, longitude: -77.2219680)
     
     let apiGatewayCore = "https://t5n5d0mfrd.execute-api.us-east-1.amazonaws.com/dev"
     

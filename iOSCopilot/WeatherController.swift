@@ -78,6 +78,7 @@ class WeatherController: UIViewController, LocationTrackerDelegate {
             .replacingOccurrences(of: "Chance", with: "")
             .replacingOccurrences(of: "Mostly", with: "")
             .replacingOccurrences(of: "Partly", with: "")
+            .replacingOccurrences(of: "Likely", with: "")
             .trimmingCharacters(in: CharacterSet(charactersIn: " "))
         switch cleanedDescription {
         case "Cloudy":

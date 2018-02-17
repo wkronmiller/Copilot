@@ -51,6 +51,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     private var isTracking = false
     var privacyEnabled = false
     private let locationStats = LocationStats()
+    private var updateTimer: Timer? = nil
     
     private var segmentBuffer: [LocationSegment] = []
     
@@ -60,11 +61,16 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         self.endpoint = URL(string: "\(Configuration.shared.apiGatewayCore)/devices/\(deviceUUID)/location")
     }
     
-    private func sendLocations() {
+    @objc private func sendLocations() {
+        if self.segmentBuffer.isEmpty {
+            NSLog("No location segments to broadcast")
+            return
+        }
+        
         NSLog("Publishing locations")
         let trace = LocationTrace(locations: self.segmentBuffer)
-        self.segmentBuffer = []
         NSLog("Sending \(self.segmentBuffer.count) locations to \(endpoint)")
+        self.segmentBuffer = []
         WebUplink.shared.post(url: endpoint!, body: trace){ (data, error) in
             if error != nil {
                 NSLog("Send Location Error \(error!)")
@@ -128,6 +134,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
             locationManager.startUpdatingLocation()
             locationManager.requestAlwaysAuthorization()
             isTracking = true
+            self.updateTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(sendLocations), userInfo: nil, repeats: true)
         }
     }
     
@@ -135,6 +142,8 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         if isTracking {
             NSLog("Stopping location tracking")
             locationManager.stopUpdatingLocation()
+            self.updateTimer?.invalidate()
+            self.updateTimer = nil
         }
     }
     

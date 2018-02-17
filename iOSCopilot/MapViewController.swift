@@ -147,7 +147,7 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         
         let maxDistance: Double = 10 * 1000 // 10 km
         
-        if let trafficConditions = locationStats.getTrafficConditions() {
+        if let trafficConditions = locationStats.getTrafficStatus().getLastStatus() {
             let jams = trafficConditions.jams.filter{jam in
                 return jam.line
                     .filter{coordinate in
