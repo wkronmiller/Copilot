@@ -43,11 +43,15 @@ public class WeatherStatus: NSObject {
         return ForecastPeriod(startTime: startTime, endTime: endTime, temperature: temperature, description: description)
     }
     private func unpackForecast(data: [String: Any]) -> [ForecastPeriod] {
-        let properties = data["properties"] as! [String: Any]
-        let periods = properties["periods"] as! [[String: Any]]
-        return periods.map(unpackForecastPeriod).filter{forecastPeriod in
-            return forecastPeriod.endTime.timeIntervalSinceNow > 0
+        if let properties = data["properties"] as? [String: Any] {
+            if let periods = properties["periods"] as? [[String: Any]] {
+                return periods.map(unpackForecastPeriod).filter{forecastPeriod in
+                    return forecastPeriod.endTime.timeIntervalSinceNow > 0
+                }
+            }
         }
+        NSLog("Weather forecast corrupted: \(data)")
+        return []
     }
     
     func getForecasts() -> [ForecastPeriod] {

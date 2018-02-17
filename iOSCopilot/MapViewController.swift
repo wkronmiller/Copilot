@@ -34,6 +34,7 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
     @IBOutlet weak var trafficConditions: UILabel!
     
     private var policeAnnotations: [PoliceAnnotation] = []
+    private var trafficLines: [MKGeodesicPolyline] = []
     private var annotationsLastUpdated: Date? = nil
     private var processingAnnotations: Bool = false
     private let overlay: MKTileOverlay
@@ -58,8 +59,6 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         mapView.setRegion(region, animated: false)
         
         tileRenderer.reloadData()
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -71,7 +70,16 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
     }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        return tileRenderer
+        if overlay is MKTileOverlay {
+            return tileRenderer
+        }
+        if overlay is MKPolyline {
+            let renderer = MKPolylineRenderer(overlay: overlay)
+            renderer.strokeColor = UIColor.purple
+            renderer.lineWidth = 6
+            return renderer
+        }
+        return MKOverlayRenderer()
     }
 
     
@@ -80,11 +88,32 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         // Dispose of any resources that can be recreated.
     }
     
-    private func updatePoliceAnnotations(trafficConditions: TrafficConditions) {
-        if(processingAnnotations) {
-            return
+    private func updateTrafficJamAnnotations(trafficConditions: TrafficConditions) {
+        self.trafficLines.forEach{ line in
+            self.mapView.remove(line)
         }
         
+        let lines: [MKGeodesicPolyline] = trafficConditions.jams
+            .map { jam in
+                return jam.line
+            }
+            .map { locations in
+                return locations.map{ location in
+                    return location.coordinate
+                }
+            }
+            .map { coordinates in
+                let polyline = MKGeodesicPolyline(coordinates: coordinates, count: coordinates.count)
+                return polyline
+            }
+        self.trafficLines = lines
+        
+        self.trafficLines.forEach { polyline in
+            mapView.add(polyline)
+        }
+    }
+    
+    private func updatePoliceAnnotations(trafficConditions: TrafficConditions) {
         if let lastUpdated = annotationsLastUpdated {
             if lastUpdated.timeIntervalSince(Date()) < Configuration.shared.updateAnnotationFrequencyMs {
                 return
@@ -129,6 +158,17 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         NSLog("Updated police annotations \(self.policeAnnotations.count) \(self.mapView.annotations.count)")
     }
     
+    private func updateTrafficConditionAnnotations(trafficConditions: TrafficConditions) {
+        DispatchQueue.main.async {
+            if(self.processingAnnotations) {
+                return
+            }
+            self.processingAnnotations = true
+            self.updatePoliceAnnotations(trafficConditions: trafficConditions)
+            self.updateTrafficJamAnnotations(trafficConditions: trafficConditions)
+        }
+    }
+    
     func didUpdateLocationStats(locationStats: LocationStats) {
         let location = locationStats.getLastLocation()
 
@@ -160,9 +200,7 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
                 self.trafficConditions.text = "\(jams.count)"
             }
             
-            DispatchQueue.main.async {
-                self.updatePoliceAnnotations(trafficConditions: trafficConditions)
-            }
+            self.updateTrafficConditionAnnotations(trafficConditions: trafficConditions)
         }
         
     }
