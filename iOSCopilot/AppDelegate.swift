@@ -13,6 +13,8 @@ import AVFoundation
 
 // Weather icons - https://www.uplabs.com/posts/material-design-weather-icon-set
 
+// Badge icon - https://material.io/icons/#ic_security
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?

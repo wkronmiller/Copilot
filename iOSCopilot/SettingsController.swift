@@ -13,6 +13,10 @@ class SettingsController: UIViewController {
     @IBOutlet weak var voiceAlertsButton: UISwitch!
     @IBOutlet weak var locationPrivacyButton: UISwitch!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     @IBAction func locationPrivacyChanged(_ sender: Any) {
         LocationTracker.shared.privacyEnabled = locationPrivacyButton.isOn
         NSLog("Set location privacy to \(locationPrivacyButton.isOn)")

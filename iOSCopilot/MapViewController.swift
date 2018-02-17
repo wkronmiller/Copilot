@@ -22,16 +22,14 @@ class PoliceAnnotation: NSObject, MKAnnotation {
     }
 }
 
-// https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png
-
-// https://cartocdn_{s}.global.ssl.fastly.net/base-dark/{z}/{x}/{y}.png
-
 class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var distanceFromHome: UILabel!
     @IBOutlet weak var trafficConditions: UILabel!
+    
+    private let annotationViewReuseId = "traffic_annotation_view"
     
     private var policeAnnotations: [PoliceAnnotation] = []
     private var trafficLines: [MKGeodesicPolyline] = []
@@ -45,6 +43,10 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         self.tileRenderer = MKTileOverlayRenderer(tileOverlay: self.overlay)
         overlay.canReplaceMapContent = true
         super.init(coder: aDecoder)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func viewDidLoad() {
@@ -82,7 +84,6 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         return MKOverlayRenderer()
     }
 
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -113,6 +114,31 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         }
     }
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationViewReuseId)
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationViewReuseId)
+        }
+        
+        if annotation is PoliceAnnotation {
+            let image = UIImage(named: "ic_security")!
+            let scale = 30
+            let size = CGSize(width: scale, height: scale)
+            let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            
+            UIGraphicsBeginImageContext(size)
+            image.draw(in: rect)
+            annotationView?.image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+        }
+        
+        return annotationView
+    }
+
     private func updatePoliceAnnotations(trafficConditions: TrafficConditions) {
         if let lastUpdated = annotationsLastUpdated {
             if lastUpdated.timeIntervalSince(Date()) < Configuration.shared.updateAnnotationFrequencyMs {

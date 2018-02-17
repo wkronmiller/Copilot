@@ -68,6 +68,10 @@ class WeatherController: UIViewController, LocationTrackerDelegate {
         self.delegateConfig.maxUpdateFrequencyMs = 60 * 1 // 1 minute
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.weatherTable.dataSource = self.weatherTableDataSource
@@ -79,6 +83,7 @@ class WeatherController: UIViewController, LocationTrackerDelegate {
             .replacingOccurrences(of: "Mostly", with: "")
             .replacingOccurrences(of: "Partly", with: "")
             .replacingOccurrences(of: "Likely", with: "")
+            .replacingOccurrences(of: "Light", with: "")
             .trimmingCharacters(in: CharacterSet(charactersIn: " "))
         switch cleanedDescription {
         case "Cloudy":
@@ -89,6 +94,8 @@ class WeatherController: UIViewController, LocationTrackerDelegate {
             return "weather-clear"
         case "Sunny":
             return "weather-clear"
+        case "Snow":
+            return "weather-snow"
         default:
             break
         }
