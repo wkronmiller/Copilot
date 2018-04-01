@@ -141,7 +141,7 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
 
     private func updatePoliceAnnotations(trafficConditions: TrafficConditions) {
         if let lastUpdated = annotationsLastUpdated {
-            if lastUpdated.timeIntervalSince(Date()) < Configuration.shared.updateAnnotationFrequencyMs {
+            if lastUpdated.timeIntervalSince(Date()) * 1000 < Configuration.shared.updateAnnotationFrequencyMs {
                 return
             }
         }

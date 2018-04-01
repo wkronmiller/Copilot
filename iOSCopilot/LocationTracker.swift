@@ -27,7 +27,7 @@ class LocationReceiverConfig {
             return false
         }
         if let updatedDate = lastUpdated {
-            return (Date().timeIntervalSince(updatedDate) * 1000) >= self.maxUpdateFrequencyMs
+            return abs(updatedDate.timeIntervalSinceNow * 1000) >= self.maxUpdateFrequencyMs
         } else {
             return true
         }
@@ -79,9 +79,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    func setDelegate(delegateConfig: LocationReceiverConfig) {
-        self.delegateConfig = delegateConfig
-        
+    private func initDelegate() {
         // Initialize delegate with cached data
         if let delegate = self.delegateConfig.delegate {
             if self.locationStats.hasData() {
@@ -90,9 +88,15 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    func setDelegate(delegateConfig: LocationReceiverConfig) {
+        self.delegateConfig = delegateConfig
+        initDelegate()
+    }
+    
     func setDelegate(delegate: LocationTrackerDelegate) {
         self.delegateConfig = LocationReceiverConfig()
         self.delegateConfig.delegate = delegate
+        initDelegate()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

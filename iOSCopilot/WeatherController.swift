@@ -83,6 +83,7 @@ class WeatherController: UIViewController, LocationTrackerDelegate {
             .replacingOccurrences(of: "Mostly", with: "")
             .replacingOccurrences(of: "Partly", with: "")
             .replacingOccurrences(of: "Likely", with: "")
+            .replacingOccurrences(of: "Slight", with: "")
             .replacingOccurrences(of: "Light", with: "")
             .trimmingCharacters(in: CharacterSet(charactersIn: " "))
         switch cleanedDescription {
@@ -90,6 +91,8 @@ class WeatherController: UIViewController, LocationTrackerDelegate {
             return "weather-few-clouds"
         case "Rain Showers":
             return "weather-showers-day"
+        case "Rain":
+            return "weather-rain-day"
         case "Clear":
             return "weather-clear"
         case "Sunny":
@@ -105,12 +108,13 @@ class WeatherController: UIViewController, LocationTrackerDelegate {
     
     private func updateForecasts(weatherStatus: WeatherStatus) {
         let forecasts = weatherStatus.getForecasts()
-        let current = forecasts.first!
-        let nextImage = descriptionToImage(description: current.description)
-        DispatchQueue.main.async {
-            self.weatherImage.image = UIImage(named: nextImage)!
-            self.currentTemperature.text = "\(current.temperature) F"
-            self.weatherDescription.text = current.description
+        if let current = forecasts.first {
+            let nextImage = descriptionToImage(description: current.description)
+            DispatchQueue.main.async {
+                self.weatherImage.image = UIImage(named: nextImage)!
+                self.currentTemperature.text = "\(current.temperature) F"
+                self.weatherDescription.text = current.description
+            }
         }
         
         DispatchQueue.main.async {

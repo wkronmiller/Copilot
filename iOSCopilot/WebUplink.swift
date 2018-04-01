@@ -9,7 +9,7 @@
 import Foundation
 
 class WebUplink: NSObject {
-    private let queue = DispatchQueue(label: "CloudUplink")
+    private let queue = DispatchQueue(label: "WebUplink")
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     private let session = URLSession(configuration: .default)
@@ -29,6 +29,7 @@ class WebUplink: NSObject {
     
     private func fetch(request: URLRequest, completionHandler: @escaping ([String: Any]?, Error?) -> Void) {
         let task = session.dataTask(with: request) { (data, response, error) in
+            NSLog("Got data \(data) for request \(request)")
             completionHandler(data.flatMap(self.decode), error)
         }
         

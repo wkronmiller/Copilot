@@ -17,6 +17,7 @@ public class LocationStats: NSObject {
     
     private let trafficStatus = TrafficStatus()
     private let weatherStatus = WeatherStatus()
+    private let cameras = TrafficCams()
     
     func getDistanceFromHome() -> CLLocationDistance {
         return lastLocation!.distance(from: Configuration.shared.homeLocation)
@@ -38,6 +39,10 @@ public class LocationStats: NSObject {
         return self.weatherStatus
     }
     
+    func getCameras() -> TrafficCams {
+        return self.cameras
+    }
+    
     func update(location: CLLocation, completionHandler: @escaping () -> Void) {
         lastLocation = location
         var completed = 0
@@ -45,7 +50,7 @@ public class LocationStats: NSObject {
         func addCompleted() {
             self.queue.async {
                 completed += 1
-                if completed == 2 {
+                if completed == 3 {
                     completionHandler()
                 }
             }
@@ -56,6 +61,10 @@ public class LocationStats: NSObject {
         })
         
         self.weatherStatus.getHourlyForecast(location: location, completionHandler: {(forecasts, error) in
+            return addCompleted()
+        })
+        
+        self.cameras.refreshNearby(location: location, completionHandler: {error in
             return addCompleted()
         })
     }

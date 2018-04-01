@@ -13,8 +13,18 @@ class SettingsController: UIViewController {
     @IBOutlet weak var voiceAlertsButton: UISwitch!
     @IBOutlet weak var locationPrivacyButton: UISwitch!
     
+    override func viewDidAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.voiceAlertsButton.isOn = Configuration.shared.audioAlertsEnabled
+        }
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    @IBAction func audioAlertsChanged(_ sender: Any) {
+        Configuration.shared.audioAlertsEnabled = self.voiceAlertsButton.isOn
     }
     
     @IBAction func locationPrivacyChanged(_ sender: Any) {

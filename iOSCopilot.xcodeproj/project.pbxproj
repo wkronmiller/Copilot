@@ -25,6 +25,8 @@
 		49D85CC7203482240088B633 /* AudioAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CC6203482240088B633 /* AudioAlerts.swift */; };
 		49D85CC92035ACEA0088B633 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CC82035ACEA0088B633 /* SettingsController.swift */; };
 		49D85CCB203879560088B633 /* LocationStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CCA203879560088B633 /* LocationStats.swift */; };
+		49D85CCD203C53E40088B633 /* TrafficCams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CCC203C53E40088B633 /* TrafficCams.swift */; };
+		49D85CCF203F11D70088B633 /* TrafficCamController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CCE203F11D70088B633 /* TrafficCamController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,8 @@
 		49D85CC6203482240088B633 /* AudioAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAlerts.swift; sourceTree = "<group>"; };
 		49D85CC82035ACEA0088B633 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		49D85CCA203879560088B633 /* LocationStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStats.swift; sourceTree = "<group>"; };
+		49D85CCC203C53E40088B633 /* TrafficCams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCams.swift; sourceTree = "<group>"; };
+		49D85CCE203F11D70088B633 /* TrafficCamController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCamController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,8 @@
 				49D85CC6203482240088B633 /* AudioAlerts.swift */,
 				49D85CC82035ACEA0088B633 /* SettingsController.swift */,
 				49D85CCA203879560088B633 /* LocationStats.swift */,
+				49D85CCC203C53E40088B633 /* TrafficCams.swift */,
+				49D85CCE203F11D70088B633 /* TrafficCamController.swift */,
 			);
 			path = iOSCopilot;
 			sourceTree = "<group>";
@@ -211,7 +217,9 @@
 				49D85CCB203879560088B633 /* LocationStats.swift in Sources */,
 				496BCFCE2028807A001C6B48 /* LocationTracker.swift in Sources */,
 				496BCFB42027A157001C6B48 /* AppDelegate.swift in Sources */,
+				49D85CCF203F11D70088B633 /* TrafficCamController.swift in Sources */,
 				49C288C42030B13A00D5C212 /* Configuration.swift in Sources */,
+				49D85CCD203C53E40088B633 /* TrafficCams.swift in Sources */,
 				496BCFB62027A157001C6B48 /* MapViewController.swift in Sources */,
 				49B69D3B2031B32700ACD609 /* WeatherController.swift in Sources */,
 			);

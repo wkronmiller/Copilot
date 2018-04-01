@@ -12,7 +12,7 @@ import CoreLocation
 class Configuration: NSObject {
     let homeLocation = CLLocation(latitude: 39.1595230, longitude: -77.2219680)
     
-    let apiGatewayCore = "https://t5n5d0mfrd.execute-api.us-east-1.amazonaws.com/dev"
+    let apiGatewayCore = "https://bqwa05ybua.execute-api.us-east-1.amazonaws.com/dev"
     
     let mapTileUrl = "http://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
     
@@ -20,6 +20,11 @@ class Configuration: NSObject {
     
     let defaultLocationDelegateUpdateFrequencyMs: Double = 5 * 1000 // 5 seconds
     let updateAnnotationFrequencyMs: Double = 10 * 1000 // 10 seconds
+    
+    let alertBadWeatherTimer: TimeInterval = 60 * 60 // 1 hour
+    let alertBadWeatherFrequency: TimeInterval = 60 * 20 // 20 Minutes
+    
+    var audioAlertsEnabled: Bool = true
     
     private override init() {
         super.init()

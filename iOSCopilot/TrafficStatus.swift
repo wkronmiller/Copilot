@@ -34,7 +34,7 @@ class TrafficStatus: NSObject {
     
     override init() {
         self.receiverConfig = LocationReceiverConfig()
-        self.receiverConfig.maxUpdateFrequencyMs = 60 * 1000 // 1 minute
+        self.receiverConfig.maxUpdateFrequencyMs = 20 * 1000 // 20 seconds
         self.webUplink = WebUplink.shared
         super.init()
     }
@@ -106,6 +106,7 @@ class TrafficStatus: NSObject {
             WebUplink.shared.get(url: url, completionHandler: {(data, error) in
                 if error != nil {
                     NSLog("Error loading traffic \(error!)")
+                    self.receiverConfig.didUpdate()
                     return
                 }
                 self.lastFetched = Date()

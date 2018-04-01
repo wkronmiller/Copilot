@@ -13,12 +13,10 @@ class MainTabBarItem: UITabBarItem {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.titlePositionAdjustment = UIOffsetMake(0, -16)
-        
     }
 }
 
 class MainTabBar: UITabBar {
-    
 }
 
 class MainTabController: UITabBarController {

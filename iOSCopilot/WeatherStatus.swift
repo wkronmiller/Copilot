@@ -20,6 +20,7 @@ public class WeatherStatus: NSObject {
     private let receiverConfig: LocationReceiverConfig
     private let endpoint = "https://api.weather.gov"
     private let dateFormatter = ISO8601DateFormatter()
+    private var lastAlertedWeather: Date? = nil
     
     private var forecasts: [ForecastPeriod] = []
     
@@ -61,6 +62,23 @@ public class WeatherStatus: NSObject {
         }
     }
     
+    private func checkWeatherAlert() {
+        let secondsToBadWeather = self.getTimeToBadWeather()
+        if nil == secondsToBadWeather || secondsToBadWeather! > Configuration.shared.alertBadWeatherTimer {
+            return
+        }
+        
+        let minutesToBadWeather = Int(secondsToBadWeather! / 60)
+        if lastAlertedWeather == nil || lastAlertedWeather!.timeIntervalSinceNow > Configuration.shared.alertBadWeatherFrequency {
+            if minutesToBadWeather < 10 {
+                VoiceSynth.shared.speak(phrases: "Inclement weather nearby")
+            } else {
+                VoiceSynth.shared.speak(phrases: "Inclement weather in \(minutesToBadWeather) minutes")
+            }
+            lastAlertedWeather = Date()
+        }
+    }
+    
     func getHourlyForecast(location: CLLocation, completionHandler: @escaping ([ForecastPeriod]?, Error?) -> Void) {
         let latitude = String(format: "%.4f", location.coordinate.latitude)
         let longitude = String(format: "%.4f", location.coordinate.longitude)
@@ -73,6 +91,7 @@ public class WeatherStatus: NSObject {
                 }
                 self.forecasts = self.unpackForecast(data: data!)
                 self.receiverConfig.didUpdate()
+                self.checkWeatherAlert()
                 return completionHandler(self.getForecasts(), nil)
             })
         } else {
@@ -80,17 +99,21 @@ public class WeatherStatus: NSObject {
         }
     }
     
+    // Seconds
     func getTimeToBadWeather() -> TimeInterval? {
         let inclementForecasts = getForecasts()
             .filter{ forecast in
                 let description = forecast.description.lowercased()
+                if description.contains("chance") {
+                    return false
+                }
                 return description.contains("rain") || description.contains("snow") || description.contains("storm")
             }
             .map{forecast in
                 forecast.startTime
             }
         return inclementForecasts.first.map{startTime in
-            startTime.timeIntervalSinceNow
+            max(0, startTime.timeIntervalSinceNow)
         }
     }
 }

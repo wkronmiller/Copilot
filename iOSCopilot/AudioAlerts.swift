@@ -31,4 +31,3 @@ class VoiceSynth: NSObject {
     
     static let shared = VoiceSynth()
 }
-

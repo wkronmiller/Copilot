@@ -2,15 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Record Location in Background for Driving History and Traffic Alerts</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Record Location in Background for Driving History and Traffic Alerts</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDocumentTypes</key>
@@ -45,6 +36,15 @@
 		<string>MKDirectionsModeCar</string>
 		<string>MKDirectionsModeOther</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Record Location in Background for Driving History and Traffic Alerts</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Record Location in Background for Driving History and Traffic Alerts</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
@@ -73,8 +73,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>

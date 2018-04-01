@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import UserNotifications
 
 // http://paletton.com/#uid=14H0u0kllllaFw0g0qFqFg0w0aF
 
@@ -33,10 +34,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBarItem.appearance().setTitleTextAttributes(selectedTitleAttributes, for: UIControlState.selected)
         
     }
+    
+    private func configureNotifications() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound], completionHandler: {(granted, error) in
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        })
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        NSLog("Device notification token \(deviceTokenString)")
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        NSLog("Failed to register for notifications \(error)")
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        configureTabBar()
-        
+        self.configureTabBar()
+        self.configureNotifications()
         return true
     }
 
