@@ -35,9 +35,11 @@ class TrafficCamController: UIViewController, LocationTrackerDelegate, UITableVi
     }
     
     private func showCam(address: URL) {
-        NSLog("CamController Setting web view to \(address)")
         DispatchQueue.main.async {
-            self.webView.load(URLRequest(url: address))
+            if (self.webView.url != address) {
+                NSLog("CamController Setting web view to \(address)")
+                self.webView.load(URLRequest(url: address))
+            }
         }
     }
     
@@ -55,7 +57,9 @@ class TrafficCamController: UIViewController, LocationTrackerDelegate, UITableVi
         NSLog("CamController did update location stats \(locationStats)")
         self.camAddresses = locationStats.getCameras().getNearbyCameras()
         showCam()
-        camTable.reloadData()
+        DispatchQueue.main.async {
+            self.camTable.reloadData()
+        }
     }
     
     override func  viewDidLoad() {

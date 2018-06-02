@@ -86,7 +86,7 @@ public class WeatherStatus: NSObject {
         
         if self.receiverConfig.shouldUpdate() {
             WebUplink.shared.get(url: url, completionHandler: {(data, error) in
-                if nil != error {
+                if nil != error || data == nil {
                     return completionHandler(nil, error)
                 }
                 self.forecasts = self.unpackForecast(data: data!)
