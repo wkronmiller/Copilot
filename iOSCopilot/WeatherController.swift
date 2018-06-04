@@ -78,31 +78,26 @@ class WeatherController: UIViewController, LocationTrackerDelegate {
     }
 
     private func descriptionToImage(description: String) -> String {
-        let cleanedDescription = description
-            .replacingOccurrences(of: "Chance", with: "")
-            .replacingOccurrences(of: "Mostly", with: "")
-            .replacingOccurrences(of: "Partly", with: "")
-            .replacingOccurrences(of: "Likely", with: "")
-            .replacingOccurrences(of: "Slight", with: "")
-            .replacingOccurrences(of: "Light", with: "")
-            .trimmingCharacters(in: CharacterSet(charactersIn: " "))
-        switch cleanedDescription {
-        case "Cloudy":
-            return "weather-few-clouds"
-        case "Rain Showers":
-            return "weather-showers-day"
-        case "Rain":
-            return "weather-rain-day"
-        case "Clear":
-            return "weather-clear"
-        case "Sunny":
-            return "weather-clear"
-        case "Snow":
-            return "weather-snow"
-        default:
-            break
+        let lowercased = description.lowercased()
+        if(lowercased.contains("storm")) {
+            return "weather-storm"
         }
-        //TODO: search for containment
+        if(lowercased.contains("rain")) {
+            return "weather-rain-day"
+        }
+        if(lowercased.contains("shower")) {
+            return "weather-showers-day"
+        }
+        if(lowercased.contains("snow")) {
+            return "weather-snow"
+        }
+        if(lowercased.contains("cloud")) {
+            return "weather-few-clouds"
+        }
+        if(lowercased.contains("clear") || lowercased.contains("sun")) {
+            return "weather-clear"
+        }
+        
         return "weather-none-available"
     }
     

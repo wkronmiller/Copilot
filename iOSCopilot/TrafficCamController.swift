@@ -9,12 +9,18 @@
 import Foundation
 import WebKit
 import UIKit
+import AVKit
+import AVFoundation
 
 class TrafficCamController: UIViewController, LocationTrackerDelegate, UITableViewDelegate, UITableViewDataSource {
-    @IBOutlet weak var webView: WKWebView!
+
     @IBOutlet weak var camTable: UITableView!
     
+    @IBOutlet weak var playerContainer: UIView!
+    
     private var camAddresses: [TrafficCam] = []
+    
+    private var playing: URL? = nil
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         NSLog("Setting camaddrcount \(camAddresses.count)")
@@ -35,11 +41,19 @@ class TrafficCamController: UIViewController, LocationTrackerDelegate, UITableVi
     }
     
     private func showCam(address: URL) {
+        if(address == self.playing) {
+            return
+        }
+        self.playing = address
+        
+        let player = AVPlayer(url: address)
+        let playerLayer = AVPlayerLayer(player: player)
         DispatchQueue.main.async {
-            if (self.webView.url != address) {
-                NSLog("CamController Setting web view to \(address)")
-                self.webView.load(URLRequest(url: address))
-            }
+            // Clear existing sublayers
+            self.playerContainer.layer.sublayers?.forEach{ $0.removeFromSuperlayer() }
+            playerLayer.frame = self.playerContainer.bounds
+            self.playerContainer.layer.addSublayer(playerLayer)
+            player.play()
         }
     }
     
@@ -62,7 +76,7 @@ class TrafficCamController: UIViewController, LocationTrackerDelegate, UITableVi
         }
     }
     
-    override func  viewDidLoad() {
+    override func viewDidLoad() {
         self.camTable.delegate = self
         self.camTable.dataSource = self
     }

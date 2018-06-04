@@ -24,6 +24,12 @@ struct TrafficAlert {
 struct TrafficConditions {
     var jams: [TrafficJam]
     var alerts: [TrafficAlert]
+    
+    func getPoliceLocations() -> [TrafficAlert] {
+        return alerts.filter { alert in
+            return (alert.type == "POLICE")
+        }
+    }
 }
 
 class TrafficStatus: NSObject {
@@ -60,7 +66,6 @@ class TrafficStatus: NSObject {
                 let speed = jam["speed"] as! Double
                 let severity = jam["severity"] as! Int
                 return TrafficJam(line: line, severity: severity, speed: speed)
-                
             }
             
             return jams

@@ -150,10 +150,7 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         
         NSLog("Updating police locations")
         
-        let police = trafficConditions.alerts
-            .filter { alert in
-                return (alert.type == "POLICE")
-            }
+        let police = trafficConditions.getPoliceLocations()
         
         let newAnnotations: [PoliceAnnotation] = police.map{alert in
             PoliceAnnotation(uuid: alert.uuid, location: alert.location)
