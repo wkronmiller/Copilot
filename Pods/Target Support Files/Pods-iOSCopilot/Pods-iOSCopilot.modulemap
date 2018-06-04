@@ -1,6 +1,0 @@
-framework module Pods_iOSCopilot {
-  umbrella header "Pods-iOSCopilot-umbrella.h"
-
-  export *
-  module * { export * }
-}
