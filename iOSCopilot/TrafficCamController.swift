@@ -77,6 +77,7 @@ class TrafficCamController: UIViewController, LocationTrackerDelegate, UITableVi
     }
     
     override func viewDidLoad() {
+        NSLog("CamController did load")
         self.camTable.delegate = self
         self.camTable.dataSource = self
     }
