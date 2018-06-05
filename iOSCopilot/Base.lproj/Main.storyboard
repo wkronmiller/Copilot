@@ -73,6 +73,32 @@
             </objects>
             <point key="canvasLocation" x="749.60000000000002" y="-320.68965517241384"/>
         </scene>
+        <!--Call Scene-->
+        <scene sceneID="PlZ-MS-AFu">
+            <objects>
+                <viewController title="Call Scene" id="QyX-UT-RRU" customClass="CommsContorller" customModule="iOSCopilot" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="s7F-aR-rct">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gpr-fq-56B">
+                                <rect key="frame" x="172" y="318" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Call"/>
+                                <connections>
+                                    <action selector="callButtonClicked" destination="QyX-UT-RRU" eventType="touchUpInside" id="CRQ-to-Lyd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Fye-fs-b1K"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Comm" id="dRb-z9-uvJ" customClass="MainTabBarItem" customModule="iOSCopilot" customModuleProvider="target"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Ny-FR-4uu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1451" y="-320"/>
+        </scene>
         <!--Weather-->
         <scene sceneID="1sE-zK-km7">
             <objects>
@@ -310,6 +336,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
+                        <segue destination="QyX-UT-RRU" kind="relationship" relationship="viewControllers" id="N64-r0-yYr"/>
                         <segue destination="srs-vG-Ze1" kind="relationship" relationship="viewControllers" id="NbX-N0-efk"/>
                         <segue destination="gDu-yx-qp2" kind="relationship" relationship="viewControllers" id="H10-hh-f5l"/>
                         <segue destination="RcW-bU-yYG" kind="relationship" relationship="viewControllers" id="8wZ-aX-M5k"/>
