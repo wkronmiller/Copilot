@@ -140,14 +140,6 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
     }
 
     private func updatePoliceAnnotations(trafficConditions: TrafficConditions) {
-        if let lastUpdated = annotationsLastUpdated {
-            if lastUpdated.timeIntervalSince(Date()) * 1000 < Configuration.shared.updateAnnotationFrequencyMs {
-                return
-            }
-        }
-        
-        self.processingAnnotations = true
-        
         NSLog("Updating police locations")
         
         let police = trafficConditions.getPoliceLocations()
@@ -175,13 +167,18 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         self.mapView.removeAnnotations(annotationsToRemove)
         self.mapView.addAnnotations(annotationsToAdd)
         self.policeAnnotations = newAnnotations
-        self.annotationsLastUpdated = Date()
-        self.processingAnnotations = false
         
         NSLog("Updated police annotations \(self.policeAnnotations.count) \(self.mapView.annotations.count)")
     }
     
     private func updateTrafficConditionAnnotations(trafficConditions: TrafficConditions) {
+        if let lastUpdated = self.annotationsLastUpdated {
+            if abs(lastUpdated.timeIntervalSinceNow * 1000) < Configuration.shared.updateAnnotationFrequencyMs {
+                NSLog("Skipping traffic annotation update since already updated \(lastUpdated.timeIntervalSinceNow) seconds ago")
+                return
+            }
+        }
+        NSLog("Map view controller is updating traffic conditions")
         DispatchQueue.main.async {
             if(self.processingAnnotations) {
                 return
@@ -189,6 +186,8 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
             self.processingAnnotations = true
             self.updatePoliceAnnotations(trafficConditions: trafficConditions)
             self.updateTrafficJamAnnotations(trafficConditions: trafficConditions)
+            self.annotationsLastUpdated = Date()
+            self.processingAnnotations = false
         }
     }
     

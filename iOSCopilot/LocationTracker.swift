@@ -24,10 +24,14 @@ class LocationReceiverConfig {
     
     func shouldUpdate() -> Bool {
         if isUpdating {
+            NSLog("Already updating")
             return false
         }
         if let updatedDate = lastUpdated {
-            return abs(updatedDate.timeIntervalSinceNow * 1000) >= self.maxUpdateFrequencyMs
+            let timeDiff = abs(updatedDate.timeIntervalSinceNow * 1000)
+            let intervalPassed = timeDiff >= self.maxUpdateFrequencyMs
+            NSLog("Checking updated date. Time diff \(timeDiff). Interval passed \(intervalPassed)")
+            return intervalPassed
         } else {
             return true
         }

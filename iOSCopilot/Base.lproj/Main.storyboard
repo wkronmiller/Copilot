@@ -76,7 +76,7 @@
         <!--Call Scene-->
         <scene sceneID="PlZ-MS-AFu">
             <objects>
-                <viewController title="Call Scene" id="QyX-UT-RRU" customClass="CommsContorller" customModule="iOSCopilot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Call Scene" id="QyX-UT-RRU" customClass="CommsController" customModule="iOSCopilot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="s7F-aR-rct">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -336,7 +336,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="QyX-UT-RRU" kind="relationship" relationship="viewControllers" id="N64-r0-yYr"/>
                         <segue destination="srs-vG-Ze1" kind="relationship" relationship="viewControllers" id="NbX-N0-efk"/>
                         <segue destination="gDu-yx-qp2" kind="relationship" relationship="viewControllers" id="H10-hh-f5l"/>
                         <segue destination="RcW-bU-yYG" kind="relationship" relationship="viewControllers" id="8wZ-aX-M5k"/>

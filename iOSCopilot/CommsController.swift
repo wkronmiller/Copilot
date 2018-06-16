@@ -13,37 +13,30 @@ import PushKit
 import MultipeerConnectivity
 import TwilioVoice
 
-class CommsContorller: UIViewController, TVOCallDelegate {
+class CommsService: NSObject, AVAudioRecorderDelegate {
+    private let audioSession = AVAudioSession.sharedInstance()
     
-    private var call: TVOCall? = nil
-    
-    func callDidConnect(_ call: TVOCall) {
-        NSLog("Call connected \(call)")
-    }
-    
-    func call(_ call: TVOCall, didFailToConnectWithError error: Error) {
-        NSLog("Call could not connect \(call) \(error)")
-        self.call = nil
-    }
-    
-    func call(_ call: TVOCall, didDisconnectWithError error: Error?) {
-        if let failure = error {
-            NSLog("Call dropped \(call) \(failure)")
-        } else {
-            NSLog("Call ended \(call)")
+    func record() {
+        do {
+            try self.audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try self.audioSession.setActive(true)
+        } catch {
+            NSLog("Cannot initialize recording session")
+            return
         }
-        self.call = nil
+
     }
+    
+    static let shared = CommsService()
+}
+
+class CommsController: UIViewController {
+    private let comms = CommsService.shared
     
     @IBAction func callButtonClicked() {
-        if let existing = self.call {
-            NSLog("Hanging up")
-            existing.disconnect()
-            self.call = nil
-        } else {
-            self.call = TwilioVoice.call("TODO", params: nil, delegate: self)
-            NSLog("Calling \(self.call)")
-        }
+        NSLog("Recording")
+        comms.record()
+        //TODO
     }
     
     override func viewDidAppear(_ animated: Bool) {

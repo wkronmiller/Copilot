@@ -19,7 +19,7 @@ class Configuration: NSObject {
     let defaultZoomMeters: CLLocationDistance = CLLocationDistance(8000)
     
     let defaultLocationDelegateUpdateFrequencyMs: Double = 5 * 1000 // 5 seconds
-    let updateAnnotationFrequencyMs: Double = 10 * 1000 // 10 seconds
+    let updateAnnotationFrequencyMs: Double = 1 * 1000 // 1 seconds
     
     let alertBadWeatherTimer: TimeInterval = 60 * 60 // 1 hour
     let alertBadWeatherFrequency: TimeInterval = 60 * 20 // 20 Minutes

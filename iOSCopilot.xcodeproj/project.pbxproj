@@ -95,7 +95,6 @@
 			children = (
 				496BCFCA2027A2C6001C6B48 /* iOSCopilot.entitlements */,
 				496BCFB32027A157001C6B48 /* AppDelegate.swift */,
-				496BCFB52027A157001C6B48 /* MapViewController.swift */,
 				496BCFB92027A157001C6B48 /* Main.storyboard */,
 				496BCFBC2027A157001C6B48 /* Assets.xcassets */,
 				496BCFBE2027A157001C6B48 /* LaunchScreen.storyboard */,
@@ -110,6 +109,7 @@
 				49B69D3A2031B32700ACD609 /* WeatherController.swift */,
 				49D85CC6203482240088B633 /* AudioAlerts.swift */,
 				49D85CC82035ACEA0088B633 /* SettingsController.swift */,
+				496BCFB52027A157001C6B48 /* MapViewController.swift */,
 				49D85CCA203879560088B633 /* LocationStats.swift */,
 				49D85CCC203C53E40088B633 /* TrafficCams.swift */,
 				49D85CCE203F11D70088B633 /* TrafficCamController.swift */,

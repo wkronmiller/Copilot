@@ -106,8 +106,8 @@ class TrafficStatus: NSObject {
         let url = mkUrl(location: location)
         
         if self.receiverConfig.shouldUpdate() {
-            self.receiverConfig.setUpdating()
             NSLog("Updating traffic status")
+            self.receiverConfig.setUpdating()
             WebUplink.shared.get(url: url, completionHandler: {(data, error) in
                 if error != nil {
                     NSLog("Error loading traffic \(error!)")
@@ -119,9 +119,11 @@ class TrafficStatus: NSObject {
                 let alerts = self.extractAlerts(data: data!)
                 self.lastStatus = TrafficConditions(jams: jams, alerts: alerts)
                 self.receiverConfig.didUpdate()
+                NSLog("Traffic status loaded \(self.lastStatus)")
                 completionHandler(self.lastStatus)
             })
         } else {
+            NSLog("Skipping traffic stats update")
             completionHandler(self.lastStatus)
         }
     }
