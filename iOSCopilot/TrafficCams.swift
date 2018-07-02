@@ -20,8 +20,10 @@ class TrafficCams: NSObject {
     private var nearbyCams: [TrafficCam] = []
     
     private func loadCam(rawCam: [String: Any]) -> TrafficCam {
+        NSLog("Loading camera \(rawCam)")
         let name = rawCam["name"] as! String
         let address = URL(string: rawCam["address"] as! String)!
+        NSLog("Camera address \(address)")
         let latitude = rawCam["latitude"] as! Double
         let longitude = rawCam["longitude"] as! Double
         let distance = CLLocationDistance(rawCam["distance"] as! Double)

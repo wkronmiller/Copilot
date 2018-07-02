@@ -13,7 +13,8 @@ import AVKit
 import AVFoundation
 
 class TrafficCamController: UIViewController, LocationTrackerDelegate, UITableViewDelegate, UITableViewDataSource {
-
+    @IBOutlet weak var autoToggle: UISwitch!
+    
     @IBOutlet weak var camTable: UITableView!
     
     @IBOutlet weak var playerContainer: UIView!
@@ -70,7 +71,9 @@ class TrafficCamController: UIViewController, LocationTrackerDelegate, UITableVi
     func didUpdateLocationStats(locationStats: LocationStats) {
         NSLog("CamController did update location stats \(locationStats)")
         self.camAddresses = locationStats.getCameras().getNearbyCameras()
-        showCam()
+        if(self.autoToggle.isOn) {
+            showCam()
+        }
         DispatchQueue.main.async {
             self.camTable.reloadData()
         }
