@@ -15,6 +15,7 @@ public class LocationStats: NSObject {
     
     private var lastLocation: CLLocation? = nil
     
+    private let geocoder = Geocoder()
     private let trafficStatus = TrafficStatus()
     private let weatherStatus = WeatherStatus()
     private let cameras = TrafficCams()
@@ -43,6 +44,10 @@ public class LocationStats: NSObject {
         return self.cameras
     }
     
+    func getGeoData() -> GeoLocation? {
+        return self.geocoder.lastLocation
+    }
+    
     func update(location: CLLocation, completionHandler: @escaping () -> Void) {
         lastLocation = location
         var completed = 0
@@ -50,11 +55,13 @@ public class LocationStats: NSObject {
         func addCompleted() {
             self.queue.async {
                 completed += 1
-                if completed == 3 {
+                if completed == 4 {
                     completionHandler()
                 }
             }
         }
+        
+        self.geocoder.geocode(location: location, completionHandler: addCompleted)
         
         self.trafficStatus.fetch(location: location, completionHandler: {trafficConditions in
             addCompleted()

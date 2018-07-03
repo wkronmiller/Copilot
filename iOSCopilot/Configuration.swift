@@ -16,6 +16,8 @@ class Configuration: NSObject {
     
     let mapTileUrl = "http://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
     
+    let nominatimUrl = "http://statichosting.kronmiller.net:9000"
+    
     let defaultZoomMeters: CLLocationDistance = CLLocationDistance(8000)
     
     let defaultLocationDelegateUpdateFrequencyMs: Double = 5 * 1000 // 5 seconds
