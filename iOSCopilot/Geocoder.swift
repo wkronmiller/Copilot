@@ -45,7 +45,6 @@ class Geocoder {
     }
     
     private func decodeLocation(rawData: [String: Any]) -> GeoLocation? {
-        NSLog("Decoding location \(rawData)")
         if let error = rawData["error"] {
             NSLog("Unable to decode location \(error)")
             return nil

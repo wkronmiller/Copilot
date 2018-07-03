@@ -26,9 +26,6 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
 
     @IBOutlet weak var mapView: MKMapView!
     
-    @IBOutlet weak var distanceFromHome: UILabel!
-    @IBOutlet weak var trafficConditions: UILabel!
-    
     private let annotationViewReuseId = "traffic_annotation_view"
     
     private var policeAnnotations: [PoliceAnnotation] = []
@@ -195,33 +192,13 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         let location = locationStats.getLastLocation()
 
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        
+
         DispatchQueue.main.async {
             self.mapView.region.center = center
             //self.mapView.setRegion(region, animated: true)
         }
-
-        let distanceFromHome = "\(Int(locationStats.getDistanceFromHome() / 1000)) km"
-        DispatchQueue.main.async {
-            NSLog("Updating distance from home \(distanceFromHome)")
-            self.distanceFromHome.text = distanceFromHome
-        }
-        
-        let maxDistance: Double = 10 * 1000 // 10 km
         
         if let trafficConditions = locationStats.getTrafficStatus().getLastStatus() {
-            let jams = trafficConditions.jams.filter{jam in
-                return jam.line
-                    .filter{coordinate in
-                        return coordinate.distance(from: location) < maxDistance
-                    }
-                    .isEmpty == false
-            }
-            
-            DispatchQueue.main.async {
-                self.trafficConditions.text = "\(jams.count)"
-            }
-            
             self.updateTrafficConditionAnnotations(trafficConditions: trafficConditions)
         }
         

@@ -20,10 +20,6 @@ public class LocationStats: NSObject {
     private let weatherStatus = WeatherStatus()
     private let cameras = TrafficCams()
     
-    func getDistanceFromHome() -> CLLocationDistance {
-        return lastLocation!.distance(from: Configuration.shared.homeLocation)
-    }
-    
     func hasData() -> Bool {
         return self.lastLocation != nil
     }
