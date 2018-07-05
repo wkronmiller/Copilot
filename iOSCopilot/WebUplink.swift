@@ -29,7 +29,7 @@ class WebUplink: NSObject {
     
     private func fetch(request: URLRequest, completionHandler: @escaping ([String: Any]?, Error?) -> Void) {
         let task = session.dataTask(with: request) { (data, response, error) in
-            NSLog("Got data \(data) for request \(request)")
+            NSLog("Got data \(data) error \(error) for request \(request)")
             completionHandler(data.flatMap(self.decode), error)
         }
         
@@ -38,6 +38,7 @@ class WebUplink: NSObject {
     
     private func postData(url: URL, body: Data, completionHandler: @escaping ([String: Any]?, Error?) -> Void) {
         var request = URLRequest(url: url)
+        request.timeoutInterval = 1500
         request.httpBody = body
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -55,6 +56,7 @@ class WebUplink: NSObject {
     
     func get(url: URL, completionHandler: @escaping ([String: Any]?, Error?) -> Void) {
         var request = URLRequest(url: url)
+        request.timeoutInterval = 1500
         request.httpMethod = "GET"
         
         fetch(request: request, completionHandler: completionHandler)

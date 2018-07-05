@@ -12,8 +12,11 @@ import CoreLocation
 class Configuration: NSObject {
     
     let apiGatewayCore = "https://bqwa05ybua.execute-api.us-east-1.amazonaws.com/dev"
+    //let apiGatewayCore = "http://192.168.11.218:3000"
     
-    let mapTileUrl = "http://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
+    let baseMapTileUrl = "http://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
+    //http://mesonet.agron.iastate.edu/ogc/
+    let radarTileUrl = "https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png"
     
     let nominatimUrl = "http://statichosting.kronmiller.net:9000"
     

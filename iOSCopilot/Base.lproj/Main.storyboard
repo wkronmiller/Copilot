@@ -25,6 +25,15 @@
                             <view alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IM0-e2-YAC">
                                 <rect key="frame" x="0.0" y="64" width="320" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yC6-DJ-jtx">
+                                        <rect key="frame" x="24" y="21" width="275" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" red="0.23727071285247803" green="0.068760894238948822" blue="0.33455443382263184" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
@@ -34,6 +43,7 @@
                     <tabBarItem key="tabBarItem" title="Map" id="acW-dT-cKf" customClass="MainTabBarItem" customModule="iOSCopilot" customModuleProvider="target"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="currentLocationLabel" destination="yC6-DJ-jtx" id="CT4-sQ-obC"/>
                         <outlet property="mapView" destination="nm8-mX-ow2" id="vl6-0m-vTo"/>
                     </connections>
                 </viewController>

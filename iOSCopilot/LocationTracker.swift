@@ -79,7 +79,6 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
             if error != nil {
                 NSLog("Send Location Error \(error!)")
             }
-            NSLog("Data POST result \(data ?? [:])")
         }
     }
     

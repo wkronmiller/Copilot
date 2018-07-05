@@ -24,6 +24,8 @@ class PoliceAnnotation: NSObject, MKAnnotation {
 
 class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDelegate {
 
+    @IBOutlet weak var currentLocationLabel: UILabel!
+    
     @IBOutlet weak var mapView: MKMapView!
     
     private let annotationViewReuseId = "traffic_annotation_view"
@@ -32,13 +34,20 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
     private var trafficLines: [MKGeodesicPolyline] = []
     private var annotationsLastUpdated: Date? = nil
     private var processingAnnotations: Bool = false
-    private let overlay: MKTileOverlay
-    private let tileRenderer: MKTileOverlayRenderer
+    private let baseMapOverlay: MKTileOverlay
+    private let baseTileRenderer: MKTileOverlayRenderer
+    private let radarMapOverlay: MKTileOverlay
+    private let radarTileRenderer: MKTileOverlayRenderer
     
     required init?(coder aDecoder: NSCoder) {
-        self.overlay = MKTileOverlay(urlTemplate: Configuration.shared.mapTileUrl)
-        self.tileRenderer = MKTileOverlayRenderer(tileOverlay: self.overlay)
-        overlay.canReplaceMapContent = true
+        self.baseMapOverlay = MKTileOverlay(urlTemplate: Configuration.shared.baseMapTileUrl)
+        self.baseTileRenderer = MKTileOverlayRenderer(tileOverlay: self.baseMapOverlay)
+        baseMapOverlay.canReplaceMapContent = true
+        
+        self.radarMapOverlay = MKTileOverlay(urlTemplate: Configuration.shared.radarTileUrl)
+        
+        self.radarTileRenderer = MKTileOverlayRenderer(tileOverlay: self.radarMapOverlay)
+
         super.init(coder: aDecoder)
     }
     
@@ -52,12 +61,14 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         LocationTracker.shared.setDelegate(delegate: self)
         mapView.delegate = self
         
-        mapView.add(overlay, level: .aboveLabels)
+        mapView.add(baseMapOverlay, level: .aboveLabels)
+        mapView.add(radarMapOverlay, level: .aboveLabels)
         
         let region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: 0, longitude: 0), Configuration.shared.defaultZoomMeters, Configuration.shared.defaultZoomMeters)
         mapView.setRegion(region, animated: false)
         
-        tileRenderer.reloadData()
+        baseTileRenderer.reloadData()
+        radarTileRenderer.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,7 +81,11 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKTileOverlay {
-            return tileRenderer
+            if overlay as! MKTileOverlay == self.baseMapOverlay {
+                return baseTileRenderer
+            }
+            
+            return radarTileRenderer
         }
         if overlay is MKPolyline {
             let renderer = MKPolylineRenderer(overlay: overlay)
@@ -193,6 +208,17 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
 
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
 
+        if let waypointName = locationStats.getTrafficStatus().getWaypoint()?.name {
+            DispatchQueue.main.async {
+                self.currentLocationLabel.text = waypointName
+                NSLog("Current location name \(waypointName)")
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.currentLocationLabel.text = "Unknown Location"
+            }
+        }
+        
         DispatchQueue.main.async {
             self.mapView.region.center = center
             //self.mapView.setRegion(region, animated: true)

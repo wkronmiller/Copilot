@@ -23,3 +23,7 @@ public struct LocationTrace: Codable {
     var locations: [LocationSegment]
 }
 
+public struct Waypoint {
+    let location: CLLocationCoordinate2D
+    let name: String?
+}

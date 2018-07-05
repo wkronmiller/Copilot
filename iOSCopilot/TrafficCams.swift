@@ -47,6 +47,7 @@ class TrafficCams: NSObject {
                 NSLog("Error fetching cameras: \(error!)")
                 return completionHandler(error)
             }
+            NSLog("Raw camera data \(data!)")
             if let rawCameras = data!["cameras"] as? [[String: Any]] {
                 self.nearbyCams = rawCameras.map(self.loadCam)
                 NSLog("Nearby cameras \(self.nearbyCams)")

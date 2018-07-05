@@ -48,6 +48,7 @@ class TrafficCamController: UIViewController, LocationTrackerDelegate, UITableVi
         self.playing = address
         
         let player = AVPlayer(url: address)
+        player.isMuted = true
         let playerLayer = AVPlayerLayer(player: player)
         DispatchQueue.main.async {
             // Clear existing sublayers

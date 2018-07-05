@@ -9,14 +9,26 @@
 import Foundation
 import AVFoundation
 
-class VoiceSynth: NSObject {
+class VoiceSynth: NSObject, AVSpeechSynthesizerDelegate {
     private let voice: AVSpeechSynthesisVoice
     private let synth: AVSpeechSynthesizer
+    private let session: AVAudioSession
     
     private override init() {
+        self.session = AVAudioSession.sharedInstance()
+        try? session.setCategory(AVAudioSessionCategoryPlayback, with: .duckOthers)
         self.voice = AVSpeechSynthesisVoice(language: "en-gb")!
         self.synth = AVSpeechSynthesizer()
         super.init()
+        self.synth.delegate = self
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        try? session.setActive(true)
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        try? session.setActive(false)
     }
     
     func speak(phrases: String) {

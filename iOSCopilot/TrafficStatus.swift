@@ -16,9 +16,10 @@ struct TrafficJam {
 }
 
 struct TrafficAlert {
-    var type: String
-    var uuid: String
-    var location: CLLocation
+    let type: String
+    let uuid: String
+    let location: CLLocation
+    let waypoint: Waypoint
 }
 
 struct TrafficConditions {
@@ -37,6 +38,7 @@ class TrafficStatus: NSObject {
     private let webUplink: WebUplink
     private var lastFetched: Date? = nil
     private var lastStatus: TrafficConditions? = nil
+    private var lastWaypoint: Waypoint? = nil
     
     override init() {
         self.receiverConfig = LocationReceiverConfig()
@@ -77,7 +79,8 @@ class TrafficStatus: NSObject {
     private func extractAlerts(data: [String: Any]) -> [TrafficAlert] {
         let rawAlerts = data["alerts"] as? [[String: Any]]
         
-        if rawAlerts == nil {
+        if(rawAlerts == nil) {
+            NSLog("Error unpacking traffic alerts from \(data)")
             return []
         }
         
@@ -90,8 +93,21 @@ class TrafficStatus: NSObject {
             let type = alert["type"] as! String
             let uuid = alert["uuid"] as! String
             
-            return TrafficAlert(type: type, uuid: uuid, location: location)
+            let waypoint = getWaypoint(data: alert)!
+            
+            return TrafficAlert(type: type, uuid: uuid, location: location, waypoint: waypoint)
         }
+    }
+    
+    private func getWaypoint(data: [String: Any]) -> Waypoint? {
+        let rawWaypoint = data["waypoint"] as? [String: Any]
+        if(rawWaypoint == nil) {
+            return nil
+        }
+        let latitude = rawWaypoint!["latitude"] as! Double
+        let longitude = rawWaypoint!["longitude"] as! Double
+        let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        return Waypoint(location: coordinates, name: rawWaypoint!["name"] as? String)
     }
     
     func getLastStatus() -> TrafficConditions? {
@@ -100,6 +116,10 @@ class TrafficStatus: NSObject {
     
     func getLastFetched() -> Date? {
         return self.lastFetched
+    }
+    
+    func getWaypoint() -> Waypoint? {
+        return self.lastWaypoint
     }
     
     func fetch(location: CLLocation, completionHandler: @escaping (TrafficConditions?) -> Void) {
@@ -117,9 +137,9 @@ class TrafficStatus: NSObject {
                 self.lastFetched = Date()
                 let jams = self.extractJams(data: data!)
                 let alerts = self.extractAlerts(data: data!)
+                self.lastWaypoint = self.getWaypoint(data: data!)
                 self.lastStatus = TrafficConditions(jams: jams, alerts: alerts)
                 self.receiverConfig.didUpdate()
-                NSLog("Traffic status loaded \(self.lastStatus)")
                 completionHandler(self.lastStatus)
             })
         } else {
