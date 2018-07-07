@@ -9,11 +9,27 @@
 import UIKit
 import MapKit
 import CoreLocation
+import AVKit
+
+class TrafficCamAnnotation: NSObject, MKAnnotation {
+    var address: URL
+    var title: String?
+    var coordinate: CLLocationCoordinate2D
+    
+    init(trafficCam: TrafficCam) {
+        self.address = trafficCam.address
+        self.title = trafficCam.name
+        self.coordinate = trafficCam.location.coordinate
+    }
+}
 
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
-
+    @IBOutlet weak var playerContainer: UIView!
+    
     private let locationManager = CLLocationManager()
+    
+    private let trafficCams = TrafficCams()
     
     private let baseMapOverlay: MKTileOverlay
     private let baseTileRenderer: MKTileOverlayRenderer
@@ -75,28 +91,78 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         return MKOverlayRenderer()
     }
     
+    private func scaleImage(scale: Int, image: UIImage) -> UIImage {
+        let size = CGSize(width: scale, height: scale)
+        UIGraphicsBeginImageContext(size)
+        image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return resizedImage
+    }
+    
+    private func ensureView(withIdentifier: String, annotation: MKAnnotation?) -> MKAnnotationView {
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: withIdentifier)
+        if annotationView == nil {
+            return MKAnnotationView(annotation: annotation, reuseIdentifier: withIdentifier)
+        }
+        return annotationView!
+    }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         NSLog("Handling annotation \(annotation)")
         if annotation is MKUserLocation {
             NSLog("User location annotation")
-            let userLocationId = "userLocation"
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: userLocationId)
-            if annotationView == nil {
-                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: userLocationId)
-            }
+            let annotationView = ensureView(withIdentifier: "userLocation", annotation: annotation)
             NSLog("Ensured annotation view \(annotationView)")
-            
+            annotationView.isEnabled = false
             let pinImage = UIImage(named: "crosshairs")!
-            let size = CGSize(width: 50, height: 50)
-            UIGraphicsBeginImageContext(size)
-            pinImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
-            UIGraphicsEndImageContext()
-            
-            annotationView!.image = resizedImage
+            annotationView.image = scaleImage(scale: 50, image: pinImage)
             return annotationView
         }
+        
+        if annotation is TrafficCamAnnotation {
+            let annotationView = ensureView(withIdentifier: "trafficCameras", annotation: annotation)
+            annotationView.image = scaleImage(scale: 30, image: UIImage(named: "camera")!)
+            annotationView.isEnabled = true
+            annotationView.canShowCallout = true
+            return annotationView
+            
+        }
         return nil
+    }
+    
+    private var playing: AVPlayer? = nil
+    
+    //TODO: use specialized annotation
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        NSLog("Selected view \(view)")
+        if view.annotation is TrafficCamAnnotation {
+            let trafficAnnotation = view.annotation as! TrafficCamAnnotation
+            let player = AVPlayer(url: trafficAnnotation.address)
+            player.isMuted = true
+            let playerLayer = AVPlayerLayer(player: player)
+            DispatchQueue.main.async {
+                self.playerContainer.layer.sublayers?.forEach{ $0.removeFromSuperlayer() }
+                playerLayer.frame = self.playerContainer.bounds
+                self.playerContainer.layer.addSublayer(playerLayer)
+                player.play()
+            }
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        if view.annotation is TrafficCamAnnotation {
+            //TODO
+        }
+    }
+    
+    private func showCameras(cameras: [TrafficCam]) {
+        NSLog("Got cameras \(cameras)")
+        let camAnnotations = cameras.map({cam in
+            return TrafficCamAnnotation(trafficCam: cam)
+        })
+        
+        mapView.addAnnotations(camAnnotations)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -104,6 +170,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if let lastLoc = locations.last {
             let region = MKCoordinateRegionMakeWithDistance(lastLoc.coordinate, 1000, 1000)
             mapView.setRegion(region, animated: false)
+            trafficCams.refreshNearby(location: lastLoc, completionHandler: {error in
+                if error != nil {
+                    NSLog("Error getting nearby traffic cameras \(error)")
+                    return
+                }
+                self.showCameras(cameras: self.trafficCams.getNearbyCameras())
+            })
         }
     }
     

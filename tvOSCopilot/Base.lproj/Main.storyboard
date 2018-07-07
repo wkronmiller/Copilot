@@ -30,12 +30,18 @@
                                     <outletCollection property="gestureRecognizers" destination="EXq-jY-YOL" appends="YES" id="1bA-dd-NkW"/>
                                 </connections>
                             </mapView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qDc-er-GiC">
+                                <rect key="frame" x="110" y="60" width="500" height="335"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="wu6-TO-1qx"/>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="QoT-Ty-smA" id="bv6-qK-CMy"/>
+                        <outlet property="playerContainer" destination="qDc-er-GiC" id="aZJ-cb-DAP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
