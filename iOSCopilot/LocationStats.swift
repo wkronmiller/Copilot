@@ -8,15 +8,16 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
 //TODO: voice alerts
 public class LocationStats: NSObject {
     private let queue = DispatchQueue(label: "Location Stats Queue")
     
+    private var lastUpdated: Date? = nil
     private var lastLocation: CLLocation? = nil
     private var lastWaypoint: Waypoint? = nil
     
-    private let geocoder = Geocoder()
     private let trafficStatus = TrafficStatus()
     private let weatherStatus = WeatherStatus()
     private let cameras = TrafficCams()
@@ -41,39 +42,52 @@ public class LocationStats: NSObject {
         return self.cameras
     }
     
-    func getGeoData() -> GeoLocation? {
-        return self.geocoder.lastLocation
-    }
-    
     func update(waypoint: Waypoint) {
         self.lastWaypoint = waypoint
     }
     
     func update(location: CLLocation, completionHandler: @escaping () -> Void) {
+        var significantChange = true
+        if let last = self.lastLocation {
+            let distanceKm = last.distance(from: location) / 1000
+            if let timeElapsedSeconds = self.lastUpdated?.timeIntervalSinceNow {
+                significantChange = (distanceKm > 5) || (abs(timeElapsedSeconds) > 90)
+            }
+        }
+        
         lastLocation = location
         var completed = 0
-        
         func addCompleted() {
             self.queue.async {
                 completed += 1
                 if completed == 3 {
+                    self.lastUpdated = Date()
                     completionHandler()
                 }
             }
         }
         
-        //self.geocoder.geocode(location: location, completionHandler: addCompleted)
+        let backgrounded = UIApplication.shared.applicationState == .background
         
-        self.trafficStatus.fetch(location: location, completionHandler: {trafficConditions in
-            addCompleted()
-        })
-        
-        self.weatherStatus.getHourlyForecast(location: location, completionHandler: {(forecasts, error) in
-            return addCompleted()
-        })
-        
-        self.cameras.refreshNearby(location: location, completionHandler: {error in
-            return addCompleted()
-        })
+        if(significantChange) {
+            self.trafficStatus.fetch(location: location, completionHandler: {trafficConditions in
+                addCompleted()
+            })
+            
+            self.weatherStatus.getHourlyForecast(location: location, completionHandler: {(forecasts, error) in
+                return addCompleted()
+            })
+            
+            // Skip camera update on backgrounded
+            if(!backgrounded) {
+                self.cameras.refreshNearby(location: location, completionHandler: {error in
+                    return addCompleted()
+                })
+            } else {
+                addCompleted()
+            }
+        } else {
+            completionHandler()
+        }
     }
 }

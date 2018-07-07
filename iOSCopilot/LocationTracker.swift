@@ -63,6 +63,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         super.init()
         let deviceUUID = UIDevice.current.identifierForVendor!
         self.endpoint = URL(string: "\(Configuration.shared.apiGatewayCore)/devices/\(deviceUUID)/location")
+        UIApplication.shared.setMinimumBackgroundFetchInterval(60)
     }
     
     @objc private func sendLocations() {
@@ -114,23 +115,48 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
                 privacyEnabled: privacyEnabled
             )
         }
+        if locationSegments.count < 1 {
+            return
+        }
+        let last = locationSegments.last!
+        let fastest = locationSegments.reduce(last, {max, current in
+            if(max.speed < current.speed) {
+                return current
+            }
+            return max
+        })
+        let slowest = locationSegments.reduce(last, {min, current in
+            if(min.speed > current.speed) {
+                return current
+            }
+            return min
+        })
         
+        let summarizedSegments = [slowest, fastest]
+            .sorted{a, b in
+                return a.epochMs < b.epochMs
+            }
+            .filter({segment in
+                segment.epochMs != last.epochMs
+            })
+            + [last]
+        
+        //self.segmentBuffer += summarizedSegments //TODO
         self.segmentBuffer += locationSegments
-        NSLog("Got locations update \(locationSegments.count)")
+        
+        NSLog("Got locations update \(summarizedSegments)")
 
-        if(segmentBuffer.count > 20) {
+        if(segmentBuffer.count > 120) {
             sendLocations()
         }
         
-        if let last = locations.last {
-            locationStats.update(location: last, completionHandler: {
-                // Dispatch to delegate
-                if self.delegateConfig.shouldUpdate() {
-                    self.delegateConfig.delegate?.didUpdateLocationStats(locationStats: self.locationStats)
-                    self.delegateConfig.didUpdate()
-                }
-            })
-        }
+        locationStats.update(location: locations.last!, completionHandler: {
+            // Dispatch to delegate
+            if self.delegateConfig.shouldUpdate() {
+                self.delegateConfig.delegate?.didUpdateLocationStats(locationStats: self.locationStats)
+                self.delegateConfig.didUpdate()
+            }
+        })
     }
     
     func startTracking() {
@@ -140,8 +166,10 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
             locationManager.activityType = .automotiveNavigation
             locationManager.startUpdatingLocation()
             locationManager.requestAlwaysAuthorization()
+            locationManager.allowsBackgroundLocationUpdates = true
+            locationManager.showsBackgroundLocationIndicator = false
             isTracking = true
-            self.updateTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(sendLocations), userInfo: nil, repeats: true)
+            self.updateTimer = Timer.scheduledTimer(timeInterval: 120, target: self, selector: #selector(sendLocations), userInfo: nil, repeats: true)
         }
     }
     

@@ -204,6 +204,10 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
     }
     
     func didUpdateLocationStats(locationStats: LocationStats) {
+        if(UIApplication.shared.applicationState == .background) {
+            return
+        }
+        
         let location = locationStats.getLastLocation()
 
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
