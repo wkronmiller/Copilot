@@ -23,6 +23,9 @@
 		4998316E20F0567600C69215 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4998316D20F0567600C69215 /* Assets.xcassets */; };
 		4998317920F0583800C69215 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998317820F0583800C69215 /* Configuration.swift */; };
 		4998317B20F05ADA00C69215 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4998317A20F05ADA00C69215 /* MapKit.framework */; };
+		4998317D20F0706C00C69215 /* TrafficCams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998317C20F0706C00C69215 /* TrafficCams.swift */; };
+		4998317F20F0707C00C69215 /* WebUplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998317E20F0707C00C69215 /* WebUplink.swift */; };
+		4998318120F070B500C69215 /* AudioAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318020F070B500C69215 /* AudioAlerts.swift */; };
 		49B69D3B2031B32700ACD609 /* WeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B69D3A2031B32700ACD609 /* WeatherController.swift */; };
 		49C288C2203085C200D5C212 /* TrafficStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C1203085C200D5C212 /* TrafficStatus.swift */; };
 		49C288C42030B13A00D5C212 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C32030B13A00D5C212 /* Configuration.swift */; };
@@ -59,6 +62,9 @@
 		4998316F20F0567600C69215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4998317820F0583800C69215 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = CopilotCommon/Configuration.swift; sourceTree = SOURCE_ROOT; };
 		4998317A20F05ADA00C69215 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS11.4.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
+		4998317C20F0706C00C69215 /* TrafficCams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrafficCams.swift; path = CopilotCommon/TrafficCams.swift; sourceTree = SOURCE_ROOT; };
+		4998317E20F0707C00C69215 /* WebUplink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebUplink.swift; path = CopilotCommon/WebUplink.swift; sourceTree = SOURCE_ROOT; };
+		4998318020F070B500C69215 /* AudioAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioAlerts.swift; path = CopilotCommon/AudioAlerts.swift; sourceTree = SOURCE_ROOT; };
 		49B69D3A2031B32700ACD609 /* WeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherController.swift; sourceTree = "<group>"; };
 		49C288C1203085C200D5C212 /* TrafficStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficStatus.swift; sourceTree = "<group>"; };
 		49C288C32030B13A00D5C212 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -148,6 +154,9 @@
 		4998316520F0567500C69215 /* tvOSCopilot */ = {
 			isa = PBXGroup;
 			children = (
+				4998318020F070B500C69215 /* AudioAlerts.swift */,
+				4998317E20F0707C00C69215 /* WebUplink.swift */,
+				4998317C20F0706C00C69215 /* TrafficCams.swift */,
 				4998317820F0583800C69215 /* Configuration.swift */,
 				4998316620F0567500C69215 /* AppDelegate.swift */,
 				4998316820F0567500C69215 /* ViewController.swift */,
@@ -339,8 +348,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4998317920F0583800C69215 /* Configuration.swift in Sources */,
+				4998318120F070B500C69215 /* AudioAlerts.swift in Sources */,
+				4998317F20F0707C00C69215 /* WebUplink.swift in Sources */,
 				4998316920F0567500C69215 /* ViewController.swift in Sources */,
 				4998316720F0567500C69215 /* AppDelegate.swift in Sources */,
+				4998317D20F0706C00C69215 /* TrafficCams.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

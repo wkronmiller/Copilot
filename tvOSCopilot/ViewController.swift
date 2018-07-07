@@ -12,13 +12,14 @@ import CoreLocation
 
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
-    
+
     private let locationManager = CLLocationManager()
     
     private let baseMapOverlay: MKTileOverlay
     private let baseTileRenderer: MKTileOverlayRenderer
     private let radarMapOverlay: MKTileOverlay
     private let radarTileRenderer: MKTileOverlayRenderer
+    private var radarLastRefreshed: Date? = nil
     
     required init?(coder aDecoder: NSCoder) {
         self.baseMapOverlay = MKTileOverlay(urlTemplate: Configuration.shared.baseMapTileUrl)
@@ -47,6 +48,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         baseTileRenderer.reloadData()
         radarTileRenderer.reloadData()
+        radarLastRefreshed = Date()
     }
 
     override func didReceiveMemoryWarning() {
@@ -123,6 +125,22 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             break
         default:
             NSLog("Location status changed \(status.rawValue)")
+        }
+    }
+    
+    
+    
+    @IBAction func longPressed(_ sender: Any) {
+        DispatchQueue.main.async {
+            var doRefresh = true
+            if let lastReloaded = self.radarLastRefreshed {
+                doRefresh = (abs(lastReloaded.timeIntervalSinceNow) > 5)
+            }
+            if doRefresh {
+                self.radarLastRefreshed = Date()
+                NSLog("Refreshing radar data")
+                self.radarTileRenderer.reloadData()
+            }
         }
     }
 
