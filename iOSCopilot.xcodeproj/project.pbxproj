@@ -21,6 +21,8 @@
 		4998316920F0567500C69215 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998316820F0567500C69215 /* ViewController.swift */; };
 		4998316C20F0567500C69215 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4998316A20F0567500C69215 /* Main.storyboard */; };
 		4998316E20F0567600C69215 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4998316D20F0567600C69215 /* Assets.xcassets */; };
+		4998317920F0583800C69215 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998317820F0583800C69215 /* Configuration.swift */; };
+		4998317B20F05ADA00C69215 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4998317A20F05ADA00C69215 /* MapKit.framework */; };
 		49B69D3B2031B32700ACD609 /* WeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B69D3A2031B32700ACD609 /* WeatherController.swift */; };
 		49C288C2203085C200D5C212 /* TrafficStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C1203085C200D5C212 /* TrafficStatus.swift */; };
 		49C288C42030B13A00D5C212 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C32030B13A00D5C212 /* Configuration.swift */; };
@@ -55,6 +57,8 @@
 		4998316B20F0567500C69215 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4998316D20F0567600C69215 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4998316F20F0567600C69215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4998317820F0583800C69215 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = CopilotCommon/Configuration.swift; sourceTree = SOURCE_ROOT; };
+		4998317A20F05ADA00C69215 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS11.4.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		49B69D3A2031B32700ACD609 /* WeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherController.swift; sourceTree = "<group>"; };
 		49C288C1203085C200D5C212 /* TrafficStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficStatus.swift; sourceTree = "<group>"; };
 		49C288C32030B13A00D5C212 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -84,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4998317B20F05ADA00C69215 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +137,7 @@
 		496BCFC72027A234001C6B48 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4998317A20F05ADA00C69215 /* MapKit.framework */,
 				49FFC68A20C5777700DC6D5A /* TwilioVoice.framework */,
 				496BCFCF2029AB1B001C6B48 /* CoreData.framework */,
 				496BCFC82027A234001C6B48 /* MapKit.framework */,
@@ -142,6 +148,7 @@
 		4998316520F0567500C69215 /* tvOSCopilot */ = {
 			isa = PBXGroup;
 			children = (
+				4998317820F0583800C69215 /* Configuration.swift */,
 				4998316620F0567500C69215 /* AppDelegate.swift */,
 				4998316820F0567500C69215 /* ViewController.swift */,
 				4998316A20F0567500C69215 /* Main.storyboard */,
@@ -236,6 +243,11 @@
 					4998316320F0567500C69215 = {
 						CreatedOnToolsVersion = 9.4.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -326,6 +338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4998317920F0583800C69215 /* Configuration.swift in Sources */,
 				4998316920F0567500C69215 /* ViewController.swift in Sources */,
 				4998316720F0567500C69215 /* AppDelegate.swift in Sources */,
 			);

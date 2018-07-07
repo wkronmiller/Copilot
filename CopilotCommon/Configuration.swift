@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-class Configuration: NSObject {
+public class Configuration: NSObject {
     
     let apiGatewayCore = "https://bqwa05ybua.execute-api.us-east-1.amazonaws.com/dev"
     //let apiGatewayCore = "http://192.168.11.218:3000"
