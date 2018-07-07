@@ -26,6 +26,8 @@
 		4998317D20F0706C00C69215 /* TrafficCams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998317C20F0706C00C69215 /* TrafficCams.swift */; };
 		4998317F20F0707C00C69215 /* WebUplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998317E20F0707C00C69215 /* WebUplink.swift */; };
 		4998318120F070B500C69215 /* AudioAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318020F070B500C69215 /* AudioAlerts.swift */; };
+		4998318320F0DB8800C69215 /* MeshDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318220F0DB8800C69215 /* MeshDiscovery.swift */; };
+		4998318420F0DB8800C69215 /* MeshDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318220F0DB8800C69215 /* MeshDiscovery.swift */; };
 		49B69D3B2031B32700ACD609 /* WeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B69D3A2031B32700ACD609 /* WeatherController.swift */; };
 		49C288C2203085C200D5C212 /* TrafficStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C1203085C200D5C212 /* TrafficStatus.swift */; };
 		49C288C42030B13A00D5C212 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C32030B13A00D5C212 /* Configuration.swift */; };
@@ -65,6 +67,7 @@
 		4998317C20F0706C00C69215 /* TrafficCams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrafficCams.swift; path = CopilotCommon/TrafficCams.swift; sourceTree = SOURCE_ROOT; };
 		4998317E20F0707C00C69215 /* WebUplink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebUplink.swift; path = CopilotCommon/WebUplink.swift; sourceTree = SOURCE_ROOT; };
 		4998318020F070B500C69215 /* AudioAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioAlerts.swift; path = CopilotCommon/AudioAlerts.swift; sourceTree = SOURCE_ROOT; };
+		4998318220F0DB8800C69215 /* MeshDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshDiscovery.swift; sourceTree = "<group>"; };
 		49B69D3A2031B32700ACD609 /* WeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherController.swift; sourceTree = "<group>"; };
 		49C288C1203085C200D5C212 /* TrafficStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficStatus.swift; sourceTree = "<group>"; };
 		49C288C32030B13A00D5C212 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -179,6 +182,7 @@
 				49D85CC420345A000088B633 /* WeatherStatus.swift */,
 				49D85CC6203482240088B633 /* AudioAlerts.swift */,
 				49D85CCC203C53E40088B633 /* TrafficCams.swift */,
+				4998318220F0DB8800C69215 /* MeshDiscovery.swift */,
 			);
 			path = CopilotCommon;
 			sourceTree = "<group>";
@@ -328,6 +332,7 @@
 				49C288C2203085C200D5C212 /* TrafficStatus.swift in Sources */,
 				49C288CB203103FD00D5C212 /* MainTabController.swift in Sources */,
 				49FFC68E20C579F700DC6D5A /* CommsController.swift in Sources */,
+				4998318320F0DB8800C69215 /* MeshDiscovery.swift in Sources */,
 				49D85CC520345A000088B633 /* WeatherStatus.swift in Sources */,
 				49561112202F451B00464A53 /* WebUplink.swift in Sources */,
 				49D85CC7203482240088B633 /* AudioAlerts.swift in Sources */,
@@ -347,6 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4998318420F0DB8800C69215 /* MeshDiscovery.swift in Sources */,
 				4998317920F0583800C69215 /* Configuration.swift in Sources */,
 				4998318120F070B500C69215 /* AudioAlerts.swift in Sources */,
 				4998317F20F0707C00C69215 /* WebUplink.swift in Sources */,

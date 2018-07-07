@@ -65,6 +65,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         baseTileRenderer.reloadData()
         radarTileRenderer.reloadData()
         radarLastRefreshed = Date()
+        
+        trafficCams.refresh(allCamerasLoaded: {error in
+            if error != nil {
+                NSLog("Error getting all traffic cameras \(error)")
+                return
+            }
+            self.showCameras(cameras: self.trafficCams.getCameras())
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -114,7 +122,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             NSLog("User location annotation")
             let annotationView = ensureView(withIdentifier: "userLocation", annotation: annotation)
             NSLog("Ensured annotation view \(annotationView)")
-            annotationView.isEnabled = false
+            annotationView.isEnabled = true
             let pinImage = UIImage(named: "crosshairs")!
             annotationView.image = scaleImage(scale: 50, image: pinImage)
             return annotationView
@@ -133,7 +141,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     private var playing: AVPlayer? = nil
     
-    //TODO: use specialized annotation
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         NSLog("Selected view \(view)")
         if view.annotation is TrafficCamAnnotation {
@@ -148,11 +155,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 player.play()
             }
         }
-    }
-    
-    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        if view.annotation is TrafficCamAnnotation {
-            //TODO
+        if view.annotation is MKUserLocation {
+            DispatchQueue.main.async {
+                self.playerContainer.layer.sublayers?.forEach{ $0.removeFromSuperlayer() }
+            }
         }
     }
     
@@ -170,13 +176,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if let lastLoc = locations.last {
             let region = MKCoordinateRegionMakeWithDistance(lastLoc.coordinate, 1000, 1000)
             mapView.setRegion(region, animated: false)
-            trafficCams.refreshNearby(location: lastLoc, completionHandler: {error in
-                if error != nil {
-                    NSLog("Error getting nearby traffic cameras \(error)")
-                    return
-                }
-                self.showCameras(cameras: self.trafficCams.getNearbyCameras())
-            })
         }
     }
     
@@ -200,8 +199,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             NSLog("Location status changed \(status.rawValue)")
         }
     }
-    
-    
     
     @IBAction func longPressed(_ sender: Any) {
         DispatchQueue.main.async {

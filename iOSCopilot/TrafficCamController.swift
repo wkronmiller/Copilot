@@ -71,7 +71,7 @@ class TrafficCamController: UIViewController, LocationTrackerDelegate, UITableVi
     
     func didUpdateLocationStats(locationStats: LocationStats) {
         NSLog("CamController did update location stats \(locationStats)")
-        self.camAddresses = locationStats.getCameras().getNearbyCameras()
+        self.camAddresses = locationStats.getCameras().getCameras()
         if(self.autoToggle.isOn) {
             showCam()
         }

@@ -13,11 +13,10 @@ public struct TrafficCam {
     var name: String
     var address: URL
     var location: CLLocation
-    var distance: CLLocationDistance
 }
 
 class TrafficCams: NSObject {
-    private var nearbyCams: [TrafficCam] = []
+    private var cameras: [TrafficCam] = []
     
     private func loadCam(rawCam: [String: Any]) -> TrafficCam {
         NSLog("Loading camera \(rawCam)")
@@ -26,33 +25,40 @@ class TrafficCams: NSObject {
         NSLog("Camera address \(address)")
         let latitude = rawCam["latitude"] as! Double
         let longitude = rawCam["longitude"] as! Double
-        let distance = CLLocationDistance(rawCam["distance"] as! Double)
         
         let location = CLLocation(latitude: latitude, longitude: longitude)
         
-        return TrafficCam(name: name, address: address, location: location, distance: distance)
+        return TrafficCam(name: name, address: address, location: location)
     }
     
-    func getNearbyCameras() -> [TrafficCam] {
+    func getCameras() -> [TrafficCam] {
         NSLog("Getting nearby cameras")
-        return self.nearbyCams
+        return self.cameras
     }
     
-    func refreshNearby(location: CLLocation, completionHandler: @escaping (Error?) -> Void) {
-        let url = URL(string: "\(Configuration.shared.apiGatewayCore)/cameras/\(location.coordinate.latitude)/\(location.coordinate.longitude)")!
-        
+    private func fetchCameras(url: URL, completionHandler: @escaping (Error?) -> Void) {
         NSLog("Fetching URL \(url)")
         WebUplink.shared.get(url: url, completionHandler: {(data, error) in
             if(nil != error) {
                 NSLog("Error fetching cameras: \(error!)")
                 return completionHandler(error)
             }
-            NSLog("Raw camera data \(data!)")
+            NSLog("Raw camera data \(data)")
             if let rawCameras = data!["cameras"] as? [[String: Any]] {
-                self.nearbyCams = rawCameras.map(self.loadCam)
-                NSLog("Nearby cameras \(self.nearbyCams)")
+                self.cameras = rawCameras.map(self.loadCam)
+                NSLog("Nearby cameras \(self.cameras)")
             }
             return completionHandler(nil)
         })
+    }
+    
+    func refreshNearby(location: CLLocation, completionHandler: @escaping (Error?) -> Void) {
+        let url = URL(string: "\(Configuration.shared.apiGatewayCore)/cameras/\(location.coordinate.latitude)/\(location.coordinate.longitude)")!
+        fetchCameras(url: url, completionHandler: completionHandler)
+    }
+    
+    func refresh(allCamerasLoaded: @escaping (Error?) -> Void) {
+        let url = URL(string: "\(Configuration.shared.apiGatewayCore)/cameras")!
+        fetchCameras(url: url, completionHandler: allCamerasLoaded)
     }
 }
