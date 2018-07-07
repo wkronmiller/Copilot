@@ -31,6 +31,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         super.init(coder: aDecoder)
         
         locationManager.delegate = self
+        
     }
     
     override func viewDidLoad() {
@@ -41,8 +42,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         mapView.add(baseMapOverlay, level: .aboveLabels)
         mapView.add(radarMapOverlay, level: .aboveLabels)
         mapView.showsUserLocation = true
-        mapView.showsScale = true
-        mapView.showsBuildings = true
+        mapView.showsScale = false
 
         
         baseTileRenderer.reloadData()
@@ -71,6 +71,30 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
          */
         return MKOverlayRenderer()
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        NSLog("Handling annotation \(annotation)")
+        if annotation is MKUserLocation {
+            NSLog("User location annotation")
+            let userLocationId = "userLocation"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: userLocationId)
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: userLocationId)
+            }
+            NSLog("Ensured annotation view \(annotationView)")
+            
+            let pinImage = UIImage(named: "crosshairs")!
+            let size = CGSize(width: 50, height: 50)
+            UIGraphicsBeginImageContext(size)
+            pinImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+            
+            annotationView!.image = resizedImage
+            return annotationView
+        }
+        return nil
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
