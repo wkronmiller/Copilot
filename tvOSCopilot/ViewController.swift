@@ -23,6 +23,7 @@ class TrafficCamAnnotation: NSObject, MKAnnotation {
     }
 }
 
+//TODO: annotation clustering
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var playerContainer: UIView!
@@ -30,6 +31,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     private let locationManager = CLLocationManager()
     
     private let trafficCams = TrafficCams()
+    private var showingCameras: Bool = false
+    private var trafficCamAnnotations: [TrafficCamAnnotation] = []
     
     private let baseMapOverlay: MKTileOverlay
     private let baseTileRenderer: MKTileOverlayRenderer
@@ -68,10 +71,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         trafficCams.refresh(allCamerasLoaded: {error in
             if error != nil {
-                NSLog("Error getting all traffic cameras \(error)")
+                NSLog("Error getting all traffic cameras \(error!)")
                 return
             }
-            self.showCameras(cameras: self.trafficCams.getCameras())
+
+            self.trafficCamAnnotations = self.trafficCams.getCameras().map({cam in
+                return TrafficCamAnnotation(trafficCam: cam)
+            })
         })
     }
 
@@ -114,6 +120,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             return MKAnnotationView(annotation: annotation, reuseIdentifier: withIdentifier)
         }
         return annotationView!
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        self.maybeShowCameras()
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -162,15 +172,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
     }
     
-    private func showCameras(cameras: [TrafficCam]) {
-        NSLog("Got cameras \(cameras)")
-        let camAnnotations = cameras.map({cam in
-            return TrafficCamAnnotation(trafficCam: cam)
-        })
-        
-        mapView.addAnnotations(camAnnotations)
-    }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         NSLog("Got locations \(locations)")
         if let lastLoc = locations.last {
@@ -213,6 +214,21 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
         }
     }
-
+    
+    func maybeShowCameras() {
+        let maxZoom = 0.4
+        let zoomLevel = self.mapView!.region.span.latitudeDelta
+        NSLog("Zoom level \(zoomLevel)")
+        if zoomLevel > maxZoom && showingCameras {
+            self.showingCameras = false
+            self.mapView.removeAnnotations(self.trafficCamAnnotations)
+            NSLog("Hiding cameras")
+        }
+        if zoomLevel < maxZoom && !showingCameras && self.trafficCamAnnotations.count > 0 {
+            self.showingCameras = true
+            self.mapView.addAnnotations(self.trafficCamAnnotations)
+            NSLog("Showing cameras")
+        }
+    }
 }
 
