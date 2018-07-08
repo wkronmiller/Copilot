@@ -10,23 +10,37 @@ import Foundation
 
 import MultipeerConnectivity
 
-protocol ConnectionEventDelegate {
-    func connection(_ network: MeshNetwork, didConnect peerID: String)
-    func connection(_ network: MeshNetwork, didDisconnect peerID: String)
+struct MeshConnection {
+    let peerID: MCPeerID
+    let session: MCSession
+    let peerUUID: String?
+}
+
+protocol MeshConnectionDelegate {
+    func connection(_ network: MeshNetwork, didConnect connection: MeshConnection)
+    func connection(_ network: MeshNetwork, didDisconnect peerID: MCPeerID)
+    
+    //TODO: reconnected
+}
+
+enum MeshPacketType: String {
+    case uuid
 }
 
 class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate, MCSessionDelegate {
-    private let serviceType = "copilot-windhorse-mpc"
+    private let serviceType = "copilot-mpc"
     private let selfId: MCPeerID
     private let session: MCSession
     private let browser: MCNearbyServiceBrowser
     private let advertiser: MCNearbyServiceAdvertiser
     
+    private var openConnections: [MeshConnection] = []
+    
     private let isBaseStation: Bool
     
     private var isAdvertising = false
     
-    var delegate: ConnectionEventDelegate? = nil
+    var delegate: MeshConnectionDelegate? = nil
     
     init(isBaseStation: Bool) {
         self.selfId = MCPeerID(displayName: UIDevice.current.identifierForVendor!.uuidString)
@@ -52,6 +66,12 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
     
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         NSLog("Found peer \(peerID)")
+        let existingConnection = self.openConnections.contains{ connection in
+            return connection.peerID == peerID
+        }
+        if(existingConnection) {
+            NSLog("Mesh already has connection to peer \(peerID)")
+        }
         if(self.isBaseStation) {
             NSLog("Inviting peer \(peerID)")
             browser.invitePeer(peerID, to: self.session, withContext: nil, timeout: 10.0)
@@ -62,23 +82,61 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
         NSLog("Lost peer \(peerID)")
     }
     
+    private func sendUUID(peer: MCPeerID, session: MCSession) {
+        NSLog("Sending device UUID")
+        let uuid = UIDevice.current.identifierForVendor!.uuidString
+        let packet: [String: String] = ["type": MeshPacketType.uuid.rawValue, "uuid": uuid]
+        let encoder = JSONEncoder()
+        do {
+            let json = try encoder.encode(packet)
+            try session.send(json, toPeers: [peer], with: MCSessionSendDataMode.reliable)
+            //TODO
+        } catch {
+            NSLog("Failed to send UUID \(error)")
+        }
+    }
+    
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch(state) {
         case .connected:
             NSLog("Connected to peer \(peerID)")
-            self.delegate?.connection(self, didConnect: peerID.displayName)
+            if(self.isBaseStation == false) {
+                self.sendUUID(peer: peerID, session: session)
+            }
             break
         case .notConnected:
-            NSLog("Disconnected from peer \(peerID)")
-            self.delegate?.connection(self, didDisconnect: peerID.displayName)
+            NSLog("Mesh disconnected from peer \(peerID)")
+            self.openConnections = self.openConnections.filter({connection in
+                connection.peerID != peerID
+            })
+            self.delegate?.connection(self, didDisconnect: peerID)
             break
         case .connecting:
             NSLog("Connecting to peer \(peerID)")
         }
     }
+
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        NSLog("Received data packet from peer \(peerID)")
+        NSLog("Received data packet from peer \(peerID) \(String(data: data, encoding: .utf8))")
+        do {
+            let packet = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+            NSLog("Decoded packet as \(packet)")
+            let type = packet["type"] as! String
+            switch(type) {
+            case MeshPacketType.uuid.rawValue:
+                let uuid = packet["uuid"] as! String
+                NSLog("Got UUID from device \(uuid)")
+                let newConnection = MeshConnection(peerID: peerID, session: session, peerUUID: uuid)
+                self.openConnections.append(newConnection)
+                self.delegate?.connection(self, didConnect: newConnection)
+                return
+            default:
+                return
+            }
+        } catch {
+            NSLog("Failed to deserialize packet \(data): \(error)")
+        }
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -96,11 +154,13 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
     func startAdvertising() {
         self.advertiser.startAdvertisingPeer()
         self.browser.startBrowsingForPeers()
+        NSLog("Mesh is advertising")
     }
     
     func stopAdvertising() {
         self.advertiser.stopAdvertisingPeer()
         self.browser.stopBrowsingForPeers()
+        NSLog("Mesh is not advertising")
     }
     
     func toggleAdvertising() -> Bool {

@@ -44,9 +44,11 @@ class TrafficCams: NSObject {
                 return completionHandler(error)
             }
             NSLog("Raw camera data \(data)")
-            if let rawCameras = data!["cameras"] as? [[String: Any]] {
+            if let rawCameras = data?["cameras"] as? [[String: Any]] {
                 self.cameras = rawCameras.map(self.loadCam)
                 NSLog("Nearby cameras \(self.cameras)")
+            } else {
+                NSLog("Failed to get cameras")
             }
             return completionHandler(nil)
         })

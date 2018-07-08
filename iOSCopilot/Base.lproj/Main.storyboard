@@ -51,6 +51,28 @@
             </objects>
             <point key="canvasLocation" x="749.60000000000002" y="-320.68965517241384"/>
         </scene>
+        <!--Networking-->
+        <scene sceneID="29f-yc-OVq">
+            <objects>
+                <viewController title="Networking" id="EhT-PF-xMZ" customClass="NetworkingViewController" customModule="iOSCopilot" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pvR-gf-FvE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QRQ-m9-2PB">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="KP3-ly-Ury"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Networking" id="ATw-Ew-CUp" customClass="MainTabBarItem" customModule="iOSCopilot" customModuleProvider="target"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1qg-1a-n03" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1479" y="-327"/>
+        </scene>
         <!--Weather-->
         <scene sceneID="1sE-zK-km7">
             <objects>
@@ -283,7 +305,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UBD-pn-CTR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="768.79999999999995" y="1067.3163418290856"/>
+            <point key="canvasLocation" x="2274" y="636"/>
         </scene>
         <!--Main Tab Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -302,7 +324,7 @@
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="srs-vG-Ze1" kind="relationship" relationship="viewControllers" id="NbX-N0-efk"/>
                         <segue destination="gDu-yx-qp2" kind="relationship" relationship="viewControllers" id="H10-hh-f5l"/>
-                        <segue destination="RcW-bU-yYG" kind="relationship" relationship="viewControllers" id="8wZ-aX-M5k"/>
+                        <segue destination="EhT-PF-xMZ" kind="relationship" relationship="viewControllers" id="Oh6-dm-Uh9"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>

@@ -28,6 +28,8 @@
 		4998318120F070B500C69215 /* AudioAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318020F070B500C69215 /* AudioAlerts.swift */; };
 		4998318320F0DB8800C69215 /* MeshDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318220F0DB8800C69215 /* MeshDiscovery.swift */; };
 		4998318420F0DB8800C69215 /* MeshDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318220F0DB8800C69215 /* MeshDiscovery.swift */; };
+		4998318620F0EC5700C69215 /* NetworkingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318520F0EC5700C69215 /* NetworkingViewController.swift */; };
+		4998318820F11D9D00C69215 /* CopilotTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318720F11D9D00C69215 /* CopilotTracker.swift */; };
 		49B69D3B2031B32700ACD609 /* WeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B69D3A2031B32700ACD609 /* WeatherController.swift */; };
 		49C288C2203085C200D5C212 /* TrafficStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C1203085C200D5C212 /* TrafficStatus.swift */; };
 		49C288C42030B13A00D5C212 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C32030B13A00D5C212 /* Configuration.swift */; };
@@ -68,6 +70,8 @@
 		4998317E20F0707C00C69215 /* WebUplink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebUplink.swift; path = CopilotCommon/WebUplink.swift; sourceTree = SOURCE_ROOT; };
 		4998318020F070B500C69215 /* AudioAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioAlerts.swift; path = CopilotCommon/AudioAlerts.swift; sourceTree = SOURCE_ROOT; };
 		4998318220F0DB8800C69215 /* MeshDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshDiscovery.swift; sourceTree = "<group>"; };
+		4998318520F0EC5700C69215 /* NetworkingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingViewController.swift; sourceTree = "<group>"; };
+		4998318720F11D9D00C69215 /* CopilotTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopilotTracker.swift; sourceTree = "<group>"; };
 		49B69D3A2031B32700ACD609 /* WeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherController.swift; sourceTree = "<group>"; };
 		49C288C1203085C200D5C212 /* TrafficStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficStatus.swift; sourceTree = "<group>"; };
 		49C288C32030B13A00D5C212 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 				496BCFB52027A157001C6B48 /* MapViewController.swift */,
 				49D85CCE203F11D70088B633 /* TrafficCamController.swift */,
 				49FFC68D20C579F700DC6D5A /* CommsController.swift */,
+				4998318520F0EC5700C69215 /* NetworkingViewController.swift */,
 			);
 			path = iOSCopilot;
 			sourceTree = "<group>";
@@ -166,6 +171,7 @@
 				4998316A20F0567500C69215 /* Main.storyboard */,
 				4998316D20F0567600C69215 /* Assets.xcassets */,
 				4998316F20F0567600C69215 /* Info.plist */,
+				4998318720F11D9D00C69215 /* CopilotTracker.swift */,
 			);
 			path = tvOSCopilot;
 			sourceTree = "<group>";
@@ -330,6 +336,7 @@
 			files = (
 				49D85CC92035ACEA0088B633 /* SettingsController.swift in Sources */,
 				49C288C2203085C200D5C212 /* TrafficStatus.swift in Sources */,
+				4998318620F0EC5700C69215 /* NetworkingViewController.swift in Sources */,
 				49C288CB203103FD00D5C212 /* MainTabController.swift in Sources */,
 				49FFC68E20C579F700DC6D5A /* CommsController.swift in Sources */,
 				4998318320F0DB8800C69215 /* MeshDiscovery.swift in Sources */,
@@ -357,6 +364,7 @@
 				4998318120F070B500C69215 /* AudioAlerts.swift in Sources */,
 				4998317F20F0707C00C69215 /* WebUplink.swift in Sources */,
 				4998316920F0567500C69215 /* ViewController.swift in Sources */,
+				4998318820F11D9D00C69215 /* CopilotTracker.swift in Sources */,
 				4998316720F0567500C69215 /* AppDelegate.swift in Sources */,
 				4998317D20F0706C00C69215 /* TrafficCams.swift in Sources */,
 			);

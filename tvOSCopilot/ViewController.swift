@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import AVKit
+import MultipeerConnectivity
 
 class TrafficCamAnnotation: NSObject, MKAnnotation {
     var address: URL
@@ -24,9 +25,16 @@ class TrafficCamAnnotation: NSObject, MKAnnotation {
 }
 
 //TODO: annotation clustering
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MeshConnectionDelegate, TrackableDelegate {
+
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var playerContainer: UIView!
+    
+    @IBOutlet weak var meshStatusView: UIView!
+    @IBOutlet weak var meshStatusText: UILabel!
+    private var meshConnection: MeshConnection? = nil
+    private var trackedDevice: CopilotTrackable? = nil
+    private var trackedDeviceTrace: MKPolyline? = nil
     
     private let locationManager = CLLocationManager()
     
@@ -39,6 +47,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     private let radarMapOverlay: MKTileOverlay
     private let radarTileRenderer: MKTileOverlayRenderer
     private var radarLastRefreshed: Date? = nil
+    
+    private let meshNetwork = MeshNetwork(isBaseStation: true)
     
     required init?(coder aDecoder: NSCoder) {
         self.baseMapOverlay = MKTileOverlay(urlTemplate: Configuration.shared.baseMapTileUrl)
@@ -79,6 +89,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 return TrafficCamAnnotation(trafficCam: cam)
             })
         })
+        meshNetwork.delegate = self
+        meshNetwork.startAdvertising()
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,14 +106,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
             return radarTileRenderer
         }
-        /**
+
         if overlay is MKPolyline {
             let renderer = MKPolylineRenderer(overlay: overlay)
             renderer.strokeColor = UIColor.purple
             renderer.lineWidth = 6
             return renderer
         }
-         */
+
         return MKOverlayRenderer()
     }
     
@@ -230,5 +242,71 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             NSLog("Showing cameras")
         }
     }
+    
+    private func openConnection(connection: MeshConnection) {
+        self.meshConnection = connection
+        self.trackedDevice = CopilotTrackable(uuid: connection.peerUUID!)
+        self.trackedDevice!.start(delegate: self)
+        DispatchQueue.main.async {
+            self.meshStatusView.isHidden = false
+            self.meshStatusText.text = "Apple Mesh Connected"
+        }
+    }
+    
+    func connection(_ network: MeshNetwork, didConnect connection: MeshConnection) {
+        NSLog("Connected to peer \(connection.peerID)")
+        if connection.peerUUID == self.meshConnection?.peerUUID {
+            self.openConnection(connection: connection)
+            return
+        }
+        let alert = UIAlertController(title: "Copilot Device Detected", message: "Apple Mesh connected to device \(connection.peerUUID!)", preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
+        alert.addAction(dismissAction)
+        let displayTracesAction = UIAlertAction(title: "Load Data", style: .default, handler: {action in
+            self.openConnection(connection: connection)
+        })
+        alert.addAction(displayTracesAction)
+        self.present(alert, animated: true, completion: nil)
+        NSLog("Sent alert")
+    }
+    
+    func connection(_ network: MeshNetwork, didDisconnect peerID: MCPeerID) {
+        NSLog("Disconnected from peer \(peerID)")
+        if peerID == self.meshConnection?.peerID {
+            DispatchQueue.main.async {
+                if let trackedDevice = self.trackedDevice {
+                    trackedDevice.stop()
+                }
+                self.trackedDevice = nil
+                self.meshStatusView.isHidden = true
+            }
+        }
+    }
+    
+    func traceChanged(trace: LocationTrace) {
+        let unsafeCoordinates = trace.coordinates.map{ coordinate in
+            return coordinate.coordinate
+        }
+        let newPolyline = MKGeodesicPolyline(coordinates: unsafeCoordinates, count: trace.coordinates.count)
+        DispatchQueue.main.async {
+            if let existingLine = self.trackedDeviceTrace {
+                self.mapView.remove(existingLine)
+            }
+            if newPolyline.pointCount > 0 {
+                self.mapView.add(newPolyline)
+                self.trackedDeviceTrace = newPolyline
+            }
+            self.meshStatusText.text = "Top Speed \(trace.topSpeed) MPH"
+            
+            if let lastLoc = trace.coordinates.last {
+                let region = MKCoordinateRegionMakeWithDistance(lastLoc.coordinate, 10000, 10000)
+                self.mapView.setRegion(region, animated: true)
+            }
+        }
+
+        
+    }
+    
+    
 }
 
