@@ -19,6 +19,8 @@ import UserNotifications
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    
+    static var locationTracker: LocationTracker? = nil
 
     private func configureTabBar() {
         let normalTitleAttributes = [
@@ -57,6 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         self.configureTabBar()
         self.configureNotifications()
+        //TODO: Login screen
+        AppDelegate.locationTracker = LocationTracker.get(account: Configuration.shared.getAccount()!)
         return true
     }
 

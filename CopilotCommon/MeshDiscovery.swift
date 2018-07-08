@@ -13,7 +13,8 @@ import MultipeerConnectivity
 struct MeshConnection {
     let peerID: MCPeerID
     let session: MCSession
-    let peerUUID: String?
+    let peerUserId: String
+    let peerUUID: String
 }
 
 protocol MeshConnectionDelegate {
@@ -24,7 +25,7 @@ protocol MeshConnectionDelegate {
 }
 
 enum MeshPacketType: String {
-    case uuid
+    case handshake
 }
 
 class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate, MCSessionDelegate {
@@ -82,10 +83,11 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
         NSLog("Lost peer \(peerID)")
     }
     
-    private func sendUUID(peer: MCPeerID, session: MCSession) {
+    private func sendHandshake(peer: MCPeerID, session: MCSession) {
         NSLog("Sending device UUID")
         let uuid = UIDevice.current.identifierForVendor!.uuidString
-        let packet: [String: String] = ["type": MeshPacketType.uuid.rawValue, "uuid": uuid]
+        let userId = Configuration.shared.getAccount()!.username
+        let packet: [String: String] = ["type": MeshPacketType.handshake.rawValue, "uuid": uuid, "userId": userId]
         let encoder = JSONEncoder()
         do {
             let json = try encoder.encode(packet)
@@ -101,7 +103,7 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
         case .connected:
             NSLog("Connected to peer \(peerID)")
             if(self.isBaseStation == false) {
-                self.sendUUID(peer: peerID, session: session)
+                self.sendHandshake(peer: peerID, session: session)
             }
             break
         case .notConnected:
@@ -124,10 +126,11 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
             NSLog("Decoded packet as \(packet)")
             let type = packet["type"] as! String
             switch(type) {
-            case MeshPacketType.uuid.rawValue:
+            case MeshPacketType.handshake.rawValue:
                 let uuid = packet["uuid"] as! String
+                let userId = packet["userId"] as! String
                 NSLog("Got UUID from device \(uuid)")
-                let newConnection = MeshConnection(peerID: peerID, session: session, peerUUID: uuid)
+                let newConnection = MeshConnection(peerID: peerID, session: session, peerUserId: userId, peerUUID: uuid)
                 self.openConnections.append(newConnection)
                 self.delegate?.connection(self, didConnect: newConnection)
                 return

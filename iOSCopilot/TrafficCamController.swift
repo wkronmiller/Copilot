@@ -88,7 +88,7 @@ class TrafficCamController: UIViewController, LocationTrackerDelegate, UITableVi
     
     override func viewDidAppear(_ animated: Bool) {
         NSLog("CamController did appear")
-        LocationTracker.shared.setDelegate(delegate: self)
+        AppDelegate.locationTracker!.setDelegate(delegate: self)
         showCam()
     }
     

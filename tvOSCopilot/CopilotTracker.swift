@@ -18,19 +18,22 @@ protocol TrackableDelegate {
     func traceChanged(trace: LocationTrace)
 }
 
+//TODO: store list of tracked devices and have menu in view to select which ones to watch
 class CopilotTrackable: NSObject {
-    private let uuid: String
+    private let userId: String
+    private let deviceUUID: String
     private var lastTrace: LocationTrace?
     private var stopped = true
     private let workQueue = DispatchQueue.init(label: "CopilotTrackerQueue")
     private var delegate: TrackableDelegate?
     
-    init(uuid: String) {
-        self.uuid = uuid
+    init(userId: String, deviceUUID: String) {
+        self.userId = userId
+        self.deviceUUID = deviceUUID
     }
     
     private func fetchTrace(completionHandler: @escaping (Error?) -> Void) {
-        let url = URL(string: "\(Configuration.shared.apiGatewayCore)/devices/\(self.uuid)/location")!
+        let url = URL(string: "\(Configuration.shared.apiGatewayCore)/users/\(self.userId)/devices/\(self.deviceUUID)/locations")!
         WebUplink.shared.get(url: url, completionHandler: {data, error in
             if let rawData = data {
                 let rawCoordinates = rawData["coordinates"] as! [[Double]]
@@ -46,7 +49,7 @@ class CopilotTrackable: NSObject {
     }
     
     private func watchTrace() {
-        NSLog("Updating trace for \(self.uuid)")
+        NSLog("Updating trace for \(self.deviceUUID)")
         self.fetchTrace(completionHandler: {error in
             if(self.stopped) {
                 return

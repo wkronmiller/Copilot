@@ -245,7 +245,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     private func openConnection(connection: MeshConnection) {
         self.meshConnection = connection
-        self.trackedDevice = CopilotTrackable(uuid: connection.peerUUID!)
+        self.trackedDevice = CopilotTrackable(userId: connection.peerUserId, deviceUUID: connection.peerUUID)
         self.trackedDevice!.start(delegate: self)
         DispatchQueue.main.async {
             self.meshStatusView.isHidden = false
@@ -259,7 +259,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             self.openConnection(connection: connection)
             return
         }
-        let alert = UIAlertController(title: "Copilot Device Detected", message: "Apple Mesh connected to device \(connection.peerUUID!)", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Copilot Device Detected", message: "Apple Mesh connected to device \(connection.peerUUID)", preferredStyle: .alert)
         let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
         alert.addAction(dismissAction)
         let displayTracesAction = UIAlertAction(title: "Load Data", style: .default, handler: {action in
@@ -296,7 +296,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 self.mapView.add(newPolyline)
                 self.trackedDeviceTrace = newPolyline
             }
-            self.meshStatusText.text = "Top Speed \(trace.topSpeed) MPH"
+            self.meshStatusText.text = "Top Speed \(round(trace.topSpeed * 10) / 10) MPH"
             
             if let lastLoc = trace.coordinates.last {
                 let region = MKCoordinateRegionMakeWithDistance(lastLoc.coordinate, 10000, 10000)

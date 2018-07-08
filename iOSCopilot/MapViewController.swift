@@ -57,8 +57,8 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        LocationTracker.shared.startTracking()
-        LocationTracker.shared.setDelegate(delegate: self)
+        AppDelegate.locationTracker!.startTracking()
+        AppDelegate.locationTracker!.setDelegate(delegate: self)
         mapView.delegate = self
         
         mapView.add(baseMapOverlay, level: .aboveLabels)
@@ -76,7 +76,7 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         let delegateConfig = LocationReceiverConfig()
         delegateConfig.delegate = self
         delegateConfig.maxUpdateFrequencyMs = 1
-        LocationTracker.shared.setDelegate(delegateConfig: delegateConfig)
+        AppDelegate.locationTracker!.setDelegate(delegateConfig: delegateConfig)
     }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

@@ -28,7 +28,7 @@ class SettingsController: UIViewController {
     }
     
     @IBAction func locationPrivacyChanged(_ sender: Any) {
-        LocationTracker.shared.privacyEnabled = locationPrivacyButton.isOn
+        AppDelegate.locationTracker!.privacyEnabled = locationPrivacyButton.isOn
         NSLog("Set location privacy to \(locationPrivacyButton.isOn)")
     }
     //TODO

@@ -56,14 +56,23 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     var privacyEnabled = false
     private let locationStats = LocationStats()
     private var updateTimer: Timer? = nil
+    private static var shared: LocationTracker? = nil
     
     private var segmentBuffer: [LocationSegment] = []
     
-    private override init() {
+    private init(account: Account) {
         super.init()
         let deviceUUID = UIDevice.current.identifierForVendor!
-        self.endpoint = URL(string: "\(Configuration.shared.apiGatewayCore)/devices/\(deviceUUID)/location")
+        self.endpoint = URL(string: "\(Configuration.shared.apiGatewayCore)/users/\(account.username)/devices/\(deviceUUID)/locations")
         UIApplication.shared.setMinimumBackgroundFetchInterval(60)
+    }
+    
+    static func get(account: Account) -> LocationTracker {
+        if let existing = shared {
+            return existing
+        }
+        shared = LocationTracker(account: account)
+        return shared!
     }
     
     @objc private func sendLocations() {
@@ -181,6 +190,4 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
             self.updateTimer = nil
         }
     }
-    
-    static let shared = LocationTracker()
 }

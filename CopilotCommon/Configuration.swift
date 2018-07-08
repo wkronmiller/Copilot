@@ -9,6 +9,16 @@
 import Foundation
 import CoreLocation
 
+struct RootSettingKeys {
+    static let username = "user_username"
+    static let password = "user_password"
+}
+
+public struct Account {
+    let username: String
+    let password: String
+}
+
 public class Configuration: NSObject {
     
     //let apiGatewayCore = "https://bqwa05ybua.execute-api.us-east-1.amazonaws.com/dev"
@@ -32,6 +42,18 @@ public class Configuration: NSObject {
     
     private override init() {
         super.init()
+    }
+    
+    func getAccount() -> Account? {
+        if let username = UserDefaults.standard.string(forKey: RootSettingKeys.username) {
+            NSLog("Got username \(username)")
+            
+            if let password = UserDefaults.standard.string(forKey: RootSettingKeys.password) {
+                NSLog("Got password")
+                return Account(username: username, password: password)
+            }
+        }
+        return nil
     }
     
     static let shared = Configuration()

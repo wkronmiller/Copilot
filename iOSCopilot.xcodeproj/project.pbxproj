@@ -30,6 +30,8 @@
 		4998318420F0DB8800C69215 /* MeshDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318220F0DB8800C69215 /* MeshDiscovery.swift */; };
 		4998318620F0EC5700C69215 /* NetworkingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318520F0EC5700C69215 /* NetworkingViewController.swift */; };
 		4998318820F11D9D00C69215 /* CopilotTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318720F11D9D00C69215 /* CopilotTracker.swift */; };
+		4998318A20F24B6F00C69215 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4998318920F24B6F00C69215 /* Settings.bundle */; };
+		4998318B20F24B6F00C69215 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4998318920F24B6F00C69215 /* Settings.bundle */; };
 		49B69D3B2031B32700ACD609 /* WeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B69D3A2031B32700ACD609 /* WeatherController.swift */; };
 		49C288C2203085C200D5C212 /* TrafficStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C1203085C200D5C212 /* TrafficStatus.swift */; };
 		49C288C42030B13A00D5C212 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C32030B13A00D5C212 /* Configuration.swift */; };
@@ -72,6 +74,7 @@
 		4998318220F0DB8800C69215 /* MeshDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshDiscovery.swift; sourceTree = "<group>"; };
 		4998318520F0EC5700C69215 /* NetworkingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingViewController.swift; sourceTree = "<group>"; };
 		4998318720F11D9D00C69215 /* CopilotTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopilotTracker.swift; sourceTree = "<group>"; };
+		4998318920F24B6F00C69215 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		49B69D3A2031B32700ACD609 /* WeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherController.swift; sourceTree = "<group>"; };
 		49C288C1203085C200D5C212 /* TrafficStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficStatus.swift; sourceTree = "<group>"; };
 		49C288C32030B13A00D5C212 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -189,6 +192,7 @@
 				49D85CC6203482240088B633 /* AudioAlerts.swift */,
 				49D85CCC203C53E40088B633 /* TrafficCams.swift */,
 				4998318220F0DB8800C69215 /* MeshDiscovery.swift */,
+				4998318920F24B6F00C69215 /* Settings.bundle */,
 			);
 			path = CopilotCommon;
 			sourceTree = "<group>";
@@ -294,6 +298,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4998318A20F24B6F00C69215 /* Settings.bundle in Resources */,
 				496BCFC02027A157001C6B48 /* LaunchScreen.storyboard in Resources */,
 				496BCFBD2027A157001C6B48 /* Assets.xcassets in Resources */,
 				496BCFBB2027A157001C6B48 /* Main.storyboard in Resources */,
@@ -305,6 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4998316E20F0567600C69215 /* Assets.xcassets in Resources */,
+				4998318B20F24B6F00C69215 /* Settings.bundle in Resources */,
 				4998316C20F0567500C69215 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
