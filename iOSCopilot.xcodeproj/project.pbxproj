@@ -70,6 +70,7 @@
 		49381EC120FB6AF100F7982D /* CopilotApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopilotApi.swift; sourceTree = "<group>"; };
 		49381EC520FB6B0D00F7982D /* JWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWT.swift; sourceTree = "<group>"; };
 		49381EC920FB6CB800F7982D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		49381ECB20FB72C100F7982D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		4956110F202F449600464A53 /* LocationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModels.swift; sourceTree = "<group>"; };
 		49561111202F451B00464A53 /* WebUplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUplink.swift; sourceTree = "<group>"; };
 		496BCFB02027A157001C6B48 /* iOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -201,6 +202,7 @@
 		496BCFC72027A234001C6B48 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				49381ECB20FB72C100F7982D /* libsqlite3.tbd */,
 				49381EBC20F448CA00F7982D /* MapKit.framework */,
 				4998317A20F05ADA00C69215 /* MapKit.framework */,
 				49FFC68A20C5777700DC6D5A /* TwilioVoice.framework */,

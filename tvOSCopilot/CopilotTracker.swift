@@ -34,7 +34,7 @@ class CopilotTrackable: NSObject {
     
     private func fetchTrace(completionHandler: @escaping (Error?) -> Void) {
         let url = URL(string: "\(Configuration.shared.apiGatewayCore)/users/\(self.userId)/devices/\(self.deviceUUID)/locations")!
-        WebUplink.shared.get(url: url, completionHandler: {data, error in
+        AppDelegate.webUplink.get(url: url, completionHandler: {data, error in
             if let rawData = data {
                 let rawCoordinates = rawData["coordinates"] as! [[Double]]
                 let coordinates = rawCoordinates.map{lonlat in

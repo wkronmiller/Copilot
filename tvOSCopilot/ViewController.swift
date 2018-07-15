@@ -161,12 +161,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         return nil
     }
     
-    private var playing: AVPlayer? = nil
+    private var playing: URL? = nil
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         NSLog("Selected view \(view)")
         if view.annotation is TrafficCamAnnotation {
             let trafficAnnotation = view.annotation as! TrafficCamAnnotation
+            self.playing = trafficAnnotation.address
             let player = AVPlayer(url: trafficAnnotation.address)
             player.isMuted = true
             let playerLayer = AVPlayerLayer(player: player)
@@ -178,6 +179,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
         }
         if view.annotation is MKUserLocation {
+            self.playing = nil
             DispatchQueue.main.async {
                 self.playerContainer.layer.sublayers?.forEach{ $0.removeFromSuperlayer() }
             }
@@ -214,6 +216,19 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     @IBAction func longPressed(_ sender: Any) {
+        if let url = self.playing {
+            let playerController = AVPlayerViewController()
+            playerController.modalPresentationStyle = .fullScreen
+            let player = AVPlayer(url: url)
+            playerController.player = player
+            player.play()
+            DispatchQueue.main.async {
+                self.present(playerController, animated: true, completion: {
+                    NSLog("Went fullscreen")
+                })
+            }
+            return
+        }
         DispatchQueue.main.async {
             var doRefresh = true
             if let lastReloaded = self.radarLastRefreshed {
