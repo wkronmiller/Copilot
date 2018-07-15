@@ -21,8 +21,8 @@ public struct Account {
 
 public class Configuration: NSObject {
     
-    //let apiGatewayCore = "https://bqwa05ybua.execute-api.us-east-1.amazonaws.com/dev"
-    let apiGatewayCore = "http://192.168.11.218:3000"
+    let apiGatewayCore = "https://0kkgejw01g.execute-api.us-east-1.amazonaws.com/dev"
+    //let apiGatewayCore = "http://192.168.11.218:3000"
     
     let baseMapTileUrl = "http://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
     //http://mesonet.agron.iastate.edu/ogc/

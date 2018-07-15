@@ -54,8 +54,10 @@ class CopilotTrackable: NSObject {
             if(self.stopped) {
                 return
             }
-            if let delegate = self.delegate {
-                delegate.traceChanged(trace: self.lastTrace!)
+            if error == nil {
+                if let delegate = self.delegate {
+                    delegate.traceChanged(trace: self.lastTrace!)
+                }
             }
             let dispatchTime = DispatchTime.now() + 60
             self.workQueue.asyncAfter(deadline: dispatchTime, execute: self.watchTrace)

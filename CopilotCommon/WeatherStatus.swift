@@ -22,6 +22,8 @@ public class WeatherStatus: NSObject {
     private let dateFormatter = ISO8601DateFormatter()
     private var lastAlertedWeather: Date? = nil
     
+    private let webUplink = WebUplink()
+    
     private var forecasts: [ForecastPeriod] = []
     
     override init() {
@@ -85,7 +87,7 @@ public class WeatherStatus: NSObject {
         let url = URL(string: "\(endpoint)/points/\(latitude),\(longitude)/forecast/hourly")!
         
         if self.receiverConfig.shouldUpdate() {
-            WebUplink.shared.get(url: url, completionHandler: {(data, error) in
+            self.webUplink.get(url: url, completionHandler: {(data, error) in
                 if nil != error || data == nil {
                     return completionHandler(nil, error)
                 }

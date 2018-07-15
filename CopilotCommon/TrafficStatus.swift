@@ -43,7 +43,7 @@ class TrafficStatus: NSObject {
     override init() {
         self.receiverConfig = LocationReceiverConfig()
         self.receiverConfig.maxUpdateFrequencyMs = 20 * 1000 // 20 seconds
-        self.webUplink = WebUplink.shared
+        self.webUplink = CopilotAPI.shared
         super.init()
     }
     
@@ -128,7 +128,7 @@ class TrafficStatus: NSObject {
         if self.receiverConfig.shouldUpdate() {
             NSLog("Updating traffic status")
             self.receiverConfig.setUpdating()
-            WebUplink.shared.get(url: url, completionHandler: {(data, error) in
+            CopilotAPI.shared.get(url: url, completionHandler: {(data, error) in
                 if error != nil {
                     NSLog("Error loading traffic \(error!)")
                     self.receiverConfig.didUpdate()

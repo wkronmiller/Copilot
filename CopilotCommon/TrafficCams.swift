@@ -38,7 +38,7 @@ class TrafficCams: NSObject {
     
     private func fetchCameras(url: URL, completionHandler: @escaping (Error?) -> Void) {
         NSLog("Fetching URL \(url)")
-        WebUplink.shared.get(url: url, completionHandler: {(data, error) in
+        CopilotAPI.shared.get(url: url, completionHandler: {(data, error) in
             if(nil != error) {
                 NSLog("Error fetching cameras: \(error!)")
                 return completionHandler(error)

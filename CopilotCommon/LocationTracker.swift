@@ -85,7 +85,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         let trace = LocationTrace(locations: self.segmentBuffer)
         NSLog("Sending \(self.segmentBuffer.count) locations to \(endpoint)")
         self.segmentBuffer = []
-        WebUplink.shared.post(url: endpoint!, body: trace){ (data, error) in
+        CopilotAPI.shared.post(url: endpoint!, body: trace){ (data, error) in
             if error != nil {
                 NSLog("Send Location Error \(error!)")
             }
@@ -179,6 +179,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
             locationManager.showsBackgroundLocationIndicator = false
             isTracking = true
             self.updateTimer = Timer.scheduledTimer(timeInterval: 120, target: self, selector: #selector(sendLocations), userInfo: nil, repeats: true)
+            //self.updateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(sendLocations), userInfo: nil, repeats: true)
         }
     }
     

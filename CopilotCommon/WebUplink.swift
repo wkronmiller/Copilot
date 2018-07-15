@@ -8,13 +8,63 @@
 
 import Foundation
 
+struct JWT {
+    let token: String
+    let expires: Date
+}
+
+class CopilotAPI: WebUplink {
+    private var jwt: JWT? = nil
+    
+    private override init() {
+        super.init()
+    }
+    
+    private func fetchJWT(account: Account, completionHandler: @escaping () -> Void) {
+        let url = URL(string:"\(Configuration.shared.apiGatewayCore)/users/\(account.username)/tokens")!
+        let payload: [String: String] = ["password": account.password]
+        super.post(url: url, jwt: nil, body: payload, completionHandler: {response, error in
+            if(error != nil || response == nil) {
+                //TODO: handle error in callback
+                NSLog("Failed to get jwt \(error)")
+                return
+            }
+            
+            let token = response!["token"] as! String
+            let expiresSeconds = response!["expiresSeconds"] as! Int
+            self.jwt = JWT(token: token, expires: Date(timeIntervalSince1970: TimeInterval(expiresSeconds)))
+            NSLog("Got jwt token")
+            completionHandler()
+        })
+    }
+    
+    private func ensureJwt(account: Account, completionHandler: @escaping () -> Void) {
+        if let existing = self.jwt {
+            if existing.expires.timeIntervalSinceNow < 0 {
+                completionHandler()
+                return
+            }
+        }
+        fetchJWT(account: account, completionHandler: completionHandler)
+    }
+    
+    override func post<T>(url: URL, body: T, completionHandler: @escaping ([String : Any]?, Error?) -> Void) where T : Encodable {
+        ensureJwt(account: Configuration.shared.getAccount()!, completionHandler: {
+            super.post(url: url, jwt: self.jwt!.token, body: body, completionHandler: completionHandler)
+        })
+    }
+    
+    //TODO: find a cleaner solution
+    static let shared = CopilotAPI()
+}
+
 class WebUplink: NSObject {
     private let queue = DispatchQueue(label: "WebUplink")
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     private let session = URLSession(configuration: .default)
     
-    private override init() {
+    override init() {
         super.init()
     }
     
@@ -36,8 +86,11 @@ class WebUplink: NSObject {
         task.resume()
     }
     
-    private func postData(url: URL, body: Data, completionHandler: @escaping ([String: Any]?, Error?) -> Void) {
+    private func postData(url: URL, jwt: String?, body: Data, completionHandler: @escaping ([String: Any]?, Error?) -> Void) {
         var request = URLRequest(url: url)
+        if let token = jwt {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
         request.timeoutInterval = 1500
         request.httpBody = body
         request.httpMethod = "POST"
@@ -48,10 +101,14 @@ class WebUplink: NSObject {
         fetch(request: request, completionHandler: completionHandler)
     }
     
-    func post<T>(url: URL, body: T, completionHandler: @escaping ([String: Any]?, Error?) -> Void) where T: Encodable {
+    internal func post<T>(url: URL, jwt: String?, body: T, completionHandler: @escaping ([String: Any]?, Error?) -> Void) where T: Encodable {
         let jsonData = try? self.encoder.encode(body)
         let body: Data = jsonData!
-        self.postData(url: url, body: body, completionHandler: completionHandler)
+        self.postData(url: url, jwt: jwt, body: body, completionHandler: completionHandler)
+    }
+    
+    func post<T>(url: URL, body: T, completionHandler: @escaping ([String: Any]?, Error?) -> Void) where T: Encodable {
+        self.post(url: url, jwt: nil, body: body, completionHandler: completionHandler)
     }
     
     func get(url: URL, completionHandler: @escaping ([String: Any]?, Error?) -> Void) {
@@ -61,6 +118,5 @@ class WebUplink: NSObject {
         
         fetch(request: request, completionHandler: completionHandler)
     }
-    
-    static let shared = WebUplink()
+
 }

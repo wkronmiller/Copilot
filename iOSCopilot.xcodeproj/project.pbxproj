@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49381EAF20F4489000F7982D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EAE20F4489000F7982D /* AppDelegate.swift */; };
+		49381EB120F4489000F7982D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EB020F4489000F7982D /* ViewController.swift */; };
+		49381EB320F4489100F7982D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49381EB220F4489100F7982D /* Assets.xcassets */; };
+		49381EB620F4489100F7982D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49381EB420F4489100F7982D /* Main.storyboard */; };
+		49381EBD20F448CA00F7982D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49381EBC20F448CA00F7982D /* MapKit.framework */; };
 		49561110202F449600464A53 /* LocationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4956110F202F449600464A53 /* LocationModels.swift */; };
 		49561112202F451B00464A53 /* WebUplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49561111202F451B00464A53 /* WebUplink.swift */; };
 		496BCFB42027A157001C6B48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFB32027A157001C6B48 /* AppDelegate.swift */; };
@@ -47,6 +52,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49381EAC20F4489000F7982D /* MacOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		49381EAE20F4489000F7982D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		49381EB020F4489000F7982D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		49381EB220F4489100F7982D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		49381EB520F4489100F7982D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		49381EB720F4489100F7982D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49381EB820F4489100F7982D /* MacOSCopilot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacOSCopilot.entitlements; sourceTree = "<group>"; };
+		49381EBC20F448CA00F7982D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		4956110F202F449600464A53 /* LocationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModels.swift; sourceTree = "<group>"; };
 		49561111202F451B00464A53 /* WebUplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUplink.swift; sourceTree = "<group>"; };
 		496BCFB02027A157001C6B48 /* iOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +103,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		49381EA920F4489000F7982D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49381EBD20F448CA00F7982D /* MapKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		496BCFAD2027A157001C6B48 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -111,12 +132,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49381EAD20F4489000F7982D /* MacOSCopilot */ = {
+			isa = PBXGroup;
+			children = (
+				49381EAE20F4489000F7982D /* AppDelegate.swift */,
+				49381EB020F4489000F7982D /* ViewController.swift */,
+				49381EB220F4489100F7982D /* Assets.xcassets */,
+				49381EB420F4489100F7982D /* Main.storyboard */,
+				49381EB720F4489100F7982D /* Info.plist */,
+				49381EB820F4489100F7982D /* MacOSCopilot.entitlements */,
+			);
+			path = MacOSCopilot;
+			sourceTree = "<group>";
+		};
 		496BCFA72027A157001C6B48 = {
 			isa = PBXGroup;
 			children = (
 				4998317320F0567D00C69215 /* CopilotCommon */,
 				496BCFB22027A157001C6B48 /* iOSCopilot */,
 				4998316520F0567500C69215 /* tvOSCopilot */,
+				49381EAD20F4489000F7982D /* MacOSCopilot */,
 				496BCFB12027A157001C6B48 /* Products */,
 				496BCFC72027A234001C6B48 /* Frameworks */,
 			);
@@ -127,6 +162,7 @@
 			children = (
 				496BCFB02027A157001C6B48 /* iOSCopilot.app */,
 				4998316420F0567500C69215 /* tvOSCopilot.app */,
+				49381EAC20F4489000F7982D /* MacOSCopilot.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -154,6 +190,7 @@
 		496BCFC72027A234001C6B48 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				49381EBC20F448CA00F7982D /* MapKit.framework */,
 				4998317A20F05ADA00C69215 /* MapKit.framework */,
 				49FFC68A20C5777700DC6D5A /* TwilioVoice.framework */,
 				496BCFCF2029AB1B001C6B48 /* CoreData.framework */,
@@ -200,6 +237,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		49381EAB20F4489000F7982D /* MacOSCopilot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49381EB920F4489100F7982D /* Build configuration list for PBXNativeTarget "MacOSCopilot" */;
+			buildPhases = (
+				49381EA820F4489000F7982D /* Sources */,
+				49381EA920F4489000F7982D /* Frameworks */,
+				49381EAA20F4489000F7982D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacOSCopilot;
+			productName = MacOSCopilot;
+			productReference = 49381EAC20F4489000F7982D /* MacOSCopilot.app */;
+			productType = "com.apple.product-type.application";
+		};
 		496BCFAF2027A157001C6B48 /* iOSCopilot */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 496BCFC42027A157001C6B48 /* Build configuration list for PBXNativeTarget "iOSCopilot" */;
@@ -245,6 +299,15 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "William Rory Kronmiller";
 				TargetAttributes = {
+					49381EAB20F4489000F7982D = {
+						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.Mac = {
+								enabled = 1;
+							};
+						};
+					};
 					496BCFAF2027A157001C6B48 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -289,11 +352,21 @@
 			targets = (
 				496BCFAF2027A157001C6B48 /* iOSCopilot */,
 				4998316320F0567500C69215 /* tvOSCopilot */,
+				49381EAB20F4489000F7982D /* MacOSCopilot */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		49381EAA20F4489000F7982D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49381EB320F4489100F7982D /* Assets.xcassets in Resources */,
+				49381EB620F4489100F7982D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		496BCFAE2027A157001C6B48 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -336,6 +409,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		49381EA820F4489000F7982D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49381EB120F4489000F7982D /* ViewController.swift in Sources */,
+				49381EAF20F4489000F7982D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		496BCFAC2027A157001C6B48 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -379,6 +461,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		49381EB420F4489100F7982D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				49381EB520F4489100F7982D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		496BCFB92027A157001C6B48 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -406,6 +496,50 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		49381EBA20F4489100F7982D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CODE_SIGN_ENTITLEMENTS = MacOSCopilot/MacOSCopilot.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = H64UU5B675;
+				INFOPLIST_FILE = MacOSCopilot/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = coffee.rory.MacOSCopilot;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		49381EBB20F4489100F7982D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CODE_SIGN_ENTITLEMENTS = MacOSCopilot/MacOSCopilot.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = H64UU5B675;
+				INFOPLIST_FILE = MacOSCopilot/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = coffee.rory.MacOSCopilot;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
 		496BCFC22027A157001C6B48 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -600,6 +734,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		49381EB920F4489100F7982D /* Build configuration list for PBXNativeTarget "MacOSCopilot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49381EBA20F4489100F7982D /* Debug */,
+				49381EBB20F4489100F7982D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		496BCFAB2027A157001C6B48 /* Build configuration list for PBXProject "iOSCopilot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
