@@ -44,6 +44,11 @@ public class Configuration: NSObject {
         super.init()
     }
     
+    func setAccount(username: String, password: String) {
+        UserDefaults.standard.set(username, forKey: RootSettingKeys.username)
+        UserDefaults.standard.set(password, forKey: RootSettingKeys.password)
+    }
+    
     func getAccount() -> Account? {
         if let username = UserDefaults.standard.string(forKey: RootSettingKeys.username) {
             NSLog("Got username \(username)")
