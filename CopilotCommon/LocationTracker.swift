@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import CoreLocation
+import CoreMotion
 
 public protocol LocationTrackerDelegate: NSObjectProtocol {
     func didUpdateLocationStats(locationStats: LocationStats) -> Void
@@ -52,6 +53,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     
     private var endpoint: URL? = nil
     private let locationManager = CLLocationManager()
+    private let motionManager = CMMotionManager()
     private var isTracking = false
     var privacyEnabled = false
     private let locationStats = LocationStats()
@@ -66,7 +68,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         super.init()
         let deviceUUID = UIDevice.current.identifierForVendor!
         self.endpoint = URL(string: "\(Configuration.shared.apiGatewayCore)/users/\(account.username)/devices/\(deviceUUID)/locations")
-        UIApplication.shared.setMinimumBackgroundFetchInterval(60)
+        UIApplication.shared.setMinimumBackgroundFetchInterval(90)
         LocationDatabase.shared.ensureTable()
     }
     
@@ -116,6 +118,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        NSLog("Gyro data \(motionManager.gyroData)")
         let locationSegments = locations.map { location in
             return LocationSegment(
                 epochMs: location.timestamp.timeIntervalSince1970 * 1000,
@@ -128,7 +131,6 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         }
         
         LocationDatabase.shared.addLocations(segments: locationSegments)
-        LocationDatabase.shared.getLocations() //TODO: remove
         if locationSegments.count < 1 {
             return
         }
@@ -175,6 +177,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     
     func startTracking() {
         if !isTracking {
+            //motionManager.startGyroUpdates() //TODO: do something useful with this
             NSLog("Starting location tracking")
             locationManager.delegate = self
             locationManager.activityType = .automotiveNavigation
@@ -190,6 +193,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     
     func stopTracking() {
         if isTracking {
+            //motionManager.stopGyroUpdates()
             NSLog("Stopping location tracking")
             locationManager.stopUpdatingLocation()
             self.updateTimer?.invalidate()

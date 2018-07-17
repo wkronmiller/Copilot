@@ -25,6 +25,14 @@
 		493E653520FE012E0054797D /* LocationSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E653420FE012E0054797D /* LocationSegment.swift */; };
 		493E653620FE012E0054797D /* LocationSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E653420FE012E0054797D /* LocationSegment.swift */; };
 		493E653720FE012E0054797D /* LocationSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E653420FE012E0054797D /* LocationSegment.swift */; };
+		493E653E20FE10BD0054797D /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 493E653C20FE10BD0054797D /* Interface.storyboard */; };
+		493E654020FE10BE0054797D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 493E653F20FE10BE0054797D /* Assets.xcassets */; };
+		493E654720FE10BF0054797D /* watchCopilot Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 493E654620FE10BF0054797D /* watchCopilot Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		493E654C20FE10BF0054797D /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E654B20FE10BF0054797D /* InterfaceController.swift */; };
+		493E654E20FE10BF0054797D /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E654D20FE10BF0054797D /* ExtensionDelegate.swift */; };
+		493E655020FE10BF0054797D /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E654F20FE10BF0054797D /* NotificationController.swift */; };
+		493E655220FE10BF0054797D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 493E655120FE10BF0054797D /* Assets.xcassets */; };
+		493E655720FE10BF0054797D /* watchCopilot.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 493E653A20FE10BD0054797D /* watchCopilot.app */; };
 		49561112202F451B00464A53 /* WebUplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49561111202F451B00464A53 /* WebUplink.swift */; };
 		496BCFB42027A157001C6B48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFB32027A157001C6B48 /* AppDelegate.swift */; };
 		496BCFB62027A157001C6B48 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFB52027A157001C6B48 /* MapViewController.swift */; };
@@ -62,6 +70,48 @@
 		49FFC68E20C579F700DC6D5A /* CommsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FFC68D20C579F700DC6D5A /* CommsController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		493E654820FE10BF0054797D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 496BCFA82027A157001C6B48 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 493E654520FE10BF0054797D;
+			remoteInfo = "watchCopilot Extension";
+		};
+		493E655520FE10BF0054797D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 496BCFA82027A157001C6B48 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 493E653920FE10BD0054797D;
+			remoteInfo = watchCopilot;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		493E655B20FE10BF0054797D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				493E654720FE10BF0054797D /* watchCopilot Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		493E655F20FE10BF0054797D /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				493E655720FE10BF0054797D /* watchCopilot.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDatabase.swift; sourceTree = "<group>"; };
 		49381EAC20F4489000F7982D /* MacOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,6 +127,17 @@
 		49381EC920FB6CB800F7982D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		49381ECB20FB72C100F7982D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		493E653420FE012E0054797D /* LocationSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSegment.swift; sourceTree = "<group>"; };
+		493E653A20FE10BD0054797D /* watchCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = watchCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		493E653D20FE10BD0054797D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		493E653F20FE10BE0054797D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		493E654120FE10BE0054797D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		493E654620FE10BF0054797D /* watchCopilot Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "watchCopilot Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		493E654B20FE10BF0054797D /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		493E654D20FE10BF0054797D /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		493E654F20FE10BF0054797D /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		493E655120FE10BF0054797D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		493E655320FE10BF0054797D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		493E655420FE10BF0054797D /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		49561111202F451B00464A53 /* WebUplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUplink.swift; sourceTree = "<group>"; };
 		496BCFB02027A157001C6B48 /* iOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		496BCFB32027A157001C6B48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +187,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		493E654320FE10BF0054797D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		496BCFAD2027A157001C6B48 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -160,6 +228,29 @@
 			path = MacOSCopilot;
 			sourceTree = "<group>";
 		};
+		493E653B20FE10BD0054797D /* watchCopilot */ = {
+			isa = PBXGroup;
+			children = (
+				493E653C20FE10BD0054797D /* Interface.storyboard */,
+				493E653F20FE10BE0054797D /* Assets.xcassets */,
+				493E654120FE10BE0054797D /* Info.plist */,
+			);
+			path = watchCopilot;
+			sourceTree = "<group>";
+		};
+		493E654A20FE10BF0054797D /* watchCopilot Extension */ = {
+			isa = PBXGroup;
+			children = (
+				493E654B20FE10BF0054797D /* InterfaceController.swift */,
+				493E654D20FE10BF0054797D /* ExtensionDelegate.swift */,
+				493E654F20FE10BF0054797D /* NotificationController.swift */,
+				493E655120FE10BF0054797D /* Assets.xcassets */,
+				493E655320FE10BF0054797D /* Info.plist */,
+				493E655420FE10BF0054797D /* PushNotificationPayload.apns */,
+			);
+			path = "watchCopilot Extension";
+			sourceTree = "<group>";
+		};
 		496BCFA72027A157001C6B48 = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +258,8 @@
 				496BCFB22027A157001C6B48 /* iOSCopilot */,
 				4998316520F0567500C69215 /* tvOSCopilot */,
 				49381EAD20F4489000F7982D /* MacOSCopilot */,
+				493E653B20FE10BD0054797D /* watchCopilot */,
+				493E654A20FE10BF0054797D /* watchCopilot Extension */,
 				496BCFB12027A157001C6B48 /* Products */,
 				496BCFC72027A234001C6B48 /* Frameworks */,
 			);
@@ -178,6 +271,8 @@
 				496BCFB02027A157001C6B48 /* iOSCopilot.app */,
 				4998316420F0567500C69215 /* tvOSCopilot.app */,
 				49381EAC20F4489000F7982D /* MacOSCopilot.app */,
+				493E653A20FE10BD0054797D /* watchCopilot.app */,
+				493E654620FE10BF0054797D /* watchCopilot Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -273,6 +368,40 @@
 			productReference = 49381EAC20F4489000F7982D /* MacOSCopilot.app */;
 			productType = "com.apple.product-type.application";
 		};
+		493E653920FE10BD0054797D /* watchCopilot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 493E655C20FE10BF0054797D /* Build configuration list for PBXNativeTarget "watchCopilot" */;
+			buildPhases = (
+				493E653820FE10BD0054797D /* Resources */,
+				493E655B20FE10BF0054797D /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				493E654920FE10BF0054797D /* PBXTargetDependency */,
+			);
+			name = watchCopilot;
+			productName = watchCopilot;
+			productReference = 493E653A20FE10BD0054797D /* watchCopilot.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		493E654520FE10BF0054797D /* watchCopilot Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 493E655820FE10BF0054797D /* Build configuration list for PBXNativeTarget "watchCopilot Extension" */;
+			buildPhases = (
+				493E654220FE10BF0054797D /* Sources */,
+				493E654320FE10BF0054797D /* Frameworks */,
+				493E654420FE10BF0054797D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "watchCopilot Extension";
+			productName = "watchCopilot Extension";
+			productReference = 493E654620FE10BF0054797D /* watchCopilot Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		496BCFAF2027A157001C6B48 /* iOSCopilot */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 496BCFC42027A157001C6B48 /* Build configuration list for PBXNativeTarget "iOSCopilot" */;
@@ -281,10 +410,12 @@
 				496BCFAD2027A157001C6B48 /* Frameworks */,
 				496BCFAE2027A157001C6B48 /* Resources */,
 				49FFC68C20C577A500DC6D5A /* ShellScript */,
+				493E655F20FE10BF0054797D /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				493E655620FE10BF0054797D /* PBXTargetDependency */,
 			);
 			name = iOSCopilot;
 			productName = iOSCopilot;
@@ -326,6 +457,14 @@
 								enabled = 1;
 							};
 						};
+					};
+					493E653920FE10BD0054797D = {
+						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
+					};
+					493E654520FE10BF0054797D = {
+						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
 					};
 					496BCFAF2027A157001C6B48 = {
 						CreatedOnToolsVersion = 9.2;
@@ -372,6 +511,8 @@
 				496BCFAF2027A157001C6B48 /* iOSCopilot */,
 				4998316320F0567500C69215 /* tvOSCopilot */,
 				49381EAB20F4489000F7982D /* MacOSCopilot */,
+				493E653920FE10BD0054797D /* watchCopilot */,
+				493E654520FE10BF0054797D /* watchCopilot Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -383,6 +524,23 @@
 			files = (
 				49381EB320F4489100F7982D /* Assets.xcassets in Resources */,
 				49381EB620F4489100F7982D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		493E653820FE10BD0054797D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				493E654020FE10BE0054797D /* Assets.xcassets in Resources */,
+				493E653E20FE10BD0054797D /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		493E654420FE10BF0054797D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				493E655220FE10BF0054797D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +599,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		493E654220FE10BF0054797D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				493E655020FE10BF0054797D /* NotificationController.swift in Sources */,
+				493E654E20FE10BF0054797D /* ExtensionDelegate.swift in Sources */,
+				493E654C20FE10BF0054797D /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		496BCFAC2027A157001C6B48 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -490,6 +658,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		493E654920FE10BF0054797D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 493E654520FE10BF0054797D /* watchCopilot Extension */;
+			targetProxy = 493E654820FE10BF0054797D /* PBXContainerItemProxy */;
+		};
+		493E655620FE10BF0054797D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 493E653920FE10BD0054797D /* watchCopilot */;
+			targetProxy = 493E655520FE10BF0054797D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		49381EB420F4489100F7982D /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -497,6 +678,14 @@
 				49381EB520F4489100F7982D /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		493E653C20FE10BD0054797D /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				493E653D20FE10BD0054797D /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		496BCFB92027A157001C6B48 /* Main.storyboard */ = {
@@ -567,6 +756,92 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		493E655920FE10BF0054797D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H64UU5B675;
+				INFOPLIST_FILE = "watchCopilot Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.kronmiller.william.motorcycle.iOSCopilot.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.3;
+			};
+			name = Debug;
+		};
+		493E655A20FE10BF0054797D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H64UU5B675;
+				INFOPLIST_FILE = "watchCopilot Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.kronmiller.william.motorcycle.iOSCopilot.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.3;
+			};
+			name = Release;
+		};
+		493E655D20FE10BF0054797D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H64UU5B675;
+				IBSC_MODULE = watchCopilot_Extension;
+				INFOPLIST_FILE = watchCopilot/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = net.kronmiller.william.motorcycle.iOSCopilot.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.3;
+			};
+			name = Debug;
+		};
+		493E655E20FE10BF0054797D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H64UU5B675;
+				IBSC_MODULE = watchCopilot_Extension;
+				INFOPLIST_FILE = watchCopilot/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = net.kronmiller.william.motorcycle.iOSCopilot.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.3;
 			};
 			name = Release;
 		};
@@ -769,6 +1044,24 @@
 			buildConfigurations = (
 				49381EBA20F4489100F7982D /* Debug */,
 				49381EBB20F4489100F7982D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		493E655820FE10BF0054797D /* Build configuration list for PBXNativeTarget "watchCopilot Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				493E655920FE10BF0054797D /* Debug */,
+				493E655A20FE10BF0054797D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		493E655C20FE10BF0054797D /* Build configuration list for PBXNativeTarget "watchCopilot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				493E655D20FE10BF0054797D /* Debug */,
+				493E655E20FE10BF0054797D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
