@@ -25,7 +25,7 @@ class TrafficCamAnnotation: NSObject, MKAnnotation {
 }
 
 //TODO: annotation clustering
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MeshConnectionDelegate, TrackableDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MeshConnectionDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var playerContainer: UIView!
@@ -33,7 +33,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBOutlet weak var meshStatusView: UIView!
     @IBOutlet weak var meshStatusText: UILabel!
     private var meshConnection: MeshConnection? = nil
-    private var trackedDevice: CopilotTrackable? = nil
     private var trackedDeviceTrace: MKPolyline? = nil
     
     private let locationManager = CLLocationManager()
@@ -258,10 +257,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
     }
     
-    private func openConnection(connection: MeshConnection) {
+    private func openConnection(network: MeshNetwork, connection: MeshConnection) {
         self.meshConnection = connection
-        self.trackedDevice = CopilotTrackable(userId: connection.peerUserId, deviceUUID: connection.peerUUID)
-        self.trackedDevice!.start(delegate: self)
+        
+        network.requestLocations(connection: connection)
         DispatchQueue.main.async {
             self.meshStatusView.isHidden = false
             self.meshStatusText.text = "Apple Mesh Connected"
@@ -271,14 +270,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     func connection(_ network: MeshNetwork, didConnect connection: MeshConnection) {
         NSLog("Connected to peer \(connection.peerID)")
         if connection.peerUUID == self.meshConnection?.peerUUID {
-            self.openConnection(connection: connection)
+            self.openConnection(network: network, connection: connection)
             return
         }
         let alert = UIAlertController(title: "Copilot Device Detected", message: "Apple Mesh connected to device \(connection.peerUUID)", preferredStyle: .alert)
         let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
         alert.addAction(dismissAction)
         let displayTracesAction = UIAlertAction(title: "Load Data", style: .default, handler: {action in
-            self.openConnection(connection: connection)
+            self.openConnection(network: network, connection: connection)
         })
         alert.addAction(displayTracesAction)
         self.present(alert, animated: true, completion: nil)
@@ -289,20 +288,20 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         NSLog("Disconnected from peer \(peerID)")
         if peerID == self.meshConnection?.peerID {
             DispatchQueue.main.async {
-                if let trackedDevice = self.trackedDevice {
-                    trackedDevice.stop()
-                }
-                self.trackedDevice = nil
                 self.meshStatusView.isHidden = true
+                //TODO: remove polyline annotations
             }
         }
     }
     
-    func traceChanged(trace: LocationTrace) {
-        let unsafeCoordinates = trace.coordinates.map{ coordinate in
-            return coordinate.coordinate
+    func connection(_ network: MeshNetwork, gotLocations: [LocationSegment], connection: MeshConnection) {
+        NSLog("Got locations \(gotLocations)")
+        let coordinates = gotLocations.map{ location in
+            return CLLocation(latitude: location.latitude, longitude: location.longitude)
         }
-        let newPolyline = MKGeodesicPolyline(coordinates: unsafeCoordinates, count: trace.coordinates.count)
+        let unsafeCoordinates = coordinates.map{ coordinate in return coordinate.coordinate }
+        let topSpeed = gotLocations.map{ location in return location.speed }.max()!
+        let newPolyline = MKGeodesicPolyline(coordinates: unsafeCoordinates, count: coordinates.count)
         DispatchQueue.main.async {
             if let existingLine = self.trackedDeviceTrace {
                 self.mapView.remove(existingLine)
@@ -311,15 +310,15 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 self.mapView.add(newPolyline)
                 self.trackedDeviceTrace = newPolyline
             }
-            self.meshStatusText.text = "Top Speed \(round(trace.topSpeed * 10) / 10) MPH"
+            self.meshStatusText.text = "Top Speed \(round(topSpeed * 10) / 10) MPH"
             
-            if let lastLoc = trace.coordinates.last {
+            if let lastLoc = coordinates.last {
                 let region = MKCoordinateRegionMakeWithDistance(lastLoc.coordinate, 10000, 10000)
                 self.mapView.setRegion(region, animated: true)
             }
         }
-
         
+        //TODO: option to clear view
     }
     
     

@@ -9,7 +9,6 @@
 import UIKit
 import Foundation
 import CoreLocation
-import SQLite3
 
 public protocol LocationTrackerDelegate: NSObjectProtocol {
     func didUpdateLocationStats(locationStats: LocationStats) -> Void
@@ -48,85 +47,8 @@ class LocationReceiverConfig {
     }
 }
 
-class LocationDatabase: NSObject {
-    private let db: OpaquePointer?
-    
-    override init() {
-        let dbUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!.appendingPathComponent("copilotLocations.sqlite")
-        var db: OpaquePointer?
-        if sqlite3_open(dbUrl.path, &db) != SQLITE_OK {
-            fatalError("Unable to open sqlite database")
-        }
-        self.db = db
-        super.init()
-    }
-    
-    func ensureTable() {
-        let statement = "create table if not exists locations (uuid integer primary key autoincrement, latitude double, longitude double, altitude double, speed double, epoch double, private boolean)"
-        if sqlite3_exec(self.db, statement, nil, nil, nil) != SQLITE_OK {
-            fatalError("Unable to initialize sqlite locations table")
-        }
-    }
-    
-    func addLocations(segments: [LocationSegment]) {
-        var statement: OpaquePointer?
-        if sqlite3_prepare_v2(db, "insert into locations (latitude, longitude, altitude, speed, epoch, private) values (?, ?, ?, ?, ?, 0)", -1, &statement, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(self.db!))
-            NSLog("Sqlite prepared statement failed \(message)")
-            return
-        }
-        segments.forEach{segment in
-            if sqlite3_reset(statement) != SQLITE_OK {
-                let message = String(cString: sqlite3_errmsg(self.db!))
-                NSLog("Failed to reset sqlite statement \(message)")
-                return
-            }
-            sqlite3_bind_double(statement, 1, segment.latitude)
-            sqlite3_bind_double(statement, 2, segment.longitude)
-            sqlite3_bind_double(statement, 3, segment.altitude)
-            sqlite3_bind_double(statement, 4, segment.speed)
-            sqlite3_bind_double(statement, 5, segment.epochMs)
-            if sqlite3_step(statement) != SQLITE_DONE {
-                let message = String(cString: sqlite3_errmsg(self.db!))
-                NSLog("Failed to insert sqlite record \(message)")
-                return
-            }
-        }
-        
-        if sqlite3_finalize(statement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(self.db!))
-            NSLog("Failed to finalize sqlite statement \(message)")
-        }
-    }
-    
-    func getLocations() { //TODO: finish this
-        var statement: OpaquePointer?
-        if sqlite3_prepare_v2(self.db, "select epoch, latitude, longitude, speed from locations", -1, &statement, nil) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(self.db!))
-            NSLog("GetLocations sqlite prepared statement failed \(message)")
-            return
-        }
-        
-        while sqlite3_step(statement) == SQLITE_ROW {
-            //TODO: put into data structure
-            let epochMs = sqlite3_column_double(statement, 1)
-            let latitude = sqlite3_column_double(statement, 2)
-            let longitude = sqlite3_column_double(statement, 3)
-            let speed = sqlite3_column_double(statement, 4)
-            NSLog("Loaded location \(epochMs) \(latitude) \(longitude) \(speed)")
-        }
-        
-        if sqlite3_finalize(statement) != SQLITE_OK {
-            let message = String(cString: sqlite3_errmsg(self.db!))
-            NSLog("Failed to finalize sqlite statement \(message)")
-        }
-    }
-}
-
 class LocationTracker: NSObject, CLLocationManagerDelegate {
     private var delegateConfig: LocationReceiverConfig = LocationReceiverConfig()
-    
-    private let locationDatabase = LocationDatabase()
     
     private var endpoint: URL? = nil
     private let locationManager = CLLocationManager()
@@ -145,7 +67,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         let deviceUUID = UIDevice.current.identifierForVendor!
         self.endpoint = URL(string: "\(Configuration.shared.apiGatewayCore)/users/\(account.username)/devices/\(deviceUUID)/locations")
         UIApplication.shared.setMinimumBackgroundFetchInterval(60)
-        self.locationDatabase.ensureTable()
+        LocationDatabase.shared.ensureTable()
     }
     
     static func get(account: Account) -> LocationTracker {
@@ -196,17 +118,16 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locationSegments = locations.map { location in
             return LocationSegment(
+                epochMs: location.timestamp.timeIntervalSince1970 * 1000,
                 altitude: location.altitude,
                 course: location.course,
                 latitude: location.coordinate.latitude,
                 longitude: location.coordinate.longitude,
-                speed: location.speed,
-                epochMs: location.timestamp.timeIntervalSince1970 * 1000,
-                privacyEnabled: privacyEnabled
+                speed: location.speed
             )
         }
         
-        self.locationDatabase.addLocations(segments: locationSegments)
+        LocationDatabase.shared.addLocations(segments: locationSegments)
         
         if locationSegments.count < 1 {
             return

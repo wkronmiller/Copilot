@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49137BC620FD6FB300DE6B90 /* LocationDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */; };
+		49137BC720FD6FB300DE6B90 /* LocationDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */; };
+		49137BC820FD6FB300DE6B90 /* LocationDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */; };
 		49381EAF20F4489000F7982D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EAE20F4489000F7982D /* AppDelegate.swift */; };
 		49381EB120F4489000F7982D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EB020F4489000F7982D /* ViewController.swift */; };
 		49381EB320F4489100F7982D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49381EB220F4489100F7982D /* Assets.xcassets */; };
@@ -19,7 +22,9 @@
 		49381EC720FB6B0D00F7982D /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EC520FB6B0D00F7982D /* JWT.swift */; };
 		49381EC820FB6B0D00F7982D /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EC520FB6B0D00F7982D /* JWT.swift */; };
 		49381ECA20FB6CB800F7982D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EC920FB6CB800F7982D /* LoginViewController.swift */; };
-		49561110202F449600464A53 /* LocationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4956110F202F449600464A53 /* LocationModels.swift */; };
+		493E653520FE012E0054797D /* LocationSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E653420FE012E0054797D /* LocationSegment.swift */; };
+		493E653620FE012E0054797D /* LocationSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E653420FE012E0054797D /* LocationSegment.swift */; };
+		493E653720FE012E0054797D /* LocationSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E653420FE012E0054797D /* LocationSegment.swift */; };
 		49561112202F451B00464A53 /* WebUplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49561111202F451B00464A53 /* WebUplink.swift */; };
 		496BCFB42027A157001C6B48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFB32027A157001C6B48 /* AppDelegate.swift */; };
 		496BCFB62027A157001C6B48 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFB52027A157001C6B48 /* MapViewController.swift */; };
@@ -41,7 +46,6 @@
 		4998318320F0DB8800C69215 /* MeshDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318220F0DB8800C69215 /* MeshDiscovery.swift */; };
 		4998318420F0DB8800C69215 /* MeshDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318220F0DB8800C69215 /* MeshDiscovery.swift */; };
 		4998318620F0EC5700C69215 /* NetworkingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318520F0EC5700C69215 /* NetworkingViewController.swift */; };
-		4998318820F11D9D00C69215 /* CopilotTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318720F11D9D00C69215 /* CopilotTracker.swift */; };
 		4998318A20F24B6F00C69215 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4998318920F24B6F00C69215 /* Settings.bundle */; };
 		4998318B20F24B6F00C69215 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4998318920F24B6F00C69215 /* Settings.bundle */; };
 		49B69D3B2031B32700ACD609 /* WeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B69D3A2031B32700ACD609 /* WeatherController.swift */; };
@@ -59,6 +63,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDatabase.swift; sourceTree = "<group>"; };
 		49381EAC20F4489000F7982D /* MacOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49381EAE20F4489000F7982D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49381EB020F4489000F7982D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -71,7 +76,7 @@
 		49381EC520FB6B0D00F7982D /* JWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWT.swift; sourceTree = "<group>"; };
 		49381EC920FB6CB800F7982D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		49381ECB20FB72C100F7982D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		4956110F202F449600464A53 /* LocationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModels.swift; sourceTree = "<group>"; };
+		493E653420FE012E0054797D /* LocationSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSegment.swift; sourceTree = "<group>"; };
 		49561111202F451B00464A53 /* WebUplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUplink.swift; sourceTree = "<group>"; };
 		496BCFB02027A157001C6B48 /* iOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		496BCFB32027A157001C6B48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,7 +102,6 @@
 		4998318020F070B500C69215 /* AudioAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioAlerts.swift; path = CopilotCommon/AudioAlerts.swift; sourceTree = SOURCE_ROOT; };
 		4998318220F0DB8800C69215 /* MeshDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshDiscovery.swift; sourceTree = "<group>"; };
 		4998318520F0EC5700C69215 /* NetworkingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingViewController.swift; sourceTree = "<group>"; };
-		4998318720F11D9D00C69215 /* CopilotTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopilotTracker.swift; sourceTree = "<group>"; };
 		4998318920F24B6F00C69215 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		49B69D3A2031B32700ACD609 /* WeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherController.swift; sourceTree = "<group>"; };
 		49C288C1203085C200D5C212 /* TrafficStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficStatus.swift; sourceTree = "<group>"; };
@@ -224,7 +228,6 @@
 				4998316A20F0567500C69215 /* Main.storyboard */,
 				4998316D20F0567600C69215 /* Assets.xcassets */,
 				4998316F20F0567600C69215 /* Info.plist */,
-				4998318720F11D9D00C69215 /* CopilotTracker.swift */,
 			);
 			path = tvOSCopilot;
 			sourceTree = "<group>";
@@ -233,7 +236,6 @@
 			isa = PBXGroup;
 			children = (
 				49C288C32030B13A00D5C212 /* Configuration.swift */,
-				4956110F202F449600464A53 /* LocationModels.swift */,
 				49D85CCA203879560088B633 /* LocationStats.swift */,
 				496BCFCD2028807A001C6B48 /* LocationTracker.swift */,
 				49561111202F451B00464A53 /* WebUplink.swift */,
@@ -245,6 +247,8 @@
 				4998318920F24B6F00C69215 /* Settings.bundle */,
 				49381EC120FB6AF100F7982D /* CopilotApi.swift */,
 				49381EC520FB6B0D00F7982D /* JWT.swift */,
+				49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */,
+				493E653420FE012E0054797D /* LocationSegment.swift */,
 			);
 			path = CopilotCommon;
 			sourceTree = "<group>";
@@ -428,9 +432,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				493E653720FE012E0054797D /* LocationSegment.swift in Sources */,
 				49381EB120F4489000F7982D /* ViewController.swift in Sources */,
 				49381EC820FB6B0D00F7982D /* JWT.swift in Sources */,
 				49381EAF20F4489000F7982D /* AppDelegate.swift in Sources */,
+				49137BC820FD6FB300DE6B90 /* LocationDatabase.swift in Sources */,
 				49381EC420FB6AF100F7982D /* CopilotApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,7 +447,9 @@
 			files = (
 				49381ECA20FB6CB800F7982D /* LoginViewController.swift in Sources */,
 				49D85CC92035ACEA0088B633 /* SettingsController.swift in Sources */,
+				493E653520FE012E0054797D /* LocationSegment.swift in Sources */,
 				49C288C2203085C200D5C212 /* TrafficStatus.swift in Sources */,
+				49137BC620FD6FB300DE6B90 /* LocationDatabase.swift in Sources */,
 				4998318620F0EC5700C69215 /* NetworkingViewController.swift in Sources */,
 				49C288CB203103FD00D5C212 /* MainTabController.swift in Sources */,
 				49FFC68E20C579F700DC6D5A /* CommsController.swift in Sources */,
@@ -450,7 +458,6 @@
 				49D85CC520345A000088B633 /* WeatherStatus.swift in Sources */,
 				49561112202F451B00464A53 /* WebUplink.swift in Sources */,
 				49D85CC7203482240088B633 /* AudioAlerts.swift in Sources */,
-				49561110202F449600464A53 /* LocationModels.swift in Sources */,
 				49D85CCB203879560088B633 /* LocationStats.swift in Sources */,
 				496BCFCE2028807A001C6B48 /* LocationTracker.swift in Sources */,
 				496BCFB42027A157001C6B48 /* AppDelegate.swift in Sources */,
@@ -470,12 +477,13 @@
 				4998318420F0DB8800C69215 /* MeshDiscovery.swift in Sources */,
 				4998317920F0583800C69215 /* Configuration.swift in Sources */,
 				49381EC320FB6AF100F7982D /* CopilotApi.swift in Sources */,
+				49137BC720FD6FB300DE6B90 /* LocationDatabase.swift in Sources */,
 				4998318120F070B500C69215 /* AudioAlerts.swift in Sources */,
 				4998317F20F0707C00C69215 /* WebUplink.swift in Sources */,
 				49381EC720FB6B0D00F7982D /* JWT.swift in Sources */,
 				4998316920F0567500C69215 /* ViewController.swift in Sources */,
-				4998318820F11D9D00C69215 /* CopilotTracker.swift in Sources */,
 				4998316720F0567500C69215 /* AppDelegate.swift in Sources */,
+				493E653620FE012E0054797D /* LocationSegment.swift in Sources */,
 				4998317D20F0706C00C69215 /* TrafficCams.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

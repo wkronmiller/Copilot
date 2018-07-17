@@ -20,12 +20,49 @@ struct MeshConnection {
 protocol MeshConnectionDelegate {
     func connection(_ network: MeshNetwork, didConnect connection: MeshConnection)
     func connection(_ network: MeshNetwork, didDisconnect peerID: MCPeerID)
-    
+    func connection(_ network: MeshNetwork, gotLocations: [LocationSegment], connection: MeshConnection)
     //TODO: reconnected
 }
 
-enum MeshPacketType: String {
+enum MeshPacketType: String, Codable {
     case handshake
+    case sendLocations
+    case requestLocations
+}
+
+struct HandshakeData: Codable {
+    let uuid: String
+    let userId: String
+}
+
+class MeshPacket: Codable {
+    private static let encoder = JSONEncoder()
+    private static let decoder = JSONDecoder()
+    
+    var type: MeshPacketType
+    var payload: Data
+    
+    init(type: MeshPacketType, payload: Data) {
+        self.type = type
+        self.payload = payload
+    }
+    
+    static func create<T: Codable>(type: MeshPacketType, payload: T) -> MeshPacket {
+        let encoded = try! MeshPacket.encoder.encode(payload)
+        return MeshPacket(type: type, payload: encoded)
+    }
+    
+    func serialize() -> Data {
+        return try! MeshPacket.encoder.encode(self)
+    }
+    
+    static func deserialize(data: Data) -> MeshPacket {
+        return try! MeshPacket.decoder.decode(self, from: data)
+    }
+    
+    func getPayload<T: Codable>() -> T {
+        return try! MeshPacket.decoder.decode(T.self, from: self.payload)
+    }
 }
 
 class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate, MCSessionDelegate {
@@ -83,18 +120,42 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
         NSLog("Lost peer \(peerID)")
     }
     
+    private let encoder = JSONEncoder()
+    
     private func sendHandshake(peer: MCPeerID, session: MCSession) {
         NSLog("Sending device UUID")
-        let uuid = UIDevice.current.identifierForVendor!.uuidString
-        let userId = Configuration.shared.getAccount()!.username
-        let packet: [String: String] = ["type": MeshPacketType.handshake.rawValue, "uuid": uuid, "userId": userId]
-        let encoder = JSONEncoder()
+        
+        let handshakeData =
+            HandshakeData(uuid: UIDevice.current.identifierForVendor!.uuidString, userId: Configuration.shared.getAccount()!.username)
+        
+        let packet = MeshPacket.create(type: .handshake, payload: handshakeData)
+        
         do {
-            let json = try encoder.encode(packet)
-            try session.send(json, toPeers: [peer], with: MCSessionSendDataMode.reliable)
-            //TODO
+            try session.send(packet.serialize(), toPeers: [peer], with: .reliable)
         } catch {
-            NSLog("Failed to send UUID \(error)")
+            NSLog("Failed to send handshake \(error)")
+        }
+    }
+    
+    private func sendLocations(peer: MCPeerID, session: MCSession) {
+        NSLog("Sending device location history")
+        
+        let locationSegments = LocationDatabase.shared.getLocations()
+        let packet = MeshPacket.create(type: .sendLocations, payload: locationSegments)
+        do {
+            try session.send(packet.serialize(), toPeers: [peer], with: .reliable)
+        } catch {
+            NSLog("Failed to send location segments \(error)")
+        }
+    }
+    
+    func requestLocations(connection: MeshConnection) {
+        let emptyPayload: [String: String] = [:]
+        let packet = MeshPacket.create(type: .requestLocations, payload: emptyPayload)
+        do {
+            try connection.session.send(packet.serialize(), toPeers: [connection.peerID], with: .reliable)
+        } catch {
+            NSLog("Failed to request location segments \(error)")
         }
     }
     
@@ -117,28 +178,34 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
             NSLog("Connecting to peer \(peerID)")
         }
     }
-
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         NSLog("Received data packet from peer \(peerID) \(String(data: data, encoding: .utf8))")
-        do {
-            let packet = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-            NSLog("Decoded packet as \(packet)")
-            let type = packet["type"] as! String
-            switch(type) {
-            case MeshPacketType.handshake.rawValue:
-                let uuid = packet["uuid"] as! String
-                let userId = packet["userId"] as! String
-                NSLog("Got UUID from device \(uuid)")
-                let newConnection = MeshConnection(peerID: peerID, session: session, peerUserId: userId, peerUUID: uuid)
-                self.openConnections.append(newConnection)
-                self.delegate?.connection(self, didConnect: newConnection)
-                return
-            default:
-                return
+        let packet = MeshPacket.deserialize(data: data)
+        NSLog("Decoded packet as \(packet)")
+        switch(packet.type) {
+        case .handshake:
+            let handshakeData: HandshakeData = packet.getPayload()
+            let newConnection = MeshConnection(peerID: peerID, session: session, peerUserId: handshakeData.userId, peerUUID: handshakeData.uuid)
+            self.openConnections.append(newConnection)
+            self.delegate?.connection(self, didConnect: newConnection)
+            return
+        case .sendLocations:
+            NSLog("Got location traces")
+            let locationSegments: [LocationSegment] = packet.getPayload()
+            if let connection = self.openConnections.first(where: {connection in
+                connection.peerID == peerID
+            }) {
+                self.delegate?.connection(self, gotLocations: locationSegments, connection: connection)
+            } else {
+                NSLog("Could not find connection for peer that sent locations \(peerID)")
             }
-        } catch {
-            NSLog("Failed to deserialize packet \(data): \(error)")
+            return
+        case .requestLocations:
+            NSLog("Got location trace request")
+            //TODO: ask for permission
+            self.sendLocations(peer: peerID, session: session)
+            return
         }
     }
     
