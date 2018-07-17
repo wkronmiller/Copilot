@@ -278,6 +278,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         alert.addAction(dismissAction)
         let displayTracesAction = UIAlertAction(title: "Load Data", style: .default, handler: {action in
             self.openConnection(network: network, connection: connection)
+            if let existingLine = self.trackedDeviceTrace {
+                self.mapView.remove(existingLine)
+            }
         })
         alert.addAction(displayTracesAction)
         self.present(alert, animated: true, completion: nil)

@@ -128,7 +128,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         }
         
         LocationDatabase.shared.addLocations(segments: locationSegments)
-        
+        LocationDatabase.shared.getLocations() //TODO: remove
         if locationSegments.count < 1 {
             return
         }

@@ -12,7 +12,7 @@ import SQLite3
 class LocationDatabase: NSObject {
     private let db: OpaquePointer?
     
-    private let tableName = "locations2"
+    private let tableName = "locations3"
     
     override init() {
         let dbUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!.appendingPathComponent("copilotLocations.sqlite")
@@ -32,6 +32,7 @@ class LocationDatabase: NSObject {
     }
     
     func addLocations(segments: [LocationSegment]) {
+        NSLog("Database storing locations \(segments.last)")
         var statement: OpaquePointer?
         if sqlite3_prepare_v2(db, "insert into \(tableName) (epochMs, altitude, course, latitude, longitude, speed) values (?, ?, ?, ?, ?, ?)", -1, &statement, nil) != SQLITE_OK {
             let message = String(cString: sqlite3_errmsg(self.db!))
@@ -66,7 +67,7 @@ class LocationDatabase: NSObject {
     
     func getLocations() -> [LocationSegment] {
         var statement: OpaquePointer?
-        if sqlite3_prepare_v2(self.db, "select epochMs, altitude, course, latitude, longitude, speed from \(tableName)", -1, &statement, nil) != SQLITE_OK {
+        if sqlite3_prepare_v2(self.db, "select epochMs, altitude, course, latitude, longitude, speed from \(tableName) ORDER BY epochMs asc", -1, &statement, nil) != SQLITE_OK {
             let message = String(cString: sqlite3_errmsg(self.db!))
             NSLog("GetLocations sqlite prepared statement failed \(message)")
             return []
@@ -74,16 +75,18 @@ class LocationDatabase: NSObject {
         
         var locationSegments: [LocationSegment] = []
         while sqlite3_step(statement) == SQLITE_ROW {
-            let epochMs = sqlite3_column_double(statement, 1)
-            let altitude = sqlite3_column_double(statement, 2)
-            let course = sqlite3_column_double(statement, 3)
-            let latitude = sqlite3_column_double(statement, 4)
-            let longitude = sqlite3_column_double(statement, 5)
-            let speed = sqlite3_column_double(statement, 6)
+            let epochMs = sqlite3_column_double(statement, 0)
+            let altitude = sqlite3_column_double(statement, 1)
+            let course = sqlite3_column_double(statement, 2)
+            let latitude = sqlite3_column_double(statement, 3)
+            let longitude = sqlite3_column_double(statement, 4)
+            let speed = sqlite3_column_double(statement, 5)
             
             let locationSegment = LocationSegment(epochMs: epochMs, altitude: altitude, course: course, latitude: latitude, longitude: longitude, speed: speed)
             locationSegments.append(locationSegment)
         }
+        
+        NSLog("Database contains location segments \(locationSegments.last)")
         
         if sqlite3_finalize(statement) != SQLITE_OK {
             let message = String(cString: sqlite3_errmsg(self.db!))
