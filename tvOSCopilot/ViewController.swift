@@ -25,7 +25,7 @@ class TrafficCamAnnotation: NSObject, MKAnnotation {
 }
 
 //TODO: annotation clustering
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MeshConnectionDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MeshBaseStationDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var playerContainer: UIView!
@@ -47,7 +47,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     private let radarTileRenderer: MKTileOverlayRenderer
     private var radarLastRefreshed: Date? = nil
     
-    private let meshNetwork = MeshNetwork(isBaseStation: true)
+    private let meshNetwork = MeshBaseStation()
     
     required init?(coder aDecoder: NSCoder) {
         self.baseMapOverlay = MKTileOverlay(urlTemplate: Configuration.shared.baseMapTileUrl)

@@ -20,8 +20,16 @@ struct MeshConnection {
 protocol MeshConnectionDelegate {
     func connection(_ network: MeshNetwork, didConnect connection: MeshConnection)
     func connection(_ network: MeshNetwork, didDisconnect peerID: MCPeerID)
-    func connection(_ network: MeshNetwork, gotLocations: [LocationSegment], connection: MeshConnection)
+
     //TODO: reconnected
+}
+
+protocol MeshBaseStationDelegate: MeshConnectionDelegate {
+    func connection(_ network: MeshNetwork, gotLocations: [LocationSegment], connection: MeshConnection)
+}
+
+protocol MeshControllerDelegate: MeshConnectionDelegate {
+    //TODO
 }
 
 enum MeshPacketType: String, Codable {
@@ -65,27 +73,48 @@ class MeshPacket: Codable {
     }
 }
 
+class MeshBaseStation: MeshNetwork {
+    private func getBaseStationDelegate() -> MeshBaseStationDelegate? {
+        if let delegate = self.delegate {
+            return delegate as? MeshBaseStationDelegate
+        }
+        return nil
+    }
+    override internal func gotLocations(connection: MeshConnection, locationSegments: [LocationSegment]) {
+        self.getBaseStationDelegate()?.connection(self, gotLocations: locationSegments, connection: connection)
+    }
+    
+    override func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
+        super.browser(browser, foundPeer: peerID, withDiscoveryInfo: info)
+        NSLog("Inviting peer \(peerID)")
+        browser.invitePeer(peerID, to: self.session, withContext: nil, timeout: 10.0)
+    }
+    //TODO
+}
+
+class MeshNetworkController: MeshNetwork {
+    //TODO
+}
+
+//TODO: break this into two classes, one for baseStations and one for controlllers
 class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate, MCSessionDelegate {
     private let serviceType = "copilot-mpc"
     private let selfId: MCPeerID
-    private let session: MCSession
+    internal let session: MCSession
     private let browser: MCNearbyServiceBrowser
     private let advertiser: MCNearbyServiceAdvertiser
     
     private var openConnections: [MeshConnection] = []
     
-    private let isBaseStation: Bool
-    
     private var isAdvertising = false
     
     var delegate: MeshConnectionDelegate? = nil
     
-    init(isBaseStation: Bool) {
+    override init() {
         self.selfId = MCPeerID(displayName: UIDevice.current.identifierForVendor!.uuidString)
         self.session = MCSession(peer: self.selfId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.none)
         self.browser = MCNearbyServiceBrowser(peer: self.selfId, serviceType: self.serviceType)
         self.advertiser = MCNearbyServiceAdvertiser(peer: self.selfId, discoveryInfo: nil, serviceType: self.serviceType)
-        self.isBaseStation = isBaseStation
         super.init()
         self.session.delegate = self
         self.browser.delegate = self
@@ -102,6 +131,7 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
         NSLog("Accepted invitation from peer \(peerID)")
     }
     
+    
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         NSLog("Found peer \(peerID)")
         let existingConnection = self.openConnections.contains{ connection in
@@ -109,10 +139,6 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
         }
         if(existingConnection) {
             NSLog("Mesh already has connection to peer \(peerID)")
-        }
-        if(self.isBaseStation) {
-            NSLog("Inviting peer \(peerID)")
-            browser.invitePeer(peerID, to: self.session, withContext: nil, timeout: 10.0)
         }
     }
     
@@ -149,6 +175,10 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
         }
     }
     
+    func sendLocations(connection: MeshConnection) {
+        self.sendHandshake(peer: connection.peerID, session: connection.session)
+    }
+    
     func requestLocations(connection: MeshConnection) {
         let emptyPayload: [String: String] = [:]
         let packet = MeshPacket.create(type: .requestLocations, payload: emptyPayload)
@@ -163,9 +193,7 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
         switch(state) {
         case .connected:
             NSLog("Connected to peer \(peerID)")
-            if(self.isBaseStation == false) {
-                self.sendHandshake(peer: peerID, session: session)
-            }
+            self.sendHandshake(peer: peerID, session: session)
             break
         case .notConnected:
             NSLog("Mesh disconnected from peer \(peerID)")
@@ -178,6 +206,8 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
             NSLog("Connecting to peer \(peerID)")
         }
     }
+    
+    internal func gotLocations(connection: MeshConnection, locationSegments: [LocationSegment]) {}
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         NSLog("Received data packet from peer \(peerID) \(String(data: data, encoding: .utf8))")
@@ -196,7 +226,7 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
             if let connection = self.openConnections.first(where: {connection in
                 connection.peerID == peerID
             }) {
-                self.delegate?.connection(self, gotLocations: locationSegments, connection: connection)
+                self.gotLocations(connection: connection, locationSegments: locationSegments)
             } else {
                 NSLog("Could not find connection for peer that sent locations \(peerID)")
             }
@@ -219,6 +249,10 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
     
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
         NSLog("Finished receiving resource \(resourceName) from peer \(peerID)")
+    }
+    
+    func getConnected() -> [MeshConnection] {
+        return self.openConnections
     }
     
     func startAdvertising() {
