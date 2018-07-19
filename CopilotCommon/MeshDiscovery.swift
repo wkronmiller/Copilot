@@ -151,22 +151,26 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
     private func sendHandshake(peer: MCPeerID, session: MCSession) {
         NSLog("Sending device UUID")
         
-        let handshakeData =
-            HandshakeData(uuid: UIDevice.current.identifierForVendor!.uuidString, userId: Configuration.shared.getAccount()!.username)
-        
-        let packet = MeshPacket.create(type: .handshake, payload: handshakeData)
-        
-        do {
-            try session.send(packet.serialize(), toPeers: [peer], with: .reliable)
-        } catch {
-            NSLog("Failed to send handshake \(error)")
+        if let username = Configuration.shared.getAccount()?.username {
+            let handshakeData =
+                HandshakeData(uuid: UIDevice.current.identifierForVendor!.uuidString, userId: username)
+            
+            let packet = MeshPacket.create(type: .handshake, payload: handshakeData)
+            
+            do {
+                try session.send(packet.serialize(), toPeers: [peer], with: .reliable)
+            } catch {
+                NSLog("Failed to send handshake \(error)")
+            }
+        } else {
+            NSLog("Cannot send handshake without account info")
         }
     }
     
-    private func sendLocations(peer: MCPeerID, session: MCSession) {
+    private func sendLocations(peer: MCPeerID, session: MCSession, dateInterval: DateInterval) {
         NSLog("Sending device location history")
         
-        let locationSegments = LocationDatabase.shared.getLocations()
+        let locationSegments = LocationDatabase.shared.getLocations(dateInterval: dateInterval)
         let packet = MeshPacket.create(type: .sendLocations, payload: locationSegments)
         do {
             try session.send(packet.serialize(), toPeers: [peer], with: .reliable)
@@ -175,8 +179,8 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
         }
     }
     
-    func sendLocations(connection: MeshConnection) {
-        self.sendHandshake(peer: connection.peerID, session: connection.session)
+    func sendLocations(connection: MeshConnection, dateInterval: DateInterval) {
+        self.sendLocations(peer: connection.peerID, session: connection.session, dateInterval: dateInterval)
     }
     
     func requestLocations(connection: MeshConnection) {
@@ -212,7 +216,7 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         NSLog("Received data packet from peer \(peerID) \(String(data: data, encoding: .utf8))")
         let packet = MeshPacket.deserialize(data: data)
-        NSLog("Decoded packet as \(packet)")
+        NSLog("Decoded packet as \(packet) with type \(packet.type.rawValue)")
         switch(packet.type) {
         case .handshake:
             let handshakeData: HandshakeData = packet.getPayload()
@@ -232,9 +236,7 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
             }
             return
         case .requestLocations:
-            NSLog("Got location trace request")
-            //TODO: ask for permission
-            self.sendLocations(peer: peerID, session: session)
+            NSLog("Got location trace request. Ignoring")
             return
         }
     }

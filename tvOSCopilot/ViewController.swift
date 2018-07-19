@@ -259,8 +259,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     private func openConnection(network: MeshNetwork, connection: MeshConnection) {
         self.meshConnection = connection
-        
-        network.requestLocations(connection: connection)
         DispatchQueue.main.async {
             self.meshStatusView.isHidden = false
             self.meshStatusText.text = "Apple Mesh Connected"
@@ -269,22 +267,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     func connection(_ network: MeshNetwork, didConnect connection: MeshConnection) {
         NSLog("Connected to peer \(connection.peerID)")
-        if connection.peerUUID == self.meshConnection?.peerUUID {
-            self.openConnection(network: network, connection: connection)
-            return
+        self.openConnection(network: network, connection: connection)
+        if let existingLine = self.trackedDeviceTrace {
+            self.mapView.remove(existingLine)
         }
-        let alert = UIAlertController(title: "Copilot Device Detected", message: "Apple Mesh connected to device \(connection.peerUUID)", preferredStyle: .alert)
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
-        alert.addAction(dismissAction)
-        let displayTracesAction = UIAlertAction(title: "Load Data", style: .default, handler: {action in
-            self.openConnection(network: network, connection: connection)
-            if let existingLine = self.trackedDeviceTrace {
-                self.mapView.remove(existingLine)
-            }
-        })
-        alert.addAction(displayTracesAction)
-        self.present(alert, animated: true, completion: nil)
-        NSLog("Sent alert")
+    }
+    
+    private func clearPolylines() {
+        if let existingLine = self.trackedDeviceTrace {
+            self.mapView.remove(existingLine)
+        }
     }
     
     func connection(_ network: MeshNetwork, didDisconnect peerID: MCPeerID) {
@@ -292,28 +284,34 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if peerID == self.meshConnection?.peerID {
             DispatchQueue.main.async {
                 self.meshStatusView.isHidden = true
-                //TODO: remove polyline annotations
+                self.clearPolylines()
             }
         }
     }
     
     func connection(_ network: MeshNetwork, gotLocations: [LocationSegment], connection: MeshConnection) {
-        NSLog("Got locations \(gotLocations)")
+        NSLog("TV view got locations \(gotLocations)")
+        if gotLocations.isEmpty {
+            NSLog("Got no locations")
+            return
+        }
         let coordinates = gotLocations.map{ location in
             return CLLocation(latitude: location.latitude, longitude: location.longitude)
         }
         let unsafeCoordinates = coordinates.map{ coordinate in return coordinate.coordinate }
-        let topSpeed = gotLocations.map{ location in return location.speed }.max()!
+        let speeds = gotLocations.map{ location in return location.speed }
+        NSLog("Got speeds \(speeds)")
+        let topSpeed = speeds.max()!
         let newPolyline = MKGeodesicPolyline(coordinates: unsafeCoordinates, count: coordinates.count)
+        NSLog("Will display client locations")
         DispatchQueue.main.async {
-            if let existingLine = self.trackedDeviceTrace {
-                self.mapView.remove(existingLine)
-            }
+            NSLog("Displaying client locations")
+            self.clearPolylines()
             if newPolyline.pointCount > 0 {
                 self.mapView.add(newPolyline)
                 self.trackedDeviceTrace = newPolyline
             }
-            self.meshStatusText.text = "Top Speed \(round(topSpeed * 10) / 10) MPH"
+            self.meshStatusText.text = "Top Speed \(round(topSpeed * 2.23694 * 10) / 10) MPH"
             
             if let lastLoc = coordinates.last {
                 let region = MKCoordinateRegionMakeWithDistance(lastLoc.coordinate, 10000, 10000)

@@ -15,6 +15,8 @@ class MeshConnectionTableCell: UITableViewCell {
 }
 
 class NetworkingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MeshControllerDelegate {
+    @IBOutlet weak var startDate: UIDatePicker!
+    @IBOutlet weak var endDate: UIDatePicker!
     @IBOutlet weak var connectionTable: UITableView!
     @IBOutlet weak var sendLocationsButton: UIButton!
     
@@ -87,7 +89,12 @@ class NetworkingViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func sendLocationsClicked(_ sender: Any) {
-        self.meshNetwork.sendLocations(connection: self.selectedConnection!)
+        if startDate.date >= endDate.date {
+            NSLog("Dates invalid")
+            return
+        }
+        let dateInterval = DateInterval(start: startDate.date, end: endDate.date)
+        self.meshNetwork.sendLocations(connection: self.selectedConnection!, dateInterval: dateInterval)
     }
     //TODO
 }

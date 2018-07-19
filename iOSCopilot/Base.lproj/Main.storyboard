@@ -146,6 +146,26 @@
                                     <action selector="sendLocationsClicked:" destination="EhT-PF-xMZ" eventType="touchUpInside" id="S1u-jk-ibD"/>
                                 </connections>
                             </button>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="30" translatesAutoresizingMaskIntoConstraints="NO" id="VmW-v0-cFl">
+                                <rect key="frame" x="70" y="120" width="235" height="92"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="553692526.59208906">
+                                    <!--2018-07-19 11:28:46 +0000-->
+                                </date>
+                                <date key="maximumDate" timeIntervalSinceReferenceDate="1167562800">
+                                    <!--2037-12-31 11:00:00 +0000-->
+                                </date>
+                            </datePicker>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="30" translatesAutoresizingMaskIntoConstraints="NO" id="uXu-fy-evb">
+                                <rect key="frame" x="70" y="25" width="235" height="92"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="553692526.59208906">
+                                    <!--2018-07-19 11:28:46 +0000-->
+                                </date>
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
+                                    <!--1970-01-01 11:00:00 +0000-->
+                                </date>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="KP3-ly-Ury"/>
@@ -153,7 +173,9 @@
                     <tabBarItem key="tabBarItem" title="Networking" id="ATw-Ew-CUp" customClass="MainTabBarItem" customModule="iOSCopilot" customModuleProvider="target"/>
                     <connections>
                         <outlet property="connectionTable" destination="mPg-tv-sMy" id="Zb4-fm-opP"/>
+                        <outlet property="endDate" destination="VmW-v0-cFl" id="7ox-5w-BZ9"/>
                         <outlet property="sendLocationsButton" destination="e1R-Hh-Maf" id="CiI-CE-2h5"/>
+                        <outlet property="startDate" destination="uXu-fy-evb" id="mAL-U2-YYt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1qg-1a-n03" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -286,6 +308,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vld-Nb-gTd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="749.60000000000002" y="367.24137931034483"/>
+        </scene>
+        <!--Scanner-->
+        <scene sceneID="KyB-9g-dO5">
+            <objects>
+                <tableViewController title="Scanner" id="7xk-Tl-0gb" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6qy-uB-DX4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="7Ho-Pk-gHa">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Ho-Pk-gHa" id="4gP-h8-VmI">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="7xk-Tl-0gb" id="8JH-WH-QX6"/>
+                            <outlet property="delegate" destination="7xk-Tl-0gb" id="jX0-6W-M5m"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="Zbd-6o-5A8" customClass="MainTabBarItem" customModule="iOSCopilot" customModuleProvider="target"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ML2-Dz-Btv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1" y="842"/>
         </scene>
         <!--Cameras-->
         <scene sceneID="FUo-jf-jpm">
@@ -452,6 +503,7 @@
                         <segue destination="srs-vG-Ze1" kind="relationship" relationship="viewControllers" id="NbX-N0-efk"/>
                         <segue destination="gDu-yx-qp2" kind="relationship" relationship="viewControllers" id="H10-hh-f5l"/>
                         <segue destination="EhT-PF-xMZ" kind="relationship" relationship="viewControllers" id="Oh6-dm-Uh9"/>
+                        <segue destination="7xk-Tl-0gb" kind="relationship" relationship="viewControllers" id="sQK-aj-0yy"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>

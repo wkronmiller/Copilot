@@ -70,13 +70,16 @@ class LocationDatabase: NSObject {
         }
     }
     
-    func getLocations() -> [LocationSegment] {
+    func getLocations(dateInterval: DateInterval) -> [LocationSegment] {
         let group = DispatchGroup()
         var locationSegments: [LocationSegment] = []
         group.enter()
+        
+        let query = "select epochMs, altitude, course, latitude, longitude, speed from \(self.tableName) WHERE epochMs >= \(floor(dateInterval.start.timeIntervalSince1970 * 1000)) AND epochMs <= \(ceil(dateInterval.end.timeIntervalSince1970 * 1000)) ORDER BY epochMs asc"
+        
         self.queue.async(group: group) {
             var statement: OpaquePointer?
-            if sqlite3_prepare_v2(self.db, "select epochMs, altitude, course, latitude, longitude, speed from \(self.tableName) ORDER BY epochMs asc", -1, &statement, nil) != SQLITE_OK {
+            if sqlite3_prepare_v2(self.db, query, -1, &statement, nil) != SQLITE_OK {
                 let message = String(cString: sqlite3_errmsg(self.db!))
                 NSLog("GetLocations sqlite prepared statement failed \(message)")
                 
