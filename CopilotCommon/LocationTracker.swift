@@ -48,6 +48,7 @@ class LocationReceiverConfig {
     }
 }
 
+
 class LocationTracker: NSObject, CLLocationManagerDelegate {
     private var delegateConfig: LocationReceiverConfig = LocationReceiverConfig()
     
@@ -60,6 +61,8 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     private var updateTimer: Timer? = nil
     private static var shared: LocationTracker? = nil
     private let appDelegate: UIApplicationDelegate
+    
+    private let operationQueue = OperationQueue()
     
     private var segmentBuffer: [LocationSegment] = []
     
@@ -175,9 +178,13 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         })
     }
     
+    private func handleAccelerometer(data: CMAccelerometerData) {
+        let acceleration = Acceleration(epochMs: Date().timeIntervalSince1970 * 1000, x: data.acceleration.x, y: data.acceleration.y, z: data.acceleration.z)
+        LocationDatabase.shared.addAccelerometerData(acceleration: acceleration)
+    }
+    
     func startTracking() {
         if !isTracking {
-            //motionManager.startGyroUpdates() //TODO: do something useful with this
             NSLog("Starting location tracking")
             locationManager.delegate = self
             locationManager.activityType = .automotiveNavigation
@@ -187,17 +194,30 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
             locationManager.showsBackgroundLocationIndicator = false
             isTracking = true
             self.updateTimer = Timer.scheduledTimer(timeInterval: 120, target: self, selector: #selector(sendLocations), userInfo: nil, repeats: true)
-            //self.updateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(sendLocations), userInfo: nil, repeats: true)
+            
+            if self.motionManager.isAccelerometerAvailable {
+                self.motionManager.accelerometerUpdateInterval = 0.5 // Every half second
+                self.motionManager.startAccelerometerUpdates(to: self.operationQueue){ data, error in
+                    if error != nil {
+                        NSLog("Error getting accelerometer data \(error!)")
+                    } else {
+                        self.handleAccelerometer(data: data!)
+                    }
+                }
+            } else {
+                NSLog("Accelerometer data unavailable")
+            }
         }
     }
     
     func stopTracking() {
         if isTracking {
-            //motionManager.stopGyroUpdates()
             NSLog("Stopping location tracking")
             locationManager.stopUpdatingLocation()
             self.updateTimer?.invalidate()
             self.updateTimer = nil
+            
+            self.motionManager.stopAccelerometerUpdates()
         }
     }
 }

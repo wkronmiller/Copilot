@@ -27,6 +27,8 @@ class TrafficCamAnnotation: NSObject, MKAnnotation {
 
 //TODO: annotation clustering
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MeshBaseStationDelegate {
+    
+    
     private let metersToMph = 2.23694 // Meters/second to MPH
     
     @IBOutlet weak var speedChart: LineChartView!
@@ -37,6 +39,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     @IBOutlet weak var meshStatusView: UIView!
     @IBOutlet weak var meshStatusText: UILabel!
+    @IBOutlet weak var accelerationText: UILabel!
     @IBOutlet weak var heartRateText: UILabel!
     @IBOutlet weak var altitudeRangeText: UILabel!
     private var meshConnection: MeshConnection? = nil
@@ -281,6 +284,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 self.meshStatusView.isHidden = true
                 self.speedChart.isHidden = true
                 self.pulseChart.isHidden = true
+                self.meshStatusText.text = "Mesh Connected"
+                self.altitudeRangeText.text = "Altitude Unknown"
+                self.accelerationText.text = "Acceleration Unknown"
+                self.heartRateText.text = "Heart Rate Unknown"
                 self.clearPolylines()
             }
         }
@@ -400,5 +407,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         self.chartPulse(heartRates: gotBiometrics.heartRateMeasurements)
     }
+
+    func connection(_ network: MeshNetwork, gotAcceleration: [Acceleration], connection: MeshConnection) {
+        NSLog("Got acceleration \(gotAcceleration)")
+        let cumAcceleration = gotAcceleration.map{ accel in return abs(accel.x) + abs(accel.y) + abs(accel.z) }
+        if let peakAcceleration = cumAcceleration.max() {
+            DispatchQueue.main.async {
+                self.accelerationText.text = "Max Acceleration \(round(peakAcceleration))g"
+            }
+        }
+    }
+    
 }
 

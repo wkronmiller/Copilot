@@ -27,6 +27,7 @@ protocol MeshConnectionDelegate {
 protocol MeshBaseStationDelegate: MeshConnectionDelegate {
     func connection(_ network: MeshNetwork, gotLocations: [LocationSegment], connection: MeshConnection)
     func connection(_ network: MeshNetwork, gotBiometrics: BiometricSummary, connection: MeshConnection)
+    func connection(_ network: MeshNetwork, gotAcceleration: [Acceleration], connection: MeshConnection)
 }
 
 protocol MeshControllerDelegate: MeshConnectionDelegate {
@@ -37,6 +38,7 @@ enum MeshPacketType: String, Codable {
     case handshake
     case sendLocations
     case sendBiometrics
+    case sendAccleration
 }
 
 struct HandshakeData: Codable {
@@ -95,6 +97,9 @@ class MeshBaseStation: MeshNetwork {
         self.getBaseStationDelegate()?.connection(self, gotBiometrics: biometricSummary, connection: connection)
     }
     
+    override func gotAcceleration(connection: MeshConnection, accelerationData: [Acceleration]) {
+        self.getBaseStationDelegate()?.connection(self, gotAcceleration: accelerationData, connection: connection)
+    }
 }
 
 class MeshNetworkController: MeshNetwork {
@@ -197,6 +202,15 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
         }
     }
     
+    func sendAcceleration(connection: MeshConnection, accelerationData: [Acceleration]) {
+        let packet = MeshPacket.create(type: .sendAccleration, payload: accelerationData)
+        do {
+            try connection.session.send(packet.serialize(),toPeers: [connection.peerID], with: .reliable)
+        } catch {
+            NSLog("Failed to send acceleration \(error)")
+        }
+    }
+    
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch(state) {
         case .connected:
@@ -218,6 +232,8 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
     internal func gotLocations(connection: MeshConnection, locationSegments: [LocationSegment]) {}
     internal func gotBiometrics(connection: MeshConnection, biometricSummary: BiometricSummary) {}
     
+    internal func gotAcceleration(connection: MeshConnection, accelerationData: [Acceleration]) {}
+    
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         NSLog("Mesh received data packet from peer \(peerID) \(String(data: data, encoding: .utf8))")
         let packet = MeshPacket.deserialize(data: data)
@@ -237,6 +253,17 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
                 connection.peerID == peerID
             }) {
                 self.gotLocations(connection: connection, locationSegments: locationSegments)
+            } else {
+                NSLog("Could not find connection for peer that sent locations \(peerID)")
+            }
+            return
+        case .sendAccleration:
+            NSLog("Mesh got acceleration data")
+            let accelerationData: [Acceleration] = packet.getPayload()
+            if let connection = self.openConnections.first(where: {connection in
+                connection.peerID == peerID
+            }) {
+                self.gotAcceleration(connection: connection, accelerationData: accelerationData)
             } else {
                 NSLog("Could not find connection for peer that sent locations \(peerID)")
             }

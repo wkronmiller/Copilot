@@ -104,6 +104,9 @@ class NetworkingViewController: UIViewController, UITableViewDelegate, UITableVi
             let biometricSummary = BiometricSummary(heartRateMeasurements: measurements)
             self.meshNetwork.sendBiometrics(connection: self.selectedConnection!, biometricSummary: biometricSummary)
         })
+        
+        let accelerationData: [Acceleration] = LocationDatabase.shared.getAccelerometerData(dateInterval: dateInterval)
+        self.meshNetwork.sendAcceleration(connection: self.selectedConnection!, accelerationData: accelerationData)
     }
 
 }
