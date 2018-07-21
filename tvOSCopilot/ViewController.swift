@@ -290,12 +290,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let line = LineChartDataSet(values: lineChartData, label: description)
         line.circleRadius = 0.1
         
+        line.lineWidth = 3.0
         line.colors = [UIColor.purple]
-        
+        line.valueTextColor = UIColor.clear
+
         let data = LineChartData(dataSets: [line])
         
         DispatchQueue.main.async {
+            self.playerContainer.isHidden = true
             chart.clear()
+            
             chart.data = data
             chart.chartDescription?.text = description
             chart.chartDescription?.font = UIFont(name: "Helvetica", size: 30)!
@@ -307,6 +311,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             chart.leftAxis.gridColor = UIColor.white
             chart.leftAxis.labelFont = UIFont(name: "Helvetica", size: 20)!
             chart.legend.enabled = false
+            chart.alpha = 0.8
             chart.backgroundColor = UIColor.darkGray
             chart.isHidden = false
         }
@@ -339,6 +344,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             return CLLocation(latitude: location.latitude, longitude: location.longitude)
         }
         
+        let latitudes = gotLocations.map{ location in return location.latitude }
+        let longitudes = gotLocations.map{ location in return location.longitude }
+        
         let unsafeCoordinates = coordinates.map{ coordinate in return coordinate.coordinate }
         let topSpeedMPH = gotLocations.map{ location in return location.speed }.max()! * metersToMph
         let altitudes = gotLocations.map{ location in return location.altitude }
@@ -347,6 +355,22 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         //TODO: peak acceleration
         let newPolyline = MKGeodesicPolyline(coordinates: unsafeCoordinates, count: coordinates.count)
         NSLog("Will display client locations")
+        
+        let minLat = latitudes.min()!
+        let maxLat = latitudes.max()!
+        let minLon = longitudes.min()!
+        let maxLon = longitudes.max()!
+        
+        let latitudeDelta = maxLat - minLat
+        let longitudeDelta = maxLon - minLon
+        let latitudeCenter = (maxLat + minLat) / 2
+        let longitudeCenter = (maxLon + minLon) / 2
+        let extraZoom = 0.5
+        
+        let span = MKCoordinateSpan(latitudeDelta: latitudeDelta + extraZoom, longitudeDelta: longitudeDelta + extraZoom)
+        let center = CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeCenter)
+        let region = MKCoordinateRegionMake(center, span)
+        
         DispatchQueue.main.async {
             NSLog("Displaying client locations")
             self.clearPolylines()
@@ -357,15 +381,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
             self.meshStatusText.text = "Top Speed \(round(topSpeedMPH  * 10) / 10) MPH"
             self.altitudeRangeText.text = "Altitude \(round(minAltitude)) - \(round(maxAltitude))m"
-            if let lastLoc = coordinates.last {
-                let region = MKCoordinateRegionMakeWithDistance(lastLoc.coordinate, 10000, 10000)
-                self.mapView.setRegion(region, animated: true)
-            }
+            self.mapView.setRegion(region, animated: true)
+            
         }
         
         self.chartSpeeds(locationSegments: gotLocations)
-        
-        //TODO: option to clear view
     }
     
     func connection(_ network: MeshNetwork, gotBiometrics: BiometricSummary, connection: MeshConnection) {
