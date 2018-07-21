@@ -76,7 +76,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.23727071285247803" green="0.068760894238948822" blue="0.33455443382263184" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -274,7 +274,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.34358501434326172" green="0.16584596037864685" blue="0.44518005847930908" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="4Ba-lR-Wtp" firstAttribute="leading" secondItem="LSq-Q8-LTX" secondAttribute="leading" id="0JV-5r-Vqb"/>
                             <constraint firstItem="Ooq-LT-s8I" firstAttribute="leading" secondItem="66o-El-dLE" secondAttribute="leadingMargin" id="1AH-Hy-vEc"/>
@@ -332,7 +332,7 @@
                             <outlet property="delegate" destination="7xk-Tl-0gb" id="jX0-6W-M5m"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="Zbd-6o-5A8" customClass="MainTabBarItem" customModule="iOSCopilot" customModuleProvider="target"/>
+                    <tabBarItem key="tabBarItem" title="Scanner" id="Zbd-6o-5A8" customClass="MainTabBarItem" customModule="iOSCopilot" customModuleProvider="target"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ML2-Dz-Btv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

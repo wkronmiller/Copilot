@@ -41,6 +41,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Correlate biometric data with driving</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Record Location in Background for Driving History and Traffic Alerts</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

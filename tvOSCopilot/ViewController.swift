@@ -26,12 +26,14 @@ class TrafficCamAnnotation: NSObject, MKAnnotation {
 
 //TODO: annotation clustering
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MeshBaseStationDelegate {
-
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var playerContainer: UIView!
     
     @IBOutlet weak var meshStatusView: UIView!
     @IBOutlet weak var meshStatusText: UILabel!
+    @IBOutlet weak var heartRateText: UILabel!
+    @IBOutlet weak var altitudeRangeText: UILabel!
     private var meshConnection: MeshConnection? = nil
     private var trackedDeviceTrace: MKPolyline? = nil
     
@@ -258,20 +260,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     private func openConnection(network: MeshNetwork, connection: MeshConnection) {
-        self.meshConnection = connection
-        DispatchQueue.main.async {
-            self.meshStatusView.isHidden = false
-            self.meshStatusText.text = "Apple Mesh Connected"
-        }
+        
     }
     
-    func connection(_ network: MeshNetwork, didConnect connection: MeshConnection) {
-        NSLog("Connected to peer \(connection.peerID)")
-        self.openConnection(network: network, connection: connection)
-        if let existingLine = self.trackedDeviceTrace {
-            self.mapView.remove(existingLine)
-        }
-    }
+    func connection(_ network: MeshNetwork, didConnect connection: MeshConnection) {}
     
     private func clearPolylines() {
         if let existingLine = self.trackedDeviceTrace {
@@ -290,6 +282,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     func connection(_ network: MeshNetwork, gotLocations: [LocationSegment], connection: MeshConnection) {
+        self.meshConnection = connection
         NSLog("TV view got locations \(gotLocations)")
         if gotLocations.isEmpty {
             NSLog("Got no locations")
@@ -298,21 +291,25 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let coordinates = gotLocations.map{ location in
             return CLLocation(latitude: location.latitude, longitude: location.longitude)
         }
+        
         let unsafeCoordinates = coordinates.map{ coordinate in return coordinate.coordinate }
-        let speeds = gotLocations.map{ location in return location.speed }
-        NSLog("Got speeds \(speeds)")
-        let topSpeed = speeds.max()!
+        let topSpeedMPH = gotLocations.map{ location in return location.speed }.max()! * 2.23694 // Meters/second to MPH
+        let altitudes = gotLocations.map{ location in return location.altitude }
+        let minAltitude = altitudes.min()!
+        let maxAltitude = altitudes.max()!
+        //TODO: peak acceleration
         let newPolyline = MKGeodesicPolyline(coordinates: unsafeCoordinates, count: coordinates.count)
         NSLog("Will display client locations")
         DispatchQueue.main.async {
             NSLog("Displaying client locations")
             self.clearPolylines()
+            self.meshStatusView.isHidden = false
             if newPolyline.pointCount > 0 {
                 self.mapView.add(newPolyline)
                 self.trackedDeviceTrace = newPolyline
             }
-            self.meshStatusText.text = "Top Speed \(round(topSpeed * 2.23694 * 10) / 10) MPH"
-            
+            self.meshStatusText.text = "Top Speed \(round(topSpeedMPH  * 10) / 10) MPH"
+            self.altitudeRangeText.text = "Altitude \(round(minAltitude)) - \(round(maxAltitude))m"
             if let lastLoc = coordinates.last {
                 let region = MKCoordinateRegionMakeWithDistance(lastLoc.coordinate, 10000, 10000)
                 self.mapView.setRegion(region, animated: true)
@@ -320,6 +317,18 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         
         //TODO: option to clear view
+    }
+    
+    func connection(_ network: MeshNetwork, gotBiometrics: BiometricSummary, connection: MeshConnection) {
+        NSLog("Got biometric data \(gotBiometrics)")
+        let pulses = gotBiometrics.heartRateMeasurements.map{ measurement in return measurement.value }
+        let minPulse = pulses.min()
+        let maxPulse = pulses.max()
+        if pulses.isEmpty == false {
+            DispatchQueue.main.async {
+                self.heartRateText.text = "Heart Rate \(minPulse!) - \(maxPulse!)"
+            }
+        }
     }
     
     

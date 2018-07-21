@@ -26,6 +26,7 @@ protocol MeshConnectionDelegate {
 
 protocol MeshBaseStationDelegate: MeshConnectionDelegate {
     func connection(_ network: MeshNetwork, gotLocations: [LocationSegment], connection: MeshConnection)
+    func connection(_ network: MeshNetwork, gotBiometrics: BiometricSummary, connection: MeshConnection)
 }
 
 protocol MeshControllerDelegate: MeshConnectionDelegate {
@@ -35,7 +36,7 @@ protocol MeshControllerDelegate: MeshConnectionDelegate {
 enum MeshPacketType: String, Codable {
     case handshake
     case sendLocations
-    case requestLocations
+    case sendBiometrics
 }
 
 struct HandshakeData: Codable {
@@ -89,7 +90,11 @@ class MeshBaseStation: MeshNetwork {
         NSLog("Inviting peer \(peerID)")
         browser.invitePeer(peerID, to: self.session, withContext: nil, timeout: 10.0)
     }
-    //TODO
+    
+    override func gotBiometrics(connection: MeshConnection, biometricSummary: BiometricSummary) {
+        self.getBaseStationDelegate()?.connection(self, gotBiometrics: biometricSummary, connection: connection)
+    }
+    
 }
 
 class MeshNetworkController: MeshNetwork {
@@ -183,13 +188,12 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
         self.sendLocations(peer: connection.peerID, session: connection.session, dateInterval: dateInterval)
     }
     
-    func requestLocations(connection: MeshConnection) {
-        let emptyPayload: [String: String] = [:]
-        let packet = MeshPacket.create(type: .requestLocations, payload: emptyPayload)
+    func sendBiometrics(connection: MeshConnection, biometricSummary: BiometricSummary) {
+        let packet = MeshPacket.create(type: .sendBiometrics, payload: biometricSummary)
         do {
-            try connection.session.send(packet.serialize(), toPeers: [connection.peerID], with: .reliable)
+            try connection.session.send(packet.serialize(),toPeers: [connection.peerID], with: .reliable)
         } catch {
-            NSLog("Failed to request location segments \(error)")
+            NSLog("Failed to send biodata \(error)")
         }
     }
     
@@ -212,6 +216,7 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
     }
     
     internal func gotLocations(connection: MeshConnection, locationSegments: [LocationSegment]) {}
+    internal func gotBiometrics(connection: MeshConnection, biometricSummary: BiometricSummary) {}
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         NSLog("Received data packet from peer \(peerID) \(String(data: data, encoding: .utf8))")
@@ -235,8 +240,15 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
                 NSLog("Could not find connection for peer that sent locations \(peerID)")
             }
             return
-        case .requestLocations:
-            NSLog("Got location trace request. Ignoring")
+        case .sendBiometrics:
+            let biometricSummary: BiometricSummary = packet.getPayload()
+            NSLog("Got biometrics \(biometricSummary)")
+            if let connection = self.openConnections.first(where: {connection in
+                connection.peerID == peerID
+            }) {
+                
+                self.gotBiometrics(connection: connection, biometricSummary: biometricSummary)
+            }
             return
         }
     }

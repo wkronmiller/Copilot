@@ -34,7 +34,6 @@ class NetworkingViewController: UIViewController, UITableViewDelegate, UITableVi
             self.sendLocationsButton.isEnabled = false
         }
         NSLog("Advertising mesh")
-        //TODO
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -95,6 +94,16 @@ class NetworkingViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         let dateInterval = DateInterval(start: startDate.date, end: endDate.date)
         self.meshNetwork.sendLocations(connection: self.selectedConnection!, dateInterval: dateInterval)
+        //TODO: summarize biometrics and correlate with speeds
+        NSLog("Preparing biometric data")
+        BiometricTracker.shared.getHeartRates(start: dateInterval.start, end: dateInterval.end, maxPoints: 1000, completionHandler: { error, measurements in
+            if error != nil {
+                return
+            }
+            NSLog("Sending biometric data")
+            let biometricSummary = BiometricSummary(heartRateMeasurements: measurements)
+            self.meshNetwork.sendBiometrics(connection: self.selectedConnection!, biometricSummary: biometricSummary)
+        })
     }
-    //TODO
+
 }

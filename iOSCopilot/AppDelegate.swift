@@ -68,6 +68,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSLog("Unable to get account")
         }
         
+        BiometricTracker.shared.authorize()
+        
         return true
     }
 
