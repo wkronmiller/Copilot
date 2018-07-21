@@ -15,6 +15,7 @@
 		4922D8032102AF5800E14B3D /* Biometrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D8022102AF5800E14B3D /* Biometrics.swift */; };
 		4922D8042102AF5800E14B3D /* Biometrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D8022102AF5800E14B3D /* Biometrics.swift */; };
 		4922D8052102AF5800E14B3D /* Biometrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D8022102AF5800E14B3D /* Biometrics.swift */; };
+		4922D807210356F300E14B3D /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4922D806210356F300E14B3D /* Charts.framework */; };
 		49381EAF20F4489000F7982D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EAE20F4489000F7982D /* AppDelegate.swift */; };
 		49381EB120F4489000F7982D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EB020F4489000F7982D /* ViewController.swift */; };
 		49381EB320F4489100F7982D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49381EB220F4489100F7982D /* Assets.xcassets */; };
@@ -123,6 +124,7 @@
 		4922D7FE2101FF2D00E14B3D /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		4922D800210208BB00E14B3D /* BiometricTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricTracker.swift; sourceTree = "<group>"; };
 		4922D8022102AF5800E14B3D /* Biometrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Biometrics.swift; sourceTree = "<group>"; };
+		4922D806210356F300E14B3D /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/tvOS/Charts.framework; sourceTree = SOURCE_ROOT; };
 		49381EAC20F4489000F7982D /* MacOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49381EAE20F4489000F7982D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49381EB020F4489000F7982D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4998317B20F05ADA00C69215 /* MapKit.framework in Frameworks */,
+				4922D807210356F300E14B3D /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +330,7 @@
 		4998316520F0567500C69215 /* tvOSCopilot */ = {
 			isa = PBXGroup;
 			children = (
+				4922D806210356F300E14B3D /* Charts.framework */,
 				4998318020F070B500C69215 /* AudioAlerts.swift */,
 				4998317E20F0707C00C69215 /* WebUplink.swift */,
 				4998317C20F0706C00C69215 /* TrafficCams.swift */,
@@ -444,6 +448,7 @@
 				4998316020F0567500C69215 /* Sources */,
 				4998316120F0567500C69215 /* Frameworks */,
 				4998316220F0567500C69215 /* Resources */,
+				4922D8082103573C00E14B3D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -586,6 +591,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4922D8082103573C00E14B3D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/tvOS/Charts.framework",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Charts.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
 		49FFC68C20C577A500DC6D5A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1027,6 +1047,10 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H64UU5B675;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = tvOSCopilot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = coffee.rory.tvOSCopilot;
@@ -1048,6 +1072,10 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H64UU5B675;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = tvOSCopilot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = coffee.rory.tvOSCopilot;

@@ -200,7 +200,7 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch(state) {
         case .connected:
-            NSLog("Connected to peer \(peerID)")
+            NSLog("Mesh connected to peer \(peerID)")
             self.sendHandshake(peer: peerID, session: session)
             break
         case .notConnected:
@@ -211,7 +211,7 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
             self.delegate?.connection(self, didDisconnect: peerID)
             break
         case .connecting:
-            NSLog("Connecting to peer \(peerID)")
+            NSLog("Mesh connecting to peer \(peerID)")
         }
     }
     
@@ -219,18 +219,19 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
     internal func gotBiometrics(connection: MeshConnection, biometricSummary: BiometricSummary) {}
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        NSLog("Received data packet from peer \(peerID) \(String(data: data, encoding: .utf8))")
+        NSLog("Mesh received data packet from peer \(peerID) \(String(data: data, encoding: .utf8))")
         let packet = MeshPacket.deserialize(data: data)
-        NSLog("Decoded packet as \(packet) with type \(packet.type.rawValue)")
+        NSLog("Mesh decoded packet as \(packet) with type \(packet.type.rawValue)")
         switch(packet.type) {
         case .handshake:
+            NSLog("Mesh got handshake packet")
             let handshakeData: HandshakeData = packet.getPayload()
             let newConnection = MeshConnection(peerID: peerID, session: session, peerUserId: handshakeData.userId, peerUUID: handshakeData.uuid)
             self.openConnections.append(newConnection)
             self.delegate?.connection(self, didConnect: newConnection)
             return
         case .sendLocations:
-            NSLog("Got location traces")
+            NSLog("Mesh got location traces")
             let locationSegments: [LocationSegment] = packet.getPayload()
             if let connection = self.openConnections.first(where: {connection in
                 connection.peerID == peerID

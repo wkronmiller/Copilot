@@ -11,6 +11,7 @@ import MapKit
 import CoreLocation
 import AVKit
 import MultipeerConnectivity
+import Charts
 
 class TrafficCamAnnotation: NSObject, MKAnnotation {
     var address: URL
@@ -26,6 +27,10 @@ class TrafficCamAnnotation: NSObject, MKAnnotation {
 
 //TODO: annotation clustering
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MeshBaseStationDelegate {
+    private let metersToMph = 2.23694 // Meters/second to MPH
+    
+    @IBOutlet weak var speedChart: LineChartView!
+    @IBOutlet weak var pulseChart: LineChartView!
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var playerContainer: UIView!
@@ -259,9 +264,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
     }
     
-    private func openConnection(network: MeshNetwork, connection: MeshConnection) {
-        
-    }
+    private func openConnection(network: MeshNetwork, connection: MeshConnection) {}
     
     func connection(_ network: MeshNetwork, didConnect connection: MeshConnection) {}
     
@@ -276,9 +279,53 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if peerID == self.meshConnection?.peerID {
             DispatchQueue.main.async {
                 self.meshStatusView.isHidden = true
+                self.speedChart.isHidden = true
+                self.pulseChart.isHidden = true
                 self.clearPolylines()
             }
         }
+    }
+    
+    private func prepareChart(description: String, lineChartData: [ChartDataEntry], chart: LineChartView!) {
+        let line = LineChartDataSet(values: lineChartData, label: description)
+        line.circleRadius = 0.1
+        
+        line.colors = [UIColor.purple]
+        
+        let data = LineChartData(dataSets: [line])
+        
+        DispatchQueue.main.async {
+            chart.clear()
+            chart.data = data
+            chart.chartDescription?.text = description
+            chart.chartDescription?.font = UIFont(name: "Helvetica", size: 30)!
+            chart.chartDescription?.textColor = UIColor.white
+            chart.xAxis.drawLabelsEnabled = false
+            chart.xAxis.gridColor = UIColor.white
+            chart.rightAxis.drawLabelsEnabled = false
+            chart.leftAxis.labelTextColor = UIColor.white
+            chart.leftAxis.gridColor = UIColor.white
+            chart.leftAxis.labelFont = UIFont(name: "Helvetica", size: 20)!
+            chart.legend.enabled = false
+            chart.backgroundColor = UIColor.darkGray
+            chart.isHidden = false
+        }
+    }
+    
+    private func chartSpeeds(locationSegments: [LocationSegment]) {
+        let lineChartData: [ChartDataEntry] = locationSegments.map{ segment in
+            return ChartDataEntry(x: segment.epochMs, y: segment.speed * metersToMph)
+        }
+
+        self.prepareChart(description: "Speed", lineChartData: lineChartData, chart: self.speedChart)
+    }
+    
+    private func chartPulse(heartRates: [HeartRateMeasurement]) {
+        let lineChartData = heartRates.map{ segment in
+            return ChartDataEntry(x: segment.end.timeIntervalSince1970, y: segment.value)
+        }
+        
+        self.prepareChart(description: "Pulse", lineChartData: lineChartData, chart: self.pulseChart)
     }
     
     func connection(_ network: MeshNetwork, gotLocations: [LocationSegment], connection: MeshConnection) {
@@ -293,7 +340,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         
         let unsafeCoordinates = coordinates.map{ coordinate in return coordinate.coordinate }
-        let topSpeedMPH = gotLocations.map{ location in return location.speed }.max()! * 2.23694 // Meters/second to MPH
+        let topSpeedMPH = gotLocations.map{ location in return location.speed }.max()! * metersToMph
         let altitudes = gotLocations.map{ location in return location.altitude }
         let minAltitude = altitudes.min()!
         let maxAltitude = altitudes.max()!
@@ -316,6 +363,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
         }
         
+        self.chartSpeeds(locationSegments: gotLocations)
+        
         //TODO: option to clear view
     }
     
@@ -329,8 +378,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 self.heartRateText.text = "Heart Rate \(minPulse!) - \(maxPulse!)"
             }
         }
+        self.chartPulse(heartRates: gotBiometrics.heartRateMeasurements)
     }
-    
-    
 }
 

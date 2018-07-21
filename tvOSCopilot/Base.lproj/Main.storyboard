@@ -31,7 +31,7 @@
                                 </connections>
                             </mapView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qDc-er-GiC">
-                                <rect key="frame" x="110" y="60" width="500" height="335"/>
+                                <rect key="frame" x="70" y="60" width="500" height="335"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -67,6 +67,16 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3h6-2g-o6h" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="578" y="60" width="596" height="303"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WEP-EQ-HKJ" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="1197" y="60" width="596" height="303"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="wu6-TO-1qx"/>
@@ -78,6 +88,8 @@
                         <outlet property="meshStatusText" destination="4nE-f2-OfS" id="dY1-cR-MGe"/>
                         <outlet property="meshStatusView" destination="QR3-nv-F9B" id="hjX-X8-g1o"/>
                         <outlet property="playerContainer" destination="qDc-er-GiC" id="aZJ-cb-DAP"/>
+                        <outlet property="pulseChart" destination="WEP-EQ-HKJ" id="6hx-v8-S1U"/>
+                        <outlet property="speedChart" destination="3h6-2g-o6h" id="NI9-Nt-ajq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

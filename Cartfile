@@ -1,1 +1,2 @@
 github "twilio/twilio-voice-ios"
+github "danielgindi/Charts" ~> 3.1.1

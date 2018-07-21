@@ -8,11 +8,16 @@
 
 import Foundation
 
+struct Scanner {
+    let name: String
+    let state: String
+    let county: String
+    let url: URL
+}
+
 // Police Scanners
 class Scanners: NSObject {
-    let scanners: [String: [String: URL]] = [
-        "Maryland": [
-            "Montgomery": URL(string:"http://audio2.broadcastify.com/4mn1w2q8trcgyv9.mp3?nc=37173583")!
-        ]
+    let scanners: [Scanner] = [
+        Scanner(name: "Montgomery County Police", state: "Maryland", county: "Montgomery", url: URL(string:"http://audio2.broadcastify.com/4mn1w2q8trcgyv9.mp3?nc=37173583")!)
     ]
 }
