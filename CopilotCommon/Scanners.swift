@@ -17,7 +17,11 @@ struct Scanner {
 
 // Police Scanners
 class Scanners: NSObject {
-    let scanners: [Scanner] = [
-        Scanner(name: "Montgomery County Police", state: "Maryland", county: "Montgomery", url: URL(string:"http://audio2.broadcastify.com/4mn1w2q8trcgyv9.mp3?nc=37173583")!)
+    private static let scanners: [Scanner] = [
+        Scanner(name: "Montgomery County Police", state: "Maryland", county: "Montgomery", url: URL(string:"http://audio2.broadcastify.com/x018cpzdy2g5j7f.mp3")!)
     ]
+    
+    func getScanners() -> [Scanner] {
+        return Scanners.scanners
+    }
 }

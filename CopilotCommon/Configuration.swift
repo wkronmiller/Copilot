@@ -12,6 +12,8 @@ import CoreLocation
 struct RootSettingKeys {
     static let username = "user_username"
     static let password = "user_password"
+    static let weatherAlertsEnabled = "preference_weather_alerts"
+    static let uploadLocationsCloud = "preference_upload_locations_cloud"
 }
 
 public struct Account {
@@ -59,6 +61,14 @@ public class Configuration: NSObject {
             }
         }
         return nil
+    }
+    
+    func getWeatherAlertsEnabled() -> Bool {
+        return UserDefaults.standard.bool(forKey: RootSettingKeys.weatherAlertsEnabled)
+    }
+    
+    func getUploadLocationsToCloud() -> Bool {
+        return UserDefaults.standard.bool(forKey: RootSettingKeys.uploadLocationsCloud)
     }
     
     static let shared = Configuration()

@@ -15,6 +15,7 @@ public protocol LocationTrackerDelegate: NSObjectProtocol {
     func didUpdateLocationStats(locationStats: LocationStats) -> Void
 }
 
+//TODO: complete the refactor away from this model
 class LocationReceiverConfig {
     private var isUpdating: Bool = false
     var delegate: LocationTrackerDelegate? = nil
@@ -109,6 +110,10 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    func clearDelegate() {
+        self.delegateConfig.delegate = nil
+    }
+    
     func setDelegate(delegateConfig: LocationReceiverConfig) {
         self.delegateConfig = delegateConfig
         initDelegate()
@@ -120,23 +125,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         initDelegate()
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        NSLog("Gyro data \(motionManager.gyroData)")
-        let locationSegments = locations.map { location in
-            return LocationSegment(
-                epochMs: location.timestamp.timeIntervalSince1970 * 1000,
-                altitude: location.altitude,
-                course: location.course,
-                latitude: location.coordinate.latitude,
-                longitude: location.coordinate.longitude,
-                speed: location.speed
-            )
-        }
-        
-        LocationDatabase.shared.addLocations(segments: locationSegments)
-        if locationSegments.count < 1 {
-            return
-        }
+    private func sendToCloud(locationSegments: [LocationSegment]) {
         let last = locationSegments.last!
         let fastest = locationSegments.reduce(last, {max, current in
             if(max.speed < current.speed) {
@@ -164,9 +153,31 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         //self.segmentBuffer += locationSegments //TODO: store full location trace
         
         NSLog("Got locations update \(summarizedSegments)")
-
+        
         if(segmentBuffer.count > 120) {
             sendLocations()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locationSegments = locations.map { location in
+            return LocationSegment(
+                epochMs: location.timestamp.timeIntervalSince1970 * 1000,
+                altitude: location.altitude,
+                course: location.course,
+                latitude: location.coordinate.latitude,
+                longitude: location.coordinate.longitude,
+                speed: location.speed
+            )
+        }
+        
+        LocationDatabase.shared.addLocations(segments: locationSegments)
+        if locationSegments.count < 1 {
+            return
+        }
+        
+        if Configuration.shared.getUploadLocationsToCloud() {
+            self.sendToCloud(locationSegments: locationSegments)
         }
         
         locationStats.update(location: locations.last!, completionHandler: {

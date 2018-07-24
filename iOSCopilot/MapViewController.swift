@@ -78,7 +78,7 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         delegateConfig.maxUpdateFrequencyMs = 1
         AppDelegate.locationTracker!.setDelegate(delegateConfig: delegateConfig)
     }
-
+    
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKTileOverlay {
             if overlay as! MKTileOverlay == self.baseMapOverlay {
@@ -232,6 +232,11 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
             self.updateTrafficConditionAnnotations(trafficConditions: trafficConditions)
         }
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppDelegate.locationTracker!.clearDelegate()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -93,7 +93,9 @@ public class WeatherStatus: NSObject {
                 }
                 self.forecasts = self.unpackForecast(data: data!)
                 self.receiverConfig.didUpdate()
-                self.checkWeatherAlert()
+                if Configuration.shared.getWeatherAlertsEnabled() {
+                    self.checkWeatherAlert()
+                }
                 return completionHandler(self.getForecasts(), nil)
             })
         } else {

@@ -92,4 +92,9 @@ class TrafficCamController: UIViewController, LocationTrackerDelegate, UITableVi
         showCam()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppDelegate.locationTracker!.clearDelegate()
+    }
+    
 }

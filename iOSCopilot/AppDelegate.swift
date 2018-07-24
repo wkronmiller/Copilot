@@ -63,7 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let account = Configuration.shared.getAccount() {
             AppDelegate.locationTracker = LocationTracker.get(account: account)
         } else {
-            //TODO: Login screen
             application.delegate?.window??.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginViewController")
             NSLog("Unable to get account")
         }

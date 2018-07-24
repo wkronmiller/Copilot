@@ -137,5 +137,10 @@ class WeatherController: UIViewController, LocationTrackerDelegate {
         super.viewWillAppear(animated)
         AppDelegate.locationTracker!.setDelegate(delegateConfig: self.delegateConfig)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppDelegate.locationTracker!.clearDelegate()
+    }
 
 }
