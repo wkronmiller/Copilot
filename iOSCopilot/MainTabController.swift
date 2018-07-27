@@ -20,8 +20,17 @@ class MainTabBar: UITabBar {
 }
 
 class MainTabController: UITabBarController {
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarItem.image = nil
+        
+        if Configuration.shared.getEnableMeshNetworking() == false {
+            viewControllers?.popLast() //TODO: something position-independent that doesen't require app restart
+        }
     }
 }

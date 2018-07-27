@@ -10,6 +10,16 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>Enable Mesh Networking</string>
+			<key>Key</key>
+			<string>preference_enable_mesh</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>Upload Locations to Cloud</string>
 			<key>Key</key>
 			<string>preference_upload_locations_cloud</string>

@@ -14,6 +14,7 @@ struct RootSettingKeys {
     static let password = "user_password"
     static let weatherAlertsEnabled = "preference_weather_alerts"
     static let uploadLocationsCloud = "preference_upload_locations_cloud"
+    static let enableMeshNetworking = "preference_enable_mesh"
 }
 
 public struct Account {
@@ -69,6 +70,10 @@ public class Configuration: NSObject {
     
     func getUploadLocationsToCloud() -> Bool {
         return UserDefaults.standard.bool(forKey: RootSettingKeys.uploadLocationsCloud)
+    }
+    
+    func getEnableMeshNetworking() -> Bool {
+        return UserDefaults.standard.bool(forKey: RootSettingKeys.enableMeshNetworking)
     }
     
     static let shared = Configuration()
