@@ -89,8 +89,8 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         }
         if overlay is MKPolyline {
             let renderer = MKPolylineRenderer(overlay: overlay)
-            renderer.strokeColor = UIColor.purple
-            renderer.lineWidth = 6
+            renderer.strokeColor = UIColor.lightGray
+            renderer.lineWidth = 3
             return renderer
         }
         return MKOverlayRenderer()

@@ -95,6 +95,7 @@ class TrafficCamController: UIViewController, LocationTrackerDelegate, UITableVi
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         AppDelegate.locationTracker!.clearDelegate()
+        try? AVAudioSession.sharedInstance().setActive(false)
     }
     
 }

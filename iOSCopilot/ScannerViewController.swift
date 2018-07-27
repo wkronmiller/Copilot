@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import AVKit
+import Jukebox
 
 class ScannerCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
@@ -44,6 +45,7 @@ class ScannerViewController: UITableViewController {
         if let existing = self.player {
             existing.pause()
             existing.cancelPendingPrerolls()
+            try? AVAudioSession.sharedInstance().setActive(false)
         }
         self.player = nil
         self.selected = nil
@@ -54,10 +56,10 @@ class ScannerViewController: UITableViewController {
             self.tableView(tableView, didDeselectRowAt: indexPath)
             return
         }
+        self.clearPlayer()
         try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
         try? AVAudioSession.sharedInstance().setActive(true)
         let scanner = ScannerViewController.scanners.getScanners()[indexPath.row]
-        self.clearPlayer()
         self.player = AVPlayer(url: scanner.url)
         self.player!.play()
         self.selected = indexPath
@@ -65,9 +67,6 @@ class ScannerViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         self.clearPlayer()
-        try? AVAudioSession.sharedInstance().setActive(false)
-        self.selected = nil
-        //TODO
     }
 
 }

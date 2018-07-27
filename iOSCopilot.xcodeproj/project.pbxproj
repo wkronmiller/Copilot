@@ -39,6 +39,7 @@
 		493E655020FE10BF0054797D /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E654F20FE10BF0054797D /* NotificationController.swift */; };
 		493E655220FE10BF0054797D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 493E655120FE10BF0054797D /* Assets.xcassets */; };
 		493E655720FE10BF0054797D /* watchCopilot.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 493E653A20FE10BD0054797D /* watchCopilot.app */; };
+		494B49D8210748E1001F248B /* Jukebox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494B49D7210748E0001F248B /* Jukebox.framework */; };
 		49561112202F451B00464A53 /* WebUplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49561111202F451B00464A53 /* WebUplink.swift */; };
 		495FDD392100A97600A4EA90 /* Scanners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FDD382100A97600A4EA90 /* Scanners.swift */; };
 		496BCFB42027A157001C6B48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFB32027A157001C6B48 /* AppDelegate.swift */; };
@@ -149,6 +150,7 @@
 		493E655120FE10BF0054797D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		493E655320FE10BF0054797D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		493E655420FE10BF0054797D /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		494B49D7210748E0001F248B /* Jukebox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jukebox.framework; path = Carthage/Build/iOS/Jukebox.framework; sourceTree = SOURCE_ROOT; };
 		49561111202F451B00464A53 /* WebUplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUplink.swift; sourceTree = "<group>"; };
 		495FDD382100A97600A4EA90 /* Scanners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanners.swift; sourceTree = "<group>"; };
 		496BCFB02027A157001C6B48 /* iOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,6 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				494B49D8210748E1001F248B /* Jukebox.framework in Frameworks */,
 				49FFC68B20C5777700DC6D5A /* TwilioVoice.framework in Frameworks */,
 				4922D7FF2101FF2D00E14B3D /* HealthKit.framework in Frameworks */,
 				496BCFD02029AB1B001C6B48 /* CoreData.framework in Frameworks */,
@@ -294,6 +297,7 @@
 		496BCFB22027A157001C6B48 /* iOSCopilot */ = {
 			isa = PBXGroup;
 			children = (
+				494B49D7210748E0001F248B /* Jukebox.framework */,
 				496BCFCA2027A2C6001C6B48 /* iOSCopilot.entitlements */,
 				496BCFB32027A157001C6B48 /* AppDelegate.swift */,
 				496BCFB92027A157001C6B48 /* Main.storyboard */,
@@ -347,11 +351,11 @@
 		4998317320F0567D00C69215 /* CopilotCommon */ = {
 			isa = PBXGroup;
 			children = (
+				49C288C1203085C200D5C212 /* TrafficStatus.swift */,
 				49C288C32030B13A00D5C212 /* Configuration.swift */,
 				49D85CCA203879560088B633 /* LocationStats.swift */,
 				496BCFCD2028807A001C6B48 /* LocationTracker.swift */,
 				49561111202F451B00464A53 /* WebUplink.swift */,
-				49C288C1203085C200D5C212 /* TrafficStatus.swift */,
 				49D85CC420345A000088B633 /* WeatherStatus.swift */,
 				49D85CC6203482240088B633 /* AudioAlerts.swift */,
 				49D85CCC203C53E40088B633 /* TrafficCams.swift */,
@@ -466,7 +470,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "William Rory Kronmiller";
 				TargetAttributes = {
 					49381EAB20F4489000F7982D = {
@@ -613,9 +617,11 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/TwilioVoice.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Jukebox.framework",
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TwilioVoice.framework",
+				"$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Jukebox.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -902,6 +908,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -909,6 +916,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -959,6 +967,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -966,6 +975,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

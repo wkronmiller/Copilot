@@ -1,2 +1,4 @@
 github "danielgindi/Charts" "v3.1.1"
+github "teodorpatras/Jukebox" "0.2.1"
+github "tumtumtum/StreamingKit" "0.1.30"
 github "twilio/twilio-voice-ios" "2.0.4"
