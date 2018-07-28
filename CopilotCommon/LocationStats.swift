@@ -18,6 +18,8 @@ public class LocationStats: NSObject {
     private var lastLocation: CLLocation? = nil
     private var lastWaypoint: Waypoint? = nil
     
+    private let summary = LocationStatsSummary()
+    
     private let trafficStatus = TrafficStatus()
     private let weatherStatus = WeatherStatus()
     private let cameras = TrafficCams()
@@ -46,6 +48,19 @@ public class LocationStats: NSObject {
         self.lastWaypoint = waypoint
     }
     
+    private func refreshSummary() {
+        if let policeNearby = self.trafficStatus.getLastStatus()?.getPoliceNearby(location: self.lastLocation!, radius: CLLocationDistance(exactly: 5000)!).count {
+            self.summary.policeNearby = policeNearby
+        }
+        self.summary.lastUpdated = Date()
+        //TODO
+    }
+    
+    private func updateComplete(completionHandler: @escaping () -> Void) {
+        self.refreshSummary()
+        completionHandler()
+    }
+    
     func update(location: CLLocation, completionHandler: @escaping () -> Void) {
         var significantChange = true
         if let last = self.lastLocation {
@@ -62,7 +77,7 @@ public class LocationStats: NSObject {
                 completed += 1
                 if completed == 3 {
                     self.lastUpdated = Date()
-                    completionHandler()
+                    self.updateComplete(completionHandler: completionHandler)
                 }
             }
         }
@@ -87,7 +102,7 @@ public class LocationStats: NSObject {
                 addCompleted()
             }
         } else {
-            completionHandler()
+            self.updateComplete(completionHandler: completionHandler)
         }
     }
 }

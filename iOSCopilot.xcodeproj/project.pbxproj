@@ -9,36 +9,22 @@
 /* Begin PBXBuildFile section */
 		49137BC620FD6FB300DE6B90 /* LocationDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */; };
 		49137BC720FD6FB300DE6B90 /* LocationDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */; };
-		49137BC820FD6FB300DE6B90 /* LocationDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */; };
 		4922D7FF2101FF2D00E14B3D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4922D7FE2101FF2D00E14B3D /* HealthKit.framework */; };
 		4922D801210208BB00E14B3D /* BiometricTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D800210208BB00E14B3D /* BiometricTracker.swift */; };
 		4922D8032102AF5800E14B3D /* Biometrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D8022102AF5800E14B3D /* Biometrics.swift */; };
 		4922D8042102AF5800E14B3D /* Biometrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D8022102AF5800E14B3D /* Biometrics.swift */; };
-		4922D8052102AF5800E14B3D /* Biometrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D8022102AF5800E14B3D /* Biometrics.swift */; };
 		4922D807210356F300E14B3D /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4922D806210356F300E14B3D /* Charts.framework */; };
-		49381EAF20F4489000F7982D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EAE20F4489000F7982D /* AppDelegate.swift */; };
-		49381EB120F4489000F7982D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EB020F4489000F7982D /* ViewController.swift */; };
-		49381EB320F4489100F7982D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49381EB220F4489100F7982D /* Assets.xcassets */; };
-		49381EB620F4489100F7982D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49381EB420F4489100F7982D /* Main.storyboard */; };
-		49381EBD20F448CA00F7982D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49381EBC20F448CA00F7982D /* MapKit.framework */; };
+		4928CF01210B5F57009E65B1 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4928CF00210B5F57009E65B1 /* NotificationCenter.framework */; };
+		4928CF04210B5F57009E65B1 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4928CF03210B5F57009E65B1 /* TodayViewController.swift */; };
+		4928CF07210B5F57009E65B1 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4928CF05210B5F57009E65B1 /* MainInterface.storyboard */; };
+		4928CF0B210B5F57009E65B1 /* CopilotToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4928CEFF210B5F57009E65B1 /* CopilotToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		49381EC220FB6AF100F7982D /* CopilotApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EC120FB6AF100F7982D /* CopilotApi.swift */; };
 		49381EC320FB6AF100F7982D /* CopilotApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EC120FB6AF100F7982D /* CopilotApi.swift */; };
-		49381EC420FB6AF100F7982D /* CopilotApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EC120FB6AF100F7982D /* CopilotApi.swift */; };
 		49381EC620FB6B0D00F7982D /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EC520FB6B0D00F7982D /* JWT.swift */; };
 		49381EC720FB6B0D00F7982D /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EC520FB6B0D00F7982D /* JWT.swift */; };
-		49381EC820FB6B0D00F7982D /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EC520FB6B0D00F7982D /* JWT.swift */; };
 		49381ECA20FB6CB800F7982D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49381EC920FB6CB800F7982D /* LoginViewController.swift */; };
 		493E653520FE012E0054797D /* LocationSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E653420FE012E0054797D /* LocationSegment.swift */; };
 		493E653620FE012E0054797D /* LocationSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E653420FE012E0054797D /* LocationSegment.swift */; };
-		493E653720FE012E0054797D /* LocationSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E653420FE012E0054797D /* LocationSegment.swift */; };
-		493E653E20FE10BD0054797D /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 493E653C20FE10BD0054797D /* Interface.storyboard */; };
-		493E654020FE10BE0054797D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 493E653F20FE10BE0054797D /* Assets.xcassets */; };
-		493E654720FE10BF0054797D /* watchCopilot Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 493E654620FE10BF0054797D /* watchCopilot Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		493E654C20FE10BF0054797D /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E654B20FE10BF0054797D /* InterfaceController.swift */; };
-		493E654E20FE10BF0054797D /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E654D20FE10BF0054797D /* ExtensionDelegate.swift */; };
-		493E655020FE10BF0054797D /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E654F20FE10BF0054797D /* NotificationController.swift */; };
-		493E655220FE10BF0054797D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 493E655120FE10BF0054797D /* Assets.xcassets */; };
-		493E655720FE10BF0054797D /* watchCopilot.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 493E653A20FE10BD0054797D /* watchCopilot.app */; };
 		494B49D8210748E1001F248B /* Jukebox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494B49D7210748E0001F248B /* Jukebox.framework */; };
 		49561112202F451B00464A53 /* WebUplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49561111202F451B00464A53 /* WebUplink.swift */; };
 		495FDD392100A97600A4EA90 /* Scanners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FDD382100A97600A4EA90 /* Scanners.swift */; };
@@ -74,35 +60,31 @@
 		49D85CCB203879560088B633 /* LocationStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CCA203879560088B633 /* LocationStats.swift */; };
 		49D85CCD203C53E40088B633 /* TrafficCams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CCC203C53E40088B633 /* TrafficCams.swift */; };
 		49D85CCF203F11D70088B633 /* TrafficCamController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CCE203F11D70088B633 /* TrafficCamController.swift */; };
+		49FEF86A210B62BC0006F0F9 /* LocationSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF869210B62BC0006F0F9 /* LocationSummary.swift */; };
+		49FEF86B210B62BC0006F0F9 /* LocationSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF869210B62BC0006F0F9 /* LocationSummary.swift */; };
+		49FEF86C210B62BC0006F0F9 /* LocationSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF869210B62BC0006F0F9 /* LocationSummary.swift */; };
 		49FFC68B20C5777700DC6D5A /* TwilioVoice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FFC68A20C5777700DC6D5A /* TwilioVoice.framework */; };
 		49FFC68E20C579F700DC6D5A /* CommsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FFC68D20C579F700DC6D5A /* CommsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		493E654820FE10BF0054797D /* PBXContainerItemProxy */ = {
+		4928CF09210B5F57009E65B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 496BCFA82027A157001C6B48 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 493E654520FE10BF0054797D;
-			remoteInfo = "watchCopilot Extension";
-		};
-		493E655520FE10BF0054797D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 496BCFA82027A157001C6B48 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 493E653920FE10BD0054797D;
-			remoteInfo = watchCopilot;
+			remoteGlobalIDString = 4928CEFE210B5F57009E65B1;
+			remoteInfo = CopilotToday;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		493E655B20FE10BF0054797D /* Embed App Extensions */ = {
+		4928CF0F210B5F57009E65B1 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				493E654720FE10BF0054797D /* watchCopilot Extension.appex in Embed App Extensions */,
+				4928CF0B210B5F57009E65B1 /* CopilotToday.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,7 +95,6 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				493E655720FE10BF0054797D /* watchCopilot.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,30 +107,17 @@
 		4922D800210208BB00E14B3D /* BiometricTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricTracker.swift; sourceTree = "<group>"; };
 		4922D8022102AF5800E14B3D /* Biometrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Biometrics.swift; sourceTree = "<group>"; };
 		4922D806210356F300E14B3D /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/tvOS/Charts.framework; sourceTree = SOURCE_ROOT; };
-		49381EAC20F4489000F7982D /* MacOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		49381EAE20F4489000F7982D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		49381EB020F4489000F7982D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		49381EB220F4489100F7982D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		49381EB520F4489100F7982D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		49381EB720F4489100F7982D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49381EB820F4489100F7982D /* MacOSCopilot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacOSCopilot.entitlements; sourceTree = "<group>"; };
+		4928CEFF210B5F57009E65B1 /* CopilotToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CopilotToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4928CF00210B5F57009E65B1 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		4928CF03210B5F57009E65B1 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		4928CF06210B5F57009E65B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		4928CF08210B5F57009E65B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49381EBC20F448CA00F7982D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		49381EC120FB6AF100F7982D /* CopilotApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopilotApi.swift; sourceTree = "<group>"; };
 		49381EC520FB6B0D00F7982D /* JWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWT.swift; sourceTree = "<group>"; };
 		49381EC920FB6CB800F7982D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		49381ECB20FB72C100F7982D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		493E653420FE012E0054797D /* LocationSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSegment.swift; sourceTree = "<group>"; };
-		493E653A20FE10BD0054797D /* watchCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = watchCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		493E653D20FE10BD0054797D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		493E653F20FE10BE0054797D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		493E654120FE10BE0054797D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		493E654620FE10BF0054797D /* watchCopilot Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "watchCopilot Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		493E654B20FE10BF0054797D /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
-		493E654D20FE10BF0054797D /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
-		493E654F20FE10BF0054797D /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
-		493E655120FE10BF0054797D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		493E655320FE10BF0054797D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		493E655420FE10BF0054797D /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		494B49D7210748E0001F248B /* Jukebox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jukebox.framework; path = Carthage/Build/iOS/Jukebox.framework; sourceTree = SOURCE_ROOT; };
 		49561111202F451B00464A53 /* WebUplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUplink.swift; sourceTree = "<group>"; };
 		495FDD382100A97600A4EA90 /* Scanners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanners.swift; sourceTree = "<group>"; };
@@ -188,23 +156,18 @@
 		49D85CCA203879560088B633 /* LocationStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStats.swift; sourceTree = "<group>"; };
 		49D85CCC203C53E40088B633 /* TrafficCams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCams.swift; sourceTree = "<group>"; };
 		49D85CCE203F11D70088B633 /* TrafficCamController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCamController.swift; sourceTree = "<group>"; };
+		49FEF867210B61B60006F0F9 /* CopilotToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CopilotToday.entitlements; sourceTree = "<group>"; };
+		49FEF869210B62BC0006F0F9 /* LocationSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSummary.swift; sourceTree = "<group>"; };
 		49FFC68A20C5777700DC6D5A /* TwilioVoice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwilioVoice.framework; path = Carthage/Build/iOS/TwilioVoice.framework; sourceTree = "<group>"; };
 		49FFC68D20C579F700DC6D5A /* CommsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		49381EA920F4489000F7982D /* Frameworks */ = {
+		4928CEFC210B5F57009E65B1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49381EBD20F448CA00F7982D /* MapKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		493E654320FE10BF0054797D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				4928CF01210B5F57009E65B1 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,40 +195,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		49381EAD20F4489000F7982D /* MacOSCopilot */ = {
+		4928CF02210B5F57009E65B1 /* CopilotToday */ = {
 			isa = PBXGroup;
 			children = (
-				49381EAE20F4489000F7982D /* AppDelegate.swift */,
-				49381EB020F4489000F7982D /* ViewController.swift */,
-				49381EB220F4489100F7982D /* Assets.xcassets */,
-				49381EB420F4489100F7982D /* Main.storyboard */,
-				49381EB720F4489100F7982D /* Info.plist */,
-				49381EB820F4489100F7982D /* MacOSCopilot.entitlements */,
+				49FEF867210B61B60006F0F9 /* CopilotToday.entitlements */,
+				4928CF03210B5F57009E65B1 /* TodayViewController.swift */,
+				4928CF05210B5F57009E65B1 /* MainInterface.storyboard */,
+				4928CF08210B5F57009E65B1 /* Info.plist */,
 			);
-			path = MacOSCopilot;
-			sourceTree = "<group>";
-		};
-		493E653B20FE10BD0054797D /* watchCopilot */ = {
-			isa = PBXGroup;
-			children = (
-				493E653C20FE10BD0054797D /* Interface.storyboard */,
-				493E653F20FE10BE0054797D /* Assets.xcassets */,
-				493E654120FE10BE0054797D /* Info.plist */,
-			);
-			path = watchCopilot;
-			sourceTree = "<group>";
-		};
-		493E654A20FE10BF0054797D /* watchCopilot Extension */ = {
-			isa = PBXGroup;
-			children = (
-				493E654B20FE10BF0054797D /* InterfaceController.swift */,
-				493E654D20FE10BF0054797D /* ExtensionDelegate.swift */,
-				493E654F20FE10BF0054797D /* NotificationController.swift */,
-				493E655120FE10BF0054797D /* Assets.xcassets */,
-				493E655320FE10BF0054797D /* Info.plist */,
-				493E655420FE10BF0054797D /* PushNotificationPayload.apns */,
-			);
-			path = "watchCopilot Extension";
+			path = CopilotToday;
 			sourceTree = "<group>";
 		};
 		496BCFA72027A157001C6B48 = {
@@ -274,9 +212,7 @@
 				4998317320F0567D00C69215 /* CopilotCommon */,
 				496BCFB22027A157001C6B48 /* iOSCopilot */,
 				4998316520F0567500C69215 /* tvOSCopilot */,
-				49381EAD20F4489000F7982D /* MacOSCopilot */,
-				493E653B20FE10BD0054797D /* watchCopilot */,
-				493E654A20FE10BF0054797D /* watchCopilot Extension */,
+				4928CF02210B5F57009E65B1 /* CopilotToday */,
 				496BCFB12027A157001C6B48 /* Products */,
 				496BCFC72027A234001C6B48 /* Frameworks */,
 			);
@@ -287,9 +223,7 @@
 			children = (
 				496BCFB02027A157001C6B48 /* iOSCopilot.app */,
 				4998316420F0567500C69215 /* tvOSCopilot.app */,
-				49381EAC20F4489000F7982D /* MacOSCopilot.app */,
-				493E653A20FE10BD0054797D /* watchCopilot.app */,
-				493E654620FE10BF0054797D /* watchCopilot Extension.appex */,
+				4928CEFF210B5F57009E65B1 /* CopilotToday.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -327,6 +261,7 @@
 				49FFC68A20C5777700DC6D5A /* TwilioVoice.framework */,
 				496BCFCF2029AB1B001C6B48 /* CoreData.framework */,
 				496BCFC82027A234001C6B48 /* MapKit.framework */,
+				4928CF00210B5F57009E65B1 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -367,6 +302,7 @@
 				493E653420FE012E0054797D /* LocationSegment.swift */,
 				495FDD382100A97600A4EA90 /* Scanners.swift */,
 				4922D8022102AF5800E14B3D /* Biometrics.swift */,
+				49FEF869210B62BC0006F0F9 /* LocationSummary.swift */,
 			);
 			path = CopilotCommon;
 			sourceTree = "<group>";
@@ -374,56 +310,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		49381EAB20F4489000F7982D /* MacOSCopilot */ = {
+		4928CEFE210B5F57009E65B1 /* CopilotToday */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 49381EB920F4489100F7982D /* Build configuration list for PBXNativeTarget "MacOSCopilot" */;
+			buildConfigurationList = 4928CF0E210B5F57009E65B1 /* Build configuration list for PBXNativeTarget "CopilotToday" */;
 			buildPhases = (
-				49381EA820F4489000F7982D /* Sources */,
-				49381EA920F4489000F7982D /* Frameworks */,
-				49381EAA20F4489000F7982D /* Resources */,
+				4928CEFB210B5F57009E65B1 /* Sources */,
+				4928CEFC210B5F57009E65B1 /* Frameworks */,
+				4928CEFD210B5F57009E65B1 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = MacOSCopilot;
-			productName = MacOSCopilot;
-			productReference = 49381EAC20F4489000F7982D /* MacOSCopilot.app */;
-			productType = "com.apple.product-type.application";
-		};
-		493E653920FE10BD0054797D /* watchCopilot */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 493E655C20FE10BF0054797D /* Build configuration list for PBXNativeTarget "watchCopilot" */;
-			buildPhases = (
-				493E653820FE10BD0054797D /* Resources */,
-				493E655B20FE10BF0054797D /* Embed App Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				493E654920FE10BF0054797D /* PBXTargetDependency */,
-			);
-			name = watchCopilot;
-			productName = watchCopilot;
-			productReference = 493E653A20FE10BD0054797D /* watchCopilot.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		493E654520FE10BF0054797D /* watchCopilot Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 493E655820FE10BF0054797D /* Build configuration list for PBXNativeTarget "watchCopilot Extension" */;
-			buildPhases = (
-				493E654220FE10BF0054797D /* Sources */,
-				493E654320FE10BF0054797D /* Frameworks */,
-				493E654420FE10BF0054797D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "watchCopilot Extension";
-			productName = "watchCopilot Extension";
-			productReference = 493E654620FE10BF0054797D /* watchCopilot Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
+			name = CopilotToday;
+			productName = CopilotToday;
+			productReference = 4928CEFF210B5F57009E65B1 /* CopilotToday.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		496BCFAF2027A157001C6B48 /* iOSCopilot */ = {
 			isa = PBXNativeTarget;
@@ -434,11 +336,12 @@
 				496BCFAE2027A157001C6B48 /* Resources */,
 				49FFC68C20C577A500DC6D5A /* ShellScript */,
 				493E655F20FE10BF0054797D /* Embed Watch Content */,
+				4928CF0F210B5F57009E65B1 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				493E655620FE10BF0054797D /* PBXTargetDependency */,
+				4928CF0A210B5F57009E65B1 /* PBXTargetDependency */,
 			);
 			name = iOSCopilot;
 			productName = iOSCopilot;
@@ -473,27 +376,22 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "William Rory Kronmiller";
 				TargetAttributes = {
-					49381EAB20F4489000F7982D = {
+					4928CEFE210B5F57009E65B1 = {
 						CreatedOnToolsVersion = 9.4.1;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
-							com.apple.Maps.Mac = {
+							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
 						};
-					};
-					493E653920FE10BD0054797D = {
-						CreatedOnToolsVersion = 9.4.1;
-						ProvisioningStyle = Automatic;
-					};
-					493E654520FE10BF0054797D = {
-						CreatedOnToolsVersion = 9.4.1;
-						ProvisioningStyle = Automatic;
 					};
 					496BCFAF2027A157001C6B48 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
@@ -537,37 +435,17 @@
 			targets = (
 				496BCFAF2027A157001C6B48 /* iOSCopilot */,
 				4998316320F0567500C69215 /* tvOSCopilot */,
-				49381EAB20F4489000F7982D /* MacOSCopilot */,
-				493E653920FE10BD0054797D /* watchCopilot */,
-				493E654520FE10BF0054797D /* watchCopilot Extension */,
+				4928CEFE210B5F57009E65B1 /* CopilotToday */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		49381EAA20F4489000F7982D /* Resources */ = {
+		4928CEFD210B5F57009E65B1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49381EB320F4489100F7982D /* Assets.xcassets in Resources */,
-				49381EB620F4489100F7982D /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		493E653820FE10BD0054797D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				493E654020FE10BE0054797D /* Assets.xcassets in Resources */,
-				493E653E20FE10BD0054797D /* Interface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		493E654420FE10BF0054797D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				493E655220FE10BF0054797D /* Assets.xcassets in Resources */,
+				4928CF07210B5F57009E65B1 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,27 +508,12 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		49381EA820F4489000F7982D /* Sources */ = {
+		4928CEFB210B5F57009E65B1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4922D8052102AF5800E14B3D /* Biometrics.swift in Sources */,
-				493E653720FE012E0054797D /* LocationSegment.swift in Sources */,
-				49381EB120F4489000F7982D /* ViewController.swift in Sources */,
-				49381EC820FB6B0D00F7982D /* JWT.swift in Sources */,
-				49381EAF20F4489000F7982D /* AppDelegate.swift in Sources */,
-				49137BC820FD6FB300DE6B90 /* LocationDatabase.swift in Sources */,
-				49381EC420FB6AF100F7982D /* CopilotApi.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		493E654220FE10BF0054797D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				493E655020FE10BF0054797D /* NotificationController.swift in Sources */,
-				493E654E20FE10BF0054797D /* ExtensionDelegate.swift in Sources */,
-				493E654C20FE10BF0054797D /* InterfaceController.swift in Sources */,
+				4928CF04210B5F57009E65B1 /* TodayViewController.swift in Sources */,
+				49FEF86C210B62BC0006F0F9 /* LocationSummary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,6 +546,7 @@
 				4996AD562104C60200C10884 /* ScannerViewController.swift in Sources */,
 				496BCFB62027A157001C6B48 /* MapViewController.swift in Sources */,
 				49B69D3B2031B32700ACD609 /* WeatherController.swift in Sources */,
+				49FEF86A210B62BC0006F0F9 /* LocationSummary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,39 +566,27 @@
 				4998316720F0567500C69215 /* AppDelegate.swift in Sources */,
 				493E653620FE012E0054797D /* LocationSegment.swift in Sources */,
 				4998317D20F0706C00C69215 /* TrafficCams.swift in Sources */,
+				49FEF86B210B62BC0006F0F9 /* LocationSummary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		493E654920FE10BF0054797D /* PBXTargetDependency */ = {
+		4928CF0A210B5F57009E65B1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 493E654520FE10BF0054797D /* watchCopilot Extension */;
-			targetProxy = 493E654820FE10BF0054797D /* PBXContainerItemProxy */;
-		};
-		493E655620FE10BF0054797D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 493E653920FE10BD0054797D /* watchCopilot */;
-			targetProxy = 493E655520FE10BF0054797D /* PBXContainerItemProxy */;
+			target = 4928CEFE210B5F57009E65B1 /* CopilotToday */;
+			targetProxy = 4928CF09210B5F57009E65B1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		49381EB420F4489100F7982D /* Main.storyboard */ = {
+		4928CF05210B5F57009E65B1 /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				49381EB520F4489100F7982D /* Base */,
+				4928CF06210B5F57009E65B1 /* Base */,
 			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		493E653C20FE10BD0054797D /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				493E653D20FE10BD0054797D /* Base */,
-			);
-			name = Interface.storyboard;
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 		496BCFB92027A157001C6B48 /* Main.storyboard */ = {
@@ -764,133 +616,39 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		49381EBA20F4489100F7982D /* Debug */ = {
+		4928CF0C210B5F57009E65B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_ENTITLEMENTS = MacOSCopilot/MacOSCopilot.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = H64UU5B675;
-				INFOPLIST_FILE = MacOSCopilot/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = coffee.rory.MacOSCopilot;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
-			};
-			name = Debug;
-		};
-		49381EBB20F4489100F7982D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_ENTITLEMENTS = MacOSCopilot/MacOSCopilot.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = H64UU5B675;
-				INFOPLIST_FILE = MacOSCopilot/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = coffee.rory.MacOSCopilot;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
-			};
-			name = Release;
-		};
-		493E655920FE10BF0054797D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CODE_SIGN_ENTITLEMENTS = CopilotToday/CopilotToday.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H64UU5B675;
-				INFOPLIST_FILE = "watchCopilot Extension/Info.plist";
+				INFOPLIST_FILE = CopilotToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.kronmiller.william.motorcycle.iOSCopilot.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
+				PRODUCT_BUNDLE_IDENTIFIER = net.kronmiller.william.motorcycle.iOSCopilot.CopilotToday;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.3;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		493E655A20FE10BF0054797D /* Release */ = {
+		4928CF0D210B5F57009E65B1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CODE_SIGN_ENTITLEMENTS = CopilotToday/CopilotToday.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H64UU5B675;
-				INFOPLIST_FILE = "watchCopilot Extension/Info.plist";
+				INFOPLIST_FILE = CopilotToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.kronmiller.william.motorcycle.iOSCopilot.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.3;
-			};
-			name = Release;
-		};
-		493E655D20FE10BF0054797D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H64UU5B675;
-				IBSC_MODULE = watchCopilot_Extension;
-				INFOPLIST_FILE = watchCopilot/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = net.kronmiller.william.motorcycle.iOSCopilot.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = net.kronmiller.william.motorcycle.iOSCopilot.CopilotToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.3;
-			};
-			name = Debug;
-		};
-		493E655E20FE10BF0054797D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H64UU5B675;
-				IBSC_MODULE = watchCopilot_Extension;
-				INFOPLIST_FILE = watchCopilot/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = net.kronmiller.william.motorcycle.iOSCopilot.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.3;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1008,6 +766,7 @@
 		496BCFC52027A157001C6B48 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = iOSCopilot/iOSCopilot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -1029,6 +788,7 @@
 		496BCFC62027A157001C6B48 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = iOSCopilot/iOSCopilot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -1100,29 +860,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		49381EB920F4489100F7982D /* Build configuration list for PBXNativeTarget "MacOSCopilot" */ = {
+		4928CF0E210B5F57009E65B1 /* Build configuration list for PBXNativeTarget "CopilotToday" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				49381EBA20F4489100F7982D /* Debug */,
-				49381EBB20F4489100F7982D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		493E655820FE10BF0054797D /* Build configuration list for PBXNativeTarget "watchCopilot Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				493E655920FE10BF0054797D /* Debug */,
-				493E655A20FE10BF0054797D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		493E655C20FE10BF0054797D /* Build configuration list for PBXNativeTarget "watchCopilot" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				493E655D20FE10BF0054797D /* Debug */,
-				493E655E20FE10BF0054797D /* Release */,
+				4928CF0C210B5F57009E65B1 /* Debug */,
+				4928CF0D210B5F57009E65B1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

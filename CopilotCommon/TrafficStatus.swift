@@ -31,6 +31,12 @@ struct TrafficConditions {
             return (alert.type == "POLICE")
         }
     }
+    
+    func getPoliceNearby(location: CLLocation, radius: CLLocationDistance) -> [TrafficAlert] {
+        return self.getPoliceLocations().filter{ policeLocation in
+            return location.distance(from: location) < radius
+        }
+    }
 }
 
 class TrafficStatus: NSObject {
