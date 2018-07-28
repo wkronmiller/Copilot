@@ -34,6 +34,12 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
     private var existingLine: MKGeodesicPolyline? = nil
     
     private func chartLocations(locationTrace: LocationTrace) {
+        DispatchQueue.main.async {
+            if let existingLine = self.existingLine {
+                self.mapView.remove(existingLine)
+            }
+            self.existingLine = nil
+        }
         if locationTrace.locations.isEmpty {
             return
         }
@@ -64,9 +70,6 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
         let region = MKCoordinateRegionMake(center, span)
         
         DispatchQueue.main.async {
-            if let existingLine = self.existingLine {
-                self.mapView.remove(existingLine)
-            }
             self.existingLine = polyline
             self.mapView.add(polyline)
             self.mapView.setRegion(region, animated: true)
@@ -134,10 +137,18 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
         self.endDateLabel.text = self.formatter.string(for: stats.end)
         
         let speeds = stats.locationTrace.locations.map { location in return location.speed * self.metersToMph }
-        self.speedLabel.text = "\(round(speeds.min()!))-\(round(speeds.max()!))"
+        if speeds.isEmpty {
+            self.speedLabel.text = "Unknown"
+        } else {
+            self.speedLabel.text = "\(round(speeds.min()!))-\(round(speeds.max()!))"
+        }
         
         let altitudes = stats.locationTrace.locations.map { location in return location.altitude }
-        self.altitudeLabel.text = "\(round(altitudes.min()!))-\(round(altitudes.max()!))"
+        if altitudes.isEmpty {
+            self.altitudeLabel.text = "Unknown"
+        } else {
+            self.altitudeLabel.text = "\(round(altitudes.min()!))-\(round(altitudes.max()!))"
+        }
         
         let acceleration = stats.accelerationData
             .filter{ accel in
@@ -146,10 +157,18 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
                     .contains(round(accel.epochMs / 1000))
             }
             .map{ accel in return accel.getMagnitude() }
-        self.accelerationLabel.text = "\(round(acceleration.min()!))-\(round(acceleration.max()!))"
+        if acceleration.isEmpty {
+            self.accelerationLabel.text = "Unknown"
+        } else {
+            self.accelerationLabel.text = "\(round(acceleration.min()!))-\(round(acceleration.max()!))"
+        }
         
         let heartRates = stats.biometrics.heartRateMeasurements.map { pulse in return pulse.value }
-        self.pulseLabel.text = "\(heartRates.min()!)-\(heartRates.max()!)"
+        if heartRates.isEmpty {
+            self.pulseLabel.text = "Unknown"
+        } else {
+            self.pulseLabel.text = "\(heartRates.min()!)-\(heartRates.max()!)"
+        }
     }
     
     func refreshData(rideStatistics: RideStatistics) {
