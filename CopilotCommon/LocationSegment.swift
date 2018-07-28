@@ -20,6 +20,12 @@ public struct LocationSegment: Codable {
 
 public struct LocationTrace: Codable {
     var locations: [LocationSegment]
+    
+    func getFastTimesSeconds(minMetersPerSecond: Double) -> Set<Double> {
+        return Set(locations
+            .filter { $0.speed >= minMetersPerSecond }
+            .map{ round($0.epochMs / 1000) })
+    }
 }
 
 public struct Waypoint {

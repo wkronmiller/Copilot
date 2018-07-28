@@ -136,7 +136,13 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
         let altitudes = stats.locationTrace.locations.map { location in return location.altitude }
         self.altitudeLabel.text = "\(round(altitudes.min()!))-\(round(altitudes.max()!))"
         
-        let acceleration = stats.accelerationData.map{ accel in return accel.getMagnitude() }
+        let acceleration = stats.accelerationData
+            .filter{ accel in
+                return stats.locationTrace
+                    .getFastTimesSeconds(minMetersPerSecond: 20 * self.metersToMph)
+                    .contains(round(accel.epochMs / 1000))
+            }
+            .map{ accel in return accel.getMagnitude() }
         self.accelerationLabel.text = "\(round(acceleration.min()!))-\(round(acceleration.max()!))"
         
         let heartRates = stats.biometrics.heartRateMeasurements.map { pulse in return pulse.value }
