@@ -9,11 +9,15 @@
 import Foundation
 import SQLite3
 
-struct Acceleration: Codable {
+public struct Acceleration: Codable {
     let epochMs: Double
     let x: Double
     let y: Double
     let z: Double
+    
+    func getMagnitude() -> Double {
+        return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))
+    }
 }
 
 class LocationDatabase: NSObject {

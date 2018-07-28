@@ -25,23 +25,24 @@ class TrafficCamAnnotation: NSObject, MKAnnotation {
     }
 }
 
+class DarkMapController: UIViewController {
+    internal let baseMapOverlay: MKTileOverlay
+    internal let baseTileRenderer: MKTileOverlayRenderer
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.baseMapOverlay = MKTileOverlay(urlTemplate: Configuration.shared.baseMapTileUrl)
+        self.baseTileRenderer = MKTileOverlayRenderer(tileOverlay: self.baseMapOverlay)
+        baseMapOverlay.canReplaceMapContent = true
+        
+        super.init(coder: aDecoder)
+    }
+}
+
 //TODO: annotation clustering
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, MeshBaseStationDelegate {
-    
-    
-    private let metersToMph = 2.23694 // Meters/second to MPH
-    
-    @IBOutlet weak var speedChart: LineChartView!
-    @IBOutlet weak var pulseChart: LineChartView!
-    
+class ViewController: DarkMapController, MKMapViewDelegate, CLLocationManagerDelegate, MeshBaseStationDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var playerContainer: UIView!
     
-    @IBOutlet weak var meshStatusView: UIView!
-    @IBOutlet weak var meshStatusText: UILabel!
-    @IBOutlet weak var accelerationText: UILabel!
-    @IBOutlet weak var heartRateText: UILabel!
-    @IBOutlet weak var altitudeRangeText: UILabel!
     private var meshConnection: MeshConnection? = nil
     private var trackedDeviceTrace: MKPolyline? = nil
     
@@ -50,22 +51,18 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     private let trafficCams = TrafficCams()
     private var showingCameras: Bool = false
     private var trafficCamAnnotations: [TrafficCamAnnotation] = []
-    
-    private let baseMapOverlay: MKTileOverlay
-    private let baseTileRenderer: MKTileOverlayRenderer
+
     private let radarMapOverlay: MKTileOverlay
     private let radarTileRenderer: MKTileOverlayRenderer
     private var radarLastRefreshed: Date? = nil
     
+    private var statisticsViewController: StatisticsViewController?
+    
     private let meshNetwork = MeshBaseStation()
+    private var statsConnection: MeshConnection?
     
     required init?(coder aDecoder: NSCoder) {
-        self.baseMapOverlay = MKTileOverlay(urlTemplate: Configuration.shared.baseMapTileUrl)
-        self.baseTileRenderer = MKTileOverlayRenderer(tileOverlay: self.baseMapOverlay)
-        baseMapOverlay.canReplaceMapContent = true
-        
         self.radarMapOverlay = MKTileOverlay(urlTemplate: Configuration.shared.radarTileUrl)
-        
         self.radarTileRenderer = MKTileOverlayRenderer(tileOverlay: self.radarMapOverlay)
         super.init(coder: aDecoder)
         
@@ -75,6 +72,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.statisticsViewController = storyboard?.instantiateViewController(withIdentifier: "StatisticsView") as! StatisticsViewController
         locationManager.requestWhenInUseAuthorization()
         mapView.delegate = self
         
@@ -267,156 +265,23 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
     }
     
-    private func openConnection(network: MeshNetwork, connection: MeshConnection) {}
+    func connection(_ network: MeshNetwork, gotRideStatistics rideStatistics: RideStatistics, connection: MeshConnection) {
+        self.statsConnection = connection
+        NSLog("Loading stats")
+        DispatchQueue.main.async {
+            if self.statisticsViewController!.loaded == false {
+                NSLog("Presenting stats view")
+                self.present(self.statisticsViewController!, animated: true, completion: nil)
+            } else {
+                NSLog("Stats VC already loaded")
+            }
+            NSLog("Refreshing stats")
+            self.statisticsViewController!.refreshData(rideStatistics: rideStatistics)
+        }
+    }
     
     func connection(_ network: MeshNetwork, didConnect connection: MeshConnection) {}
     
-    private func clearPolylines() {
-        if let existingLine = self.trackedDeviceTrace {
-            self.mapView.remove(existingLine)
-        }
-    }
-    
-    func connection(_ network: MeshNetwork, didDisconnect peerID: MCPeerID) {
-        NSLog("Disconnected from peer \(peerID)")
-        if peerID == self.meshConnection?.peerID {
-            DispatchQueue.main.async {
-                self.meshStatusView.isHidden = true
-                self.speedChart.isHidden = true
-                self.pulseChart.isHidden = true
-                self.meshStatusText.text = "Mesh Connected"
-                self.altitudeRangeText.text = "Altitude Unknown"
-                self.accelerationText.text = "Acceleration Unknown"
-                self.heartRateText.text = "Heart Rate Unknown"
-                self.clearPolylines()
-            }
-        }
-    }
-    
-    private func prepareChart(description: String, lineChartData: [ChartDataEntry], chart: LineChartView!) {
-        let line = LineChartDataSet(values: lineChartData, label: description)
-        line.circleRadius = 0.1
-        
-        line.lineWidth = 3.0
-        line.colors = [UIColor.purple]
-        line.valueTextColor = UIColor.clear
-
-        let data = LineChartData(dataSets: [line])
-        
-        DispatchQueue.main.async {
-            self.playerContainer.isHidden = true
-            chart.clear()
-            
-            chart.data = data
-            chart.chartDescription?.text = description
-            chart.chartDescription?.font = UIFont(name: "Helvetica", size: 30)!
-            chart.chartDescription?.textColor = UIColor.white
-            chart.xAxis.drawLabelsEnabled = false
-            chart.xAxis.gridColor = UIColor.white
-            chart.rightAxis.drawLabelsEnabled = false
-            chart.leftAxis.labelTextColor = UIColor.white
-            chart.leftAxis.gridColor = UIColor.white
-            chart.leftAxis.labelFont = UIFont(name: "Helvetica", size: 20)!
-            chart.legend.enabled = false
-            chart.alpha = 0.8
-            chart.backgroundColor = UIColor.darkGray
-            chart.isHidden = false
-        }
-    }
-    
-    private func chartSpeeds(locationSegments: [LocationSegment]) {
-        let lineChartData: [ChartDataEntry] = locationSegments.map{ segment in
-            return ChartDataEntry(x: segment.epochMs, y: segment.speed * metersToMph)
-        }
-
-        self.prepareChart(description: "Speed", lineChartData: lineChartData, chart: self.speedChart)
-    }
-    
-    private func chartPulse(heartRates: [HeartRateMeasurement]) {
-        let lineChartData = heartRates.map{ segment in
-            return ChartDataEntry(x: segment.end.timeIntervalSince1970, y: segment.value)
-        }
-        
-        self.prepareChart(description: "Pulse", lineChartData: lineChartData, chart: self.pulseChart)
-    }
-    
-    func connection(_ network: MeshNetwork, gotLocations: [LocationSegment], connection: MeshConnection) {
-        self.meshConnection = connection
-        NSLog("TV view got locations \(gotLocations)")
-        if gotLocations.isEmpty {
-            NSLog("Got no locations")
-            return
-        }
-        let coordinates = gotLocations.map{ location in
-            return CLLocation(latitude: location.latitude, longitude: location.longitude)
-        }
-        
-        let latitudes = gotLocations.map{ location in return location.latitude }
-        let longitudes = gotLocations.map{ location in return location.longitude }
-        
-        let unsafeCoordinates = coordinates.map{ coordinate in return coordinate.coordinate }
-        let topSpeedMPH = gotLocations.map{ location in return location.speed }.max()! * metersToMph
-        let altitudes = gotLocations.map{ location in return location.altitude }
-        let minAltitude = altitudes.min()!
-        let maxAltitude = altitudes.max()!
-        //TODO: peak acceleration
-        let newPolyline = MKGeodesicPolyline(coordinates: unsafeCoordinates, count: coordinates.count)
-        NSLog("Will display client locations")
-        
-        let minLat = latitudes.min()!
-        let maxLat = latitudes.max()!
-        let minLon = longitudes.min()!
-        let maxLon = longitudes.max()!
-        
-        let latitudeDelta = maxLat - minLat
-        let longitudeDelta = maxLon - minLon
-        let latitudeCenter = (maxLat + minLat) / 2
-        let longitudeCenter = (maxLon + minLon) / 2
-        let extraZoom = 0.5
-        
-        let span = MKCoordinateSpan(latitudeDelta: latitudeDelta + extraZoom, longitudeDelta: longitudeDelta + extraZoom)
-        let center = CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeCenter)
-        let region = MKCoordinateRegionMake(center, span)
-        
-        DispatchQueue.main.async {
-            NSLog("Displaying client locations")
-            self.clearPolylines()
-            self.meshStatusView.isHidden = false
-            if newPolyline.pointCount > 0 {
-                self.mapView.add(newPolyline)
-                self.trackedDeviceTrace = newPolyline
-            }
-            self.meshStatusText.text = "Top Speed \(round(topSpeedMPH  * 10) / 10) MPH"
-            self.altitudeRangeText.text = "Altitude \(round(minAltitude)) - \(round(maxAltitude))m"
-            self.mapView.setRegion(region, animated: true)
-            
-        }
-        
-        self.chartSpeeds(locationSegments: gotLocations)
-    }
-    
-    func connection(_ network: MeshNetwork, gotBiometrics: BiometricSummary, connection: MeshConnection) {
-        NSLog("Got biometric data \(gotBiometrics)")
-        let pulses = gotBiometrics.heartRateMeasurements.map{ measurement in return measurement.value }
-        let minPulse = pulses.min()
-        let maxPulse = pulses.max()
-        if pulses.isEmpty == false {
-            DispatchQueue.main.async {
-                self.heartRateText.text = "Heart Rate \(minPulse!) - \(maxPulse!)"
-            }
-        }
-        self.chartPulse(heartRates: gotBiometrics.heartRateMeasurements)
-    }
-
-    func connection(_ network: MeshNetwork, gotAcceleration: [Acceleration], connection: MeshConnection) {
-        NSLog("Got acceleration \(gotAcceleration)")
-        let cumAcceleration = gotAcceleration.map{ accel in return abs(accel.x) + abs(accel.y) + abs(accel.z) }
-        if let peakAcceleration = cumAcceleration.max() {
-            DispatchQueue.main.async {
-                self.accelerationText.text = "Max Acceleration \(round(peakAcceleration))g"
-            }
-        }
-    }
-    
+    func connection(_ network: MeshNetwork, didDisconnect peerID: MCPeerID) {}
 }
 

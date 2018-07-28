@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct HeartRateMeasurement: Codable {
+public struct HeartRateMeasurement: Codable {
     let start: Date
     let end: Date
     let value: Double
 }
 
-struct BiometricSummary: Codable {
+public struct BiometricSummary: Codable {
     let heartRateMeasurements: [HeartRateMeasurement]
 }

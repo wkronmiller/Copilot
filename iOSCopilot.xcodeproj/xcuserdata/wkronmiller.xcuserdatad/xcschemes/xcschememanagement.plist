@@ -7,7 +7,7 @@
 		<key>CopilotToday.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>1</integer>
 		</dict>
 		<key>iOSCopilot.xcscheme</key>
 		<dict>
@@ -17,11 +17,16 @@
 		<key>tvOSCopilot.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>4928CEFE210B5F57009E65B1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>49381EAB20F4489000F7982D</key>
 		<dict>
 			<key>primary</key>

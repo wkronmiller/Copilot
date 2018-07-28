@@ -26,6 +26,12 @@
 		493E653520FE012E0054797D /* LocationSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E653420FE012E0054797D /* LocationSegment.swift */; };
 		493E653620FE012E0054797D /* LocationSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E653420FE012E0054797D /* LocationSegment.swift */; };
 		494B49D8210748E1001F248B /* Jukebox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494B49D7210748E0001F248B /* Jukebox.framework */; };
+		4955AD16210C8571008E2BA6 /* RideStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4955AD15210C8571008E2BA6 /* RideStatistics.swift */; };
+		4955AD17210C8571008E2BA6 /* RideStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4955AD15210C8571008E2BA6 /* RideStatistics.swift */; };
+		4955AD18210C8571008E2BA6 /* RideStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4955AD15210C8571008E2BA6 /* RideStatistics.swift */; };
+		4955AD19210C9348008E2BA6 /* Biometrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D8022102AF5800E14B3D /* Biometrics.swift */; };
+		4955AD1A210C9390008E2BA6 /* LocationSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E653420FE012E0054797D /* LocationSegment.swift */; };
+		4955AD1B210C93A3008E2BA6 /* LocationDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */; };
 		49561112202F451B00464A53 /* WebUplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49561111202F451B00464A53 /* WebUplink.swift */; };
 		495FDD392100A97600A4EA90 /* Scanners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FDD382100A97600A4EA90 /* Scanners.swift */; };
 		496BCFB42027A157001C6B48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFB32027A157001C6B48 /* AppDelegate.swift */; };
@@ -38,7 +44,7 @@
 		496BCFD02029AB1B001C6B48 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 496BCFCF2029AB1B001C6B48 /* CoreData.framework */; };
 		4996AD562104C60200C10884 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4996AD552104C60200C10884 /* ScannerViewController.swift */; };
 		4998316720F0567500C69215 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998316620F0567500C69215 /* AppDelegate.swift */; };
-		4998316920F0567500C69215 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998316820F0567500C69215 /* ViewController.swift */; };
+		4998316920F0567500C69215 /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998316820F0567500C69215 /* MainMapViewController.swift */; };
 		4998316C20F0567500C69215 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4998316A20F0567500C69215 /* Main.storyboard */; };
 		4998316E20F0567600C69215 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4998316D20F0567600C69215 /* Assets.xcassets */; };
 		4998317920F0583800C69215 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998317820F0583800C69215 /* Configuration.swift */; };
@@ -63,6 +69,7 @@
 		49FEF86A210B62BC0006F0F9 /* LocationSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF869210B62BC0006F0F9 /* LocationSummary.swift */; };
 		49FEF86B210B62BC0006F0F9 /* LocationSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF869210B62BC0006F0F9 /* LocationSummary.swift */; };
 		49FEF86C210B62BC0006F0F9 /* LocationSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF869210B62BC0006F0F9 /* LocationSummary.swift */; };
+		49FEF87E210C10500006F0F9 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF87D210C10500006F0F9 /* StatisticsViewController.swift */; };
 		49FFC68B20C5777700DC6D5A /* TwilioVoice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FFC68A20C5777700DC6D5A /* TwilioVoice.framework */; };
 		49FFC68E20C579F700DC6D5A /* CommsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FFC68D20C579F700DC6D5A /* CommsController.swift */; };
 /* End PBXBuildFile section */
@@ -119,6 +126,7 @@
 		49381ECB20FB72C100F7982D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		493E653420FE012E0054797D /* LocationSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSegment.swift; sourceTree = "<group>"; };
 		494B49D7210748E0001F248B /* Jukebox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jukebox.framework; path = Carthage/Build/iOS/Jukebox.framework; sourceTree = SOURCE_ROOT; };
+		4955AD15210C8571008E2BA6 /* RideStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideStatistics.swift; sourceTree = "<group>"; };
 		49561111202F451B00464A53 /* WebUplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUplink.swift; sourceTree = "<group>"; };
 		495FDD382100A97600A4EA90 /* Scanners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanners.swift; sourceTree = "<group>"; };
 		496BCFB02027A157001C6B48 /* iOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,7 +143,7 @@
 		4996AD552104C60200C10884 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		4998316420F0567500C69215 /* tvOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tvOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4998316620F0567500C69215 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4998316820F0567500C69215 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4998316820F0567500C69215 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
 		4998316B20F0567500C69215 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4998316D20F0567600C69215 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4998316F20F0567600C69215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -158,6 +166,7 @@
 		49D85CCE203F11D70088B633 /* TrafficCamController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCamController.swift; sourceTree = "<group>"; };
 		49FEF867210B61B60006F0F9 /* CopilotToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CopilotToday.entitlements; sourceTree = "<group>"; };
 		49FEF869210B62BC0006F0F9 /* LocationSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSummary.swift; sourceTree = "<group>"; };
+		49FEF87D210C10500006F0F9 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		49FFC68A20C5777700DC6D5A /* TwilioVoice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwilioVoice.framework; path = Carthage/Build/iOS/TwilioVoice.framework; sourceTree = "<group>"; };
 		49FFC68D20C579F700DC6D5A /* CommsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -275,7 +284,8 @@
 				4998317C20F0706C00C69215 /* TrafficCams.swift */,
 				4998317820F0583800C69215 /* Configuration.swift */,
 				4998316620F0567500C69215 /* AppDelegate.swift */,
-				4998316820F0567500C69215 /* ViewController.swift */,
+				4998316820F0567500C69215 /* MainMapViewController.swift */,
+				49FEF87D210C10500006F0F9 /* StatisticsViewController.swift */,
 				4998316A20F0567500C69215 /* Main.storyboard */,
 				4998316D20F0567600C69215 /* Assets.xcassets */,
 				4998316F20F0567600C69215 /* Info.plist */,
@@ -303,6 +313,7 @@
 				495FDD382100A97600A4EA90 /* Scanners.swift */,
 				4922D8022102AF5800E14B3D /* Biometrics.swift */,
 				49FEF869210B62BC0006F0F9 /* LocationSummary.swift */,
+				4955AD15210C8571008E2BA6 /* RideStatistics.swift */,
 			);
 			path = CopilotCommon;
 			sourceTree = "<group>";
@@ -512,8 +523,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4955AD19210C9348008E2BA6 /* Biometrics.swift in Sources */,
+				4955AD1B210C93A3008E2BA6 /* LocationDatabase.swift in Sources */,
 				4928CF04210B5F57009E65B1 /* TodayViewController.swift in Sources */,
 				49FEF86C210B62BC0006F0F9 /* LocationSummary.swift in Sources */,
+				4955AD18210C8571008E2BA6 /* RideStatistics.swift in Sources */,
+				4955AD1A210C9390008E2BA6 /* LocationSegment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +544,7 @@
 				49C288CB203103FD00D5C212 /* MainTabController.swift in Sources */,
 				49FFC68E20C579F700DC6D5A /* CommsController.swift in Sources */,
 				49381EC620FB6B0D00F7982D /* JWT.swift in Sources */,
+				4955AD16210C8571008E2BA6 /* RideStatistics.swift in Sources */,
 				495FDD392100A97600A4EA90 /* Scanners.swift in Sources */,
 				4998318320F0DB8800C69215 /* MeshDiscovery.swift in Sources */,
 				49D85CC520345A000088B633 /* WeatherStatus.swift in Sources */,
@@ -556,17 +572,19 @@
 			files = (
 				4922D8042102AF5800E14B3D /* Biometrics.swift in Sources */,
 				4998318420F0DB8800C69215 /* MeshDiscovery.swift in Sources */,
+				4955AD17210C8571008E2BA6 /* RideStatistics.swift in Sources */,
 				4998317920F0583800C69215 /* Configuration.swift in Sources */,
 				49381EC320FB6AF100F7982D /* CopilotApi.swift in Sources */,
 				49137BC720FD6FB300DE6B90 /* LocationDatabase.swift in Sources */,
 				4998318120F070B500C69215 /* AudioAlerts.swift in Sources */,
 				4998317F20F0707C00C69215 /* WebUplink.swift in Sources */,
 				49381EC720FB6B0D00F7982D /* JWT.swift in Sources */,
-				4998316920F0567500C69215 /* ViewController.swift in Sources */,
+				4998316920F0567500C69215 /* MainMapViewController.swift in Sources */,
 				4998316720F0567500C69215 /* AppDelegate.swift in Sources */,
 				493E653620FE012E0054797D /* LocationSegment.swift in Sources */,
 				4998317D20F0706C00C69215 /* TrafficCams.swift in Sources */,
 				49FEF86B210B62BC0006F0F9 /* LocationSummary.swift in Sources */,
+				49FEF87E210C10500006F0F9 /* StatisticsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

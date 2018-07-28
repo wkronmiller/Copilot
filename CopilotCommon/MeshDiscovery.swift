@@ -25,9 +25,7 @@ protocol MeshConnectionDelegate {
 }
 
 protocol MeshBaseStationDelegate: MeshConnectionDelegate {
-    func connection(_ network: MeshNetwork, gotLocations: [LocationSegment], connection: MeshConnection)
-    func connection(_ network: MeshNetwork, gotBiometrics: BiometricSummary, connection: MeshConnection)
-    func connection(_ network: MeshNetwork, gotAcceleration: [Acceleration], connection: MeshConnection)
+    func connection(_ network: MeshNetwork, gotRideStatistics rideStatistics: RideStatistics, connection: MeshConnection)
 }
 
 protocol MeshControllerDelegate: MeshConnectionDelegate {
@@ -36,9 +34,7 @@ protocol MeshControllerDelegate: MeshConnectionDelegate {
 
 enum MeshPacketType: String, Codable {
     case handshake
-    case sendLocations
-    case sendBiometrics
-    case sendAccleration
+    case sendRideStatistics
 }
 
 struct HandshakeData: Codable {
@@ -83,22 +79,14 @@ class MeshBaseStation: MeshNetwork {
         }
         return nil
     }
-    override internal func gotLocations(connection: MeshConnection, locationSegments: [LocationSegment]) {
-        self.getBaseStationDelegate()?.connection(self, gotLocations: locationSegments, connection: connection)
-    }
-    
     override func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         super.browser(browser, foundPeer: peerID, withDiscoveryInfo: info)
         NSLog("Inviting peer \(peerID)")
         browser.invitePeer(peerID, to: self.session, withContext: nil, timeout: 10.0)
     }
     
-    override func gotBiometrics(connection: MeshConnection, biometricSummary: BiometricSummary) {
-        self.getBaseStationDelegate()?.connection(self, gotBiometrics: biometricSummary, connection: connection)
-    }
-    
-    override func gotAcceleration(connection: MeshConnection, accelerationData: [Acceleration]) {
-        self.getBaseStationDelegate()?.connection(self, gotAcceleration: accelerationData, connection: connection)
+    override func gotRideStatistics(connection: MeshConnection, rideStatistics: RideStatistics) {
+        self.getBaseStationDelegate()?.connection(self, gotRideStatistics: rideStatistics, connection: connection)
     }
 }
 
@@ -176,38 +164,14 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
             NSLog("Cannot send handshake without account info")
         }
     }
-    
-    private func sendLocations(peer: MCPeerID, session: MCSession, dateInterval: DateInterval) {
-        NSLog("Sending device location history")
-        
-        let locationSegments = LocationDatabase.shared.getLocations(dateInterval: dateInterval)
-        let packet = MeshPacket.create(type: .sendLocations, payload: locationSegments)
+
+    func sendRideSummary(connection: MeshConnection, rideStatistics: RideStatistics) {
+        //TODO
+        let packet = MeshPacket.create(type: .sendRideStatistics, payload: rideStatistics)
         do {
-            try session.send(packet.serialize(), toPeers: [peer], with: .reliable)
+            try connection.session.send(packet.serialize(), toPeers: [connection.peerID], with: .reliable)
         } catch {
-            NSLog("Failed to send location segments \(error)")
-        }
-    }
-    
-    func sendLocations(connection: MeshConnection, dateInterval: DateInterval) {
-        self.sendLocations(peer: connection.peerID, session: connection.session, dateInterval: dateInterval)
-    }
-    
-    func sendBiometrics(connection: MeshConnection, biometricSummary: BiometricSummary) {
-        let packet = MeshPacket.create(type: .sendBiometrics, payload: biometricSummary)
-        do {
-            try connection.session.send(packet.serialize(),toPeers: [connection.peerID], with: .reliable)
-        } catch {
-            NSLog("Failed to send biodata \(error)")
-        }
-    }
-    
-    func sendAcceleration(connection: MeshConnection, accelerationData: [Acceleration]) {
-        let packet = MeshPacket.create(type: .sendAccleration, payload: accelerationData)
-        do {
-            try connection.session.send(packet.serialize(),toPeers: [connection.peerID], with: .reliable)
-        } catch {
-            NSLog("Failed to send acceleration \(error)")
+            NSLog("Failed to send ride statistics \(error)")
         }
     }
     
@@ -229,10 +193,7 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
         }
     }
     
-    internal func gotLocations(connection: MeshConnection, locationSegments: [LocationSegment]) {}
-    internal func gotBiometrics(connection: MeshConnection, biometricSummary: BiometricSummary) {}
-    
-    internal func gotAcceleration(connection: MeshConnection, accelerationData: [Acceleration]) {}
+    internal func gotRideStatistics(connection: MeshConnection, rideStatistics: RideStatistics) {}
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         NSLog("Mesh received data packet from peer \(peerID) \(String(data: data, encoding: .utf8))")
@@ -246,38 +207,15 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
             self.openConnections.append(newConnection)
             self.delegate?.connection(self, didConnect: newConnection)
             return
-        case .sendLocations:
-            NSLog("Mesh got location traces")
-            let locationSegments: [LocationSegment] = packet.getPayload()
+        case .sendRideStatistics:
+            let rideStatistics: RideStatistics = packet.getPayload()
             if let connection = self.openConnections.first(where: {connection in
                 connection.peerID == peerID
             }) {
-                self.gotLocations(connection: connection, locationSegments: locationSegments)
-            } else {
-                NSLog("Could not find connection for peer that sent locations \(peerID)")
+                NSLog("Got ride statistcis from \(connection)")
+                self.gotRideStatistics(connection: connection, rideStatistics: rideStatistics)
             }
-            return
-        case .sendAccleration:
-            NSLog("Mesh got acceleration data")
-            let accelerationData: [Acceleration] = packet.getPayload()
-            if let connection = self.openConnections.first(where: {connection in
-                connection.peerID == peerID
-            }) {
-                self.gotAcceleration(connection: connection, accelerationData: accelerationData)
-            } else {
-                NSLog("Could not find connection for peer that sent locations \(peerID)")
-            }
-            return
-        case .sendBiometrics:
-            let biometricSummary: BiometricSummary = packet.getPayload()
-            NSLog("Got biometrics \(biometricSummary)")
-            if let connection = self.openConnections.first(where: {connection in
-                connection.peerID == peerID
-            }) {
-                
-                self.gotBiometrics(connection: connection, biometricSummary: biometricSummary)
-            }
-            return
+            break
         }
     }
     

@@ -93,20 +93,18 @@ class NetworkingViewController: UIViewController, UITableViewDelegate, UITableVi
             return
         }
         let dateInterval = DateInterval(start: startDate.date, end: endDate.date)
-        self.meshNetwork.sendLocations(connection: self.selectedConnection!, dateInterval: dateInterval)
-        //TODO: summarize biometrics and correlate with speeds
+        let locationSegments = LocationTrace(locations: LocationDatabase.shared.getLocations(dateInterval: dateInterval))
+        let accelerationData: [Acceleration] = LocationDatabase.shared.getAccelerometerData(dateInterval: dateInterval)
         NSLog("Preparing biometric data")
         BiometricTracker.shared.getHeartRates(start: dateInterval.start, end: dateInterval.end, maxPoints: 1000, completionHandler: { error, measurements in
             if error != nil {
                 return
             }
-            NSLog("Sending biometric data")
             let biometricSummary = BiometricSummary(heartRateMeasurements: measurements)
-            self.meshNetwork.sendBiometrics(connection: self.selectedConnection!, biometricSummary: biometricSummary)
+            let rideStatistics = RideStatistics(start: self.startDate.date, end: self.endDate.date, biometrics: biometricSummary, locationTrace: locationSegments, accelerationData: accelerationData)
+            NSLog("Sending ride statistics \(rideStatistics)")
+            self.meshNetwork.sendRideSummary(connection: self.selectedConnection!, rideStatistics: rideStatistics)
         })
-        
-        let accelerationData: [Acceleration] = LocationDatabase.shared.getAccelerometerData(dateInterval: dateInterval)
-        self.meshNetwork.sendAcceleration(connection: self.selectedConnection!, accelerationData: accelerationData)
     }
 
 }
