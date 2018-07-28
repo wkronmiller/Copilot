@@ -34,6 +34,9 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
     private var existingLine: MKGeodesicPolyline? = nil
     
     private func chartLocations(locationTrace: LocationTrace) {
+        if locationTrace.locations.isEmpty {
+            return
+        }
         let coordinates = locationTrace.locations.map{ location in
             return CLLocation(latitude: location.latitude, longitude: location.longitude)
         }
@@ -164,6 +167,21 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
         self.formatter.locale = Locale(identifier: "en_us")
         self.formatter.dateStyle = .short
         self.formatter.timeStyle = .short
+        
+        let gradient = CAGradientLayer()
+        gradient.frame = view.bounds
+        
+        gradient.locations = [
+            0,
+            0.4
+        ]
+        
+        gradient.colors = [
+            UIColor.white.cgColor,
+            UIColor.black.cgColor
+        ]
+        
+        view.layer.insertSublayer(gradient, at: 0)
     }
     
     var loaded = false
