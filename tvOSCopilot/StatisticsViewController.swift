@@ -177,8 +177,8 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
         ]
         
         gradient.colors = [
-            UIColor.white.cgColor,
-            UIColor.black.cgColor
+            UIColor.black.cgColor,
+            UIColor.darkGray.cgColor
         ]
         
         view.layer.insertSublayer(gradient, at: 0)
