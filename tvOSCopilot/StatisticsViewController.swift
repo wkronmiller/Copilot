@@ -111,7 +111,7 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
         
         let chartData = LineChartData(dataSets: [pulseLine, speedLine, accelerationLine])
 
-        let chart = self.lineChart!
+        let chart = self.lineChart! //TODO: hide fullscreen cameras first
         DispatchQueue.main.async {
             chart.data = chartData
             chart.chartDescription?.text = "Speed - Acceleration - Pulse"
@@ -124,7 +124,6 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
             chart.leftAxis.gridColor = UIColor.white
             chart.leftAxis.labelFont = UIFont(name: "Helvetica", size: 20)!
             chart.legend.enabled = false
-            chart.backgroundColor = UIColor.darkGray
             chart.tintColor = UIColor.clear
         }
     }
@@ -187,20 +186,7 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
         self.formatter.dateStyle = .short
         self.formatter.timeStyle = .short
         
-        let gradient = CAGradientLayer()
-        gradient.frame = view.bounds
-        
-        gradient.locations = [
-            0,
-            0.4
-        ]
-        
-        gradient.colors = [
-            UIColor.black.cgColor,
-            UIColor.darkGray.cgColor
-        ]
-        
-        view.layer.insertSublayer(gradient, at: 0)
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "panigale")!)
     }
     
     var loaded = false
