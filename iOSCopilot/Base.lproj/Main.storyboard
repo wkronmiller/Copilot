@@ -117,7 +117,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mPg-tv-sMy">
                                 <rect key="frame" x="0.0" y="496" width="375" height="122"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="122" id="aLX-Rl-tdi"/>
                                 </constraints>
@@ -154,7 +154,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="30" translatesAutoresizingMaskIntoConstraints="NO" id="VmW-v0-cFl">
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="VmW-v0-cFl">
                                 <rect key="frame" x="0.0" y="120" width="375" height="92"/>
                                 <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <constraints>
@@ -166,6 +166,9 @@
                                 <date key="maximumDate" timeIntervalSinceReferenceDate="1167562800">
                                     <!--2037-12-31 11:00:00 +0000-->
                                 </date>
+                                <connections>
+                                    <action selector="endDateChanged:" destination="EhT-PF-xMZ" eventType="valueChanged" id="Iqm-Wr-tE7"/>
+                                </connections>
                             </datePicker>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="30" translatesAutoresizingMaskIntoConstraints="NO" id="uXu-fy-evb">
                                 <rect key="frame" x="0.0" y="25" width="375" height="92"/>
@@ -179,6 +182,9 @@
                                 <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
                                     <!--1970-01-01 11:00:00 +0000-->
                                 </date>
+                                <connections>
+                                    <action selector="startDateChanged:" destination="EhT-PF-xMZ" eventType="valueChanged" id="Dug-d8-uIo"/>
+                                </connections>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1R-Hh-Maf">
                                 <rect key="frame" x="0.0" y="453" width="375" height="42"/>
@@ -193,6 +199,48 @@
                                     <action selector="sendLocationsClicked:" destination="EhT-PF-xMZ" eventType="touchUpInside" id="S1u-jk-ibD"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Speed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrj-E7-zUt">
+                                <rect key="frame" x="16" y="255" width="59" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Unknown" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IVb-8f-M61">
+                                <rect key="frame" x="161" y="255" width="198" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Unknown" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYL-cw-j7A">
+                                <rect key="frame" x="161" y="320" width="198" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Acceleration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ux-9E-aZd">
+                                <rect key="frame" x="16" y="320" width="114" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Heart Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DD3-dR-7s1">
+                                <rect key="frame" x="16" y="386" width="97" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Unknown" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCL-pT-GGf">
+                                <rect key="frame" x="161" y="386" width="198" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -213,9 +261,12 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Sync" id="ATw-Ew-CUp" customClass="MainTabBarItem" customModule="iOSCopilot" customModuleProvider="target"/>
                     <connections>
+                        <outlet property="accelerationLabel" destination="pYL-cw-j7A" id="qRD-Vb-EXE"/>
                         <outlet property="connectionTable" destination="mPg-tv-sMy" id="Zb4-fm-opP"/>
                         <outlet property="endDate" destination="VmW-v0-cFl" id="7ox-5w-BZ9"/>
+                        <outlet property="pulseLabel" destination="KCL-pT-GGf" id="AP5-Zx-xNI"/>
                         <outlet property="sendLocationsButton" destination="e1R-Hh-Maf" id="CiI-CE-2h5"/>
+                        <outlet property="speedLabel" destination="IVb-8f-M61" id="iwR-TP-biY"/>
                         <outlet property="startDate" destination="uXu-fy-evb" id="mAL-U2-YYt"/>
                     </connections>
                 </viewController>

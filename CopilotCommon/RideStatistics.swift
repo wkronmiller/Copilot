@@ -28,4 +28,20 @@ struct RideStatistics: Codable {
     let biometrics: BiometricSummary
     let locationTrace: LocationTrace
     let accelerationData: [Acceleration]
+    
+    func getRidingAcceleration(minMetersPerSecond: Double) -> [Acceleration] {
+        let fastTimes = self.locationTrace
+            .getFastTimesSeconds(minMetersPerSecond: minMetersPerSecond)
+        return self.accelerationData.filter{ accel in
+            return fastTimes.contains(round(accel.epochMs / 1000))
+        }
+    }
+}
+
+extension Double {
+    var metersPerSecondToMPH: Double {
+        get {
+            return self * 2.23694
+        }
+    }
 }

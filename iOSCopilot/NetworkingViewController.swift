@@ -15,6 +15,10 @@ class MeshConnectionTableCell: UITableViewCell {
 }
 
 class NetworkingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MeshControllerDelegate {
+    @IBOutlet weak var accelerationLabel: UILabel!
+    @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var pulseLabel: UILabel!
+    
     @IBOutlet weak var startDate: UIDatePicker!
     @IBOutlet weak var endDate: UIDatePicker!
     @IBOutlet weak var connectionTable: UITableView!
@@ -23,7 +27,14 @@ class NetworkingViewController: UIViewController, UITableViewDelegate, UITableVi
     private let meshNetwork = MeshNetworkController()
     
     private var selectedConnection: MeshConnection? = nil
-    
+
+    private func resetDates() {
+        DispatchQueue.main.async {
+            self.startDate.date = Date().addingTimeInterval(-60 * 60 * 5)
+            self.endDate.date = Date()
+        }
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.meshNetwork.startAdvertising()
@@ -34,6 +45,7 @@ class NetworkingViewController: UIViewController, UITableViewDelegate, UITableVi
             self.sendLocationsButton.isEnabled = false
         }
         NSLog("Advertising mesh")
+        self.resetDates()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -87,15 +99,15 @@ class NetworkingViewController: UIViewController, UITableViewDelegate, UITableVi
         self.sendLocationsButton.isEnabled = false
     }
     
-    @IBAction func sendLocationsClicked(_ sender: Any) {
-        if startDate.date >= endDate.date {
+    //TODO: move this method into something else
+    private func getRideStatistics(startDate: Date, endDate: Date, completionHandler: @escaping (RideStatistics) -> Void) {
+        if startDate >= endDate {
             NSLog("Dates invalid")
             return
         }
-        let dateInterval = DateInterval(start: startDate.date, end: endDate.date)
+        let dateInterval = DateInterval(start: startDate, end: endDate)
         let locationSegments = LocationTrace(locations: LocationDatabase.shared.getLocations(dateInterval: dateInterval))
         let accelerationData: [Acceleration] = LocationDatabase.shared.getAccelerometerData(dateInterval: dateInterval)
-        NSLog("Preparing biometric data")
         BiometricTracker.shared.getHeartRates(start: dateInterval.start, end: dateInterval.end, maxPoints: 1000, completionHandler: { error, measurements in
             if error != nil {
                 return
@@ -103,8 +115,40 @@ class NetworkingViewController: UIViewController, UITableViewDelegate, UITableVi
             let biometricSummary = BiometricSummary(heartRateMeasurements: measurements)
             let rideStatistics = RideStatistics(start: self.startDate.date, end: self.endDate.date, biometrics: biometricSummary, locationTrace: locationSegments, accelerationData: accelerationData)
             NSLog("Sending ride statistics \(rideStatistics)")
-            self.meshNetwork.sendRideSummary(connection: self.selectedConnection!, rideStatistics: rideStatistics)
+            
+            completionHandler(rideStatistics)
         })
+    }
+    
+    private var refreshing = false
+    func refreshStatsView() {
+        if refreshing {
+            return
+        }
+        self.refreshing = true
+        getRideStatistics(startDate: self.startDate.date, endDate: self.endDate.date){ rideStatistics in
+            //TODO
+            self.refreshing = false
+        }
+    }
+    
+    @IBAction func sendLocationsClicked(_ sender: Any) {
+        self.getRideStatistics(startDate: self.startDate.date, endDate: self.endDate.date) { rideStatistics in
+            self.meshNetwork.sendRideSummary(connection: self.selectedConnection!, rideStatistics: rideStatistics)
+        }
+    }
+    
+    @IBAction func startDateChanged(_ sender: UIDatePicker) {
+        DispatchQueue.main.async {
+            self.endDate.minimumDate = self.startDate.date
+        }
+        self.refreshStatsView()
+    }
+    @IBAction func endDateChanged(_ sender: UIDatePicker) {
+        DispatchQueue.main.async {
+            self.startDate.maximumDate = self.endDate.date
+        }
+        self.refreshStatsView()
     }
 
 }
