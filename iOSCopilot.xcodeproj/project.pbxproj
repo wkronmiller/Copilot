@@ -29,6 +29,9 @@
 		4913896921250EC00033D98C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913896721250EC00033D98C /* User.swift */; };
 		4913896A21250EE80033D98C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913896721250EC00033D98C /* User.swift */; };
 		4913896B21250EEB0033D98C /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913896421250EAF0033D98C /* Vehicle.swift */; };
+		4913896C21250FCB0033D98C /* WebUplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49561111202F451B00464A53 /* WebUplink.swift */; };
+		4913896D21250FDB0033D98C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C32030B13A00D5C212 /* Configuration.swift */; };
+		4913896E21250FE80033D98C /* TrafficCams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CCC203C53E40088B633 /* TrafficCams.swift */; };
 		4922D7FF2101FF2D00E14B3D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4922D7FE2101FF2D00E14B3D /* HealthKit.framework */; };
 		4922D801210208BB00E14B3D /* BiometricTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D800210208BB00E14B3D /* BiometricTracker.swift */; };
 		4922D8032102AF5800E14B3D /* Biometrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D8022102AF5800E14B3D /* Biometrics.swift */; };
@@ -67,11 +70,7 @@
 		4998316920F0567500C69215 /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998316820F0567500C69215 /* MainMapViewController.swift */; };
 		4998316C20F0567500C69215 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4998316A20F0567500C69215 /* Main.storyboard */; };
 		4998316E20F0567600C69215 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4998316D20F0567600C69215 /* Assets.xcassets */; };
-		4998317920F0583800C69215 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998317820F0583800C69215 /* Configuration.swift */; };
 		4998317B20F05ADA00C69215 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4998317A20F05ADA00C69215 /* MapKit.framework */; };
-		4998317D20F0706C00C69215 /* TrafficCams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998317C20F0706C00C69215 /* TrafficCams.swift */; };
-		4998317F20F0707C00C69215 /* WebUplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998317E20F0707C00C69215 /* WebUplink.swift */; };
-		4998318120F070B500C69215 /* AudioAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318020F070B500C69215 /* AudioAlerts.swift */; };
 		4998318320F0DB8800C69215 /* MeshDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318220F0DB8800C69215 /* MeshDiscovery.swift */; };
 		4998318420F0DB8800C69215 /* MeshDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318220F0DB8800C69215 /* MeshDiscovery.swift */; };
 		4998318620F0EC5700C69215 /* NetworkingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998318520F0EC5700C69215 /* NetworkingViewController.swift */; };
@@ -175,11 +174,7 @@
 		4998316B20F0567500C69215 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4998316D20F0567600C69215 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4998316F20F0567600C69215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4998317820F0583800C69215 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = CopilotCommon/Configuration.swift; sourceTree = SOURCE_ROOT; };
 		4998317A20F05ADA00C69215 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS11.4.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
-		4998317C20F0706C00C69215 /* TrafficCams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrafficCams.swift; path = CopilotCommon/TrafficCams.swift; sourceTree = SOURCE_ROOT; };
-		4998317E20F0707C00C69215 /* WebUplink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebUplink.swift; path = CopilotCommon/WebUplink.swift; sourceTree = SOURCE_ROOT; };
-		4998318020F070B500C69215 /* AudioAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioAlerts.swift; path = CopilotCommon/AudioAlerts.swift; sourceTree = SOURCE_ROOT; };
 		4998318220F0DB8800C69215 /* MeshDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshDiscovery.swift; sourceTree = "<group>"; };
 		4998318520F0EC5700C69215 /* NetworkingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingViewController.swift; sourceTree = "<group>"; };
 		4998318920F24B6F00C69215 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -348,10 +343,6 @@
 			children = (
 				4968CB9821163FDA00F3081C /* Surge.framework */,
 				4922D806210356F300E14B3D /* Charts.framework */,
-				4998318020F070B500C69215 /* AudioAlerts.swift */,
-				4998317E20F0707C00C69215 /* WebUplink.swift */,
-				4998317C20F0706C00C69215 /* TrafficCams.swift */,
-				4998317820F0583800C69215 /* Configuration.swift */,
 				4998316620F0567500C69215 /* AppDelegate.swift */,
 				4998316820F0567500C69215 /* MainMapViewController.swift */,
 				49FEF87D210C10500006F0F9 /* StatisticsViewController.swift */,
@@ -640,23 +631,22 @@
 				4922D8042102AF5800E14B3D /* Biometrics.swift in Sources */,
 				4998318420F0DB8800C69215 /* MeshDiscovery.swift in Sources */,
 				4955AD17210C8571008E2BA6 /* RideStatistics.swift in Sources */,
-				4998317920F0583800C69215 /* Configuration.swift in Sources */,
 				49381EC320FB6AF100F7982D /* CopilotApi.swift in Sources */,
 				4913894F212500530033D98C /* Account.swift in Sources */,
 				49137BC720FD6FB300DE6B90 /* LocationDatabase.swift in Sources */,
+				4913896D21250FDB0033D98C /* Configuration.swift in Sources */,
 				49138954212503680033D98C /* MeshConnection.swift in Sources */,
-				4998318120F070B500C69215 /* AudioAlerts.swift in Sources */,
-				4998317F20F0707C00C69215 /* WebUplink.swift in Sources */,
 				4913896921250EC00033D98C /* User.swift in Sources */,
 				491389572125037E0033D98C /* MeshPacket.swift in Sources */,
 				49381EC720FB6B0D00F7982D /* JWT.swift in Sources */,
 				4998316920F0567500C69215 /* MainMapViewController.swift in Sources */,
+				4913896C21250FCB0033D98C /* WebUplink.swift in Sources */,
 				4998316720F0567500C69215 /* AppDelegate.swift in Sources */,
 				493E653620FE012E0054797D /* LocationSegment.swift in Sources */,
-				4998317D20F0706C00C69215 /* TrafficCams.swift in Sources */,
 				49FEF86B210B62BC0006F0F9 /* GroupData.swift in Sources */,
 				49FEF87E210C10500006F0F9 /* StatisticsViewController.swift in Sources */,
 				4913896621250EAF0033D98C /* Vehicle.swift in Sources */,
+				4913896E21250FE80033D98C /* TrafficCams.swift in Sources */,
 				4913895C212505F20033D98C /* TrafficCam.swift in Sources */,
 				4913895F212506B70033D98C /* Acceleration.swift in Sources */,
 			);
