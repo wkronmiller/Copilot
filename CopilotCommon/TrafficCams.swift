@@ -9,12 +9,6 @@
 import Foundation
 import CoreLocation
 
-public struct TrafficCam {
-    var name: String
-    var address: URL
-    var location: CLLocation
-}
-
 class TrafficCams: NSObject {
     private var cameras: [TrafficCam] = []
     

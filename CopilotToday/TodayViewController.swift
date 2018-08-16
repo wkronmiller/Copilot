@@ -11,7 +11,7 @@ import NotificationCenter
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     private let dateFormatter = DateFormatter()
-    private let summary = LocationStatsSummary()
+    private let summary = GroupData()
     @IBOutlet weak var policeNearby: UILabel!
     @IBOutlet weak var lastUpdated: UILabel!
     

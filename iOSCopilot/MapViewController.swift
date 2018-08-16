@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class PoliceAnnotation: NSObject, MKAnnotation {
+class SpeedTrapAnnotation: NSObject, MKAnnotation {
     var uuid: String
     var coordinate: CLLocationCoordinate2D
     var title: String?
@@ -30,7 +30,7 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
     
     private let annotationViewReuseId = "traffic_annotation_view"
     
-    private var policeAnnotations: [PoliceAnnotation] = []
+    private var policeAnnotations: [SpeedTrapAnnotation] = []
     private var trafficLines: [MKGeodesicPolyline] = []
     private var annotationsLastUpdated: Date? = nil
     private var processingAnnotations: Bool = false
@@ -136,7 +136,7 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationViewReuseId)
         }
         
-        if annotation is PoliceAnnotation {
+        if annotation is SpeedTrapAnnotation {
             let image = UIImage(named: "ic_security")!
             let scale = 30
             let size = CGSize(width: scale, height: scale)
@@ -156,8 +156,8 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
         
         let police = trafficConditions.getPoliceLocations()
         
-        let newAnnotations: [PoliceAnnotation] = police.map{alert in
-            PoliceAnnotation(uuid: alert.uuid, location: alert.location)
+        let newAnnotations: [SpeedTrapAnnotation] = police.map{alert in
+            SpeedTrapAnnotation(uuid: alert.uuid, location: alert.location)
         }
         
         let newPoliceUids = newAnnotations.map{annotation in

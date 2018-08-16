@@ -10,13 +10,6 @@ import Foundation
 
 import MultipeerConnectivity
 
-struct MeshConnection {
-    let peerID: MCPeerID
-    let session: MCSession
-    let peerUserId: String
-    let peerUUID: String
-}
-
 protocol MeshConnectionDelegate {
     func connection(_ network: MeshNetwork, didConnect connection: MeshConnection)
     func connection(_ network: MeshNetwork, didDisconnect peerID: MCPeerID)
@@ -32,46 +25,7 @@ protocol MeshControllerDelegate: MeshConnectionDelegate {
     //TODO
 }
 
-enum MeshPacketType: String, Codable {
-    case handshake
-    case sendRideStatistics
-}
-
-struct HandshakeData: Codable {
-    let uuid: String
-    let userId: String
-}
-
-class MeshPacket: Codable {
-    private static let encoder = JSONEncoder()
-    private static let decoder = JSONDecoder()
-    
-    var type: MeshPacketType
-    var payload: Data
-    
-    init(type: MeshPacketType, payload: Data) {
-        self.type = type
-        self.payload = payload
-    }
-    
-    static func create<T: Codable>(type: MeshPacketType, payload: T) -> MeshPacket {
-        let encoded = try! MeshPacket.encoder.encode(payload)
-        return MeshPacket(type: type, payload: encoded)
-    }
-    
-    func serialize() -> Data {
-        return try! MeshPacket.encoder.encode(self)
-    }
-    
-    static func deserialize(data: Data) -> MeshPacket {
-        return try! MeshPacket.decoder.decode(self, from: data)
-    }
-    
-    func getPayload<T: Codable>() -> T {
-        return try! MeshPacket.decoder.decode(T.self, from: self.payload)
-    }
-}
-
+// Accepts mesh clients
 class MeshBaseStation: MeshNetwork {
     private func getBaseStationDelegate() -> MeshBaseStationDelegate? {
         if let delegate = self.delegate {
@@ -147,7 +101,7 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
     private let encoder = JSONEncoder()
     
     private func sendHandshake(peer: MCPeerID, session: MCSession) {
-        NSLog("Sending device UUID")
+        NSLog("Mesh sending handshake")
         
         if let username = Configuration.shared.getAccount()?.username {
             let handshakeData =
@@ -157,11 +111,12 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
             
             do {
                 try session.send(packet.serialize(), toPeers: [peer], with: .reliable)
+                NSLog("Mesh sent handshake")
             } catch {
-                NSLog("Failed to send handshake \(error)")
+                NSLog("Mesh Failed to send handshake \(error)")
             }
         } else {
-            NSLog("Cannot send handshake without account info")
+            NSLog("Mesh Cannot send handshake without account info")
         }
     }
 
@@ -180,6 +135,7 @@ class MeshNetwork: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdve
         case .connected:
             NSLog("Mesh connected to peer \(peerID)")
             self.sendHandshake(peer: peerID, session: session)
+            NSLog("Sent handshake")
             break
         case .notConnected:
             NSLog("Mesh disconnected from peer \(peerID)")

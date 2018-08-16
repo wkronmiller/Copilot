@@ -55,7 +55,7 @@ class NetworkingViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func connection(_ network: MeshNetwork, didConnect connection: MeshConnection) {
-        NSLog("Got new mesh connection \(connection.peerID.displayName)")
+        NSLog("Networking view controller got new mesh connection \(connection.peerID.displayName)")
         DispatchQueue.main.async {
             self.connectionTable.reloadData()
         }
@@ -113,7 +113,7 @@ class NetworkingViewController: UIViewController, UITableViewDelegate, UITableVi
                 return
             }
             let biometricSummary = BiometricSummary(heartRateMeasurements: measurements)
-            let rideStatistics = RideStatistics(start: self.startDate.date, end: self.endDate.date, biometrics: biometricSummary, locationTrace: locationSegments, accelerationData: accelerationData)
+            let rideStatistics = RideStatistics(start: startDate, end: endDate, biometrics: biometricSummary, locationTrace: locationSegments, accelerationData: accelerationData)
             NSLog("Sending ride statistics \(rideStatistics)")
             
             completionHandler(rideStatistics)

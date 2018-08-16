@@ -49,8 +49,10 @@ class LocationReceiverConfig {
     }
 }
 
-
+// Global location data delegate, distributes location data to rest of app
 class LocationTracker: NSObject, CLLocationManagerDelegate {
+    private var trackingLevel: CLLocationDistance = CLLocationDistance(5000) // 5km resolution
+    
     private var delegateConfig: LocationReceiverConfig = LocationReceiverConfig()
     
     private var endpoint: URL? = nil
@@ -194,6 +196,15 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         LocationDatabase.shared.addAccelerometerData(acceleration: acceleration)
     }
     
+    func setTrackingLevel(distanceFilter: CLLocationDistance) {
+        self.trackingLevel = distanceFilter
+        self.locationManager.distanceFilter = distanceFilter
+        if self.isTracking {
+            self.locationManager.stopUpdatingLocation()
+            self.locationManager.startUpdatingLocation()
+        }
+    }
+    
     func startTracking() {
         if !isTracking {
             NSLog("Starting location tracking")
@@ -201,6 +212,8 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
             locationManager.activityType = .automotiveNavigation
             locationManager.startUpdatingLocation()
             locationManager.requestAlwaysAuthorization()
+            locationManager.distanceFilter = self.trackingLevel
+            locationManager.pausesLocationUpdatesAutomatically = true
             locationManager.allowsBackgroundLocationUpdates = true
             locationManager.showsBackgroundLocationIndicator = false
             isTracking = true

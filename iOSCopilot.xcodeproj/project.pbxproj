@@ -9,6 +9,20 @@
 /* Begin PBXBuildFile section */
 		49137BC620FD6FB300DE6B90 /* LocationDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */; };
 		49137BC720FD6FB300DE6B90 /* LocationDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */; };
+		4913894C2124FF780033D98C /* Traffic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913894B2124FF780033D98C /* Traffic.swift */; };
+		4913894E2125002B0033D98C /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913894D2125002B0033D98C /* Account.swift */; };
+		4913894F212500530033D98C /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913894D2125002B0033D98C /* Account.swift */; };
+		491389512125019A0033D98C /* ForecastPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491389502125019A0033D98C /* ForecastPeriod.swift */; };
+		49138953212503470033D98C /* MeshConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49138952212503470033D98C /* MeshConnection.swift */; };
+		49138954212503680033D98C /* MeshConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49138952212503470033D98C /* MeshConnection.swift */; };
+		491389562125037E0033D98C /* MeshPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491389552125037E0033D98C /* MeshPacket.swift */; };
+		491389572125037E0033D98C /* MeshPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491389552125037E0033D98C /* MeshPacket.swift */; };
+		49138959212505950033D98C /* AudioAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CC6203482240088B633 /* AudioAlerts.swift */; };
+		4913895B212505F20033D98C /* TrafficCam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913895A212505F20033D98C /* TrafficCam.swift */; };
+		4913895C212505F20033D98C /* TrafficCam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913895A212505F20033D98C /* TrafficCam.swift */; };
+		4913895E212506B70033D98C /* Acceleration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913895D212506B70033D98C /* Acceleration.swift */; };
+		4913895F212506B70033D98C /* Acceleration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913895D212506B70033D98C /* Acceleration.swift */; };
+		49138960212506D70033D98C /* Acceleration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913895D212506B70033D98C /* Acceleration.swift */; };
 		4922D7FF2101FF2D00E14B3D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4922D7FE2101FF2D00E14B3D /* HealthKit.framework */; };
 		4922D801210208BB00E14B3D /* BiometricTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D800210208BB00E14B3D /* BiometricTracker.swift */; };
 		4922D8032102AF5800E14B3D /* Biometrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D8022102AF5800E14B3D /* Biometrics.swift */; };
@@ -32,8 +46,9 @@
 		4955AD19210C9348008E2BA6 /* Biometrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D8022102AF5800E14B3D /* Biometrics.swift */; };
 		4955AD1A210C9390008E2BA6 /* LocationSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493E653420FE012E0054797D /* LocationSegment.swift */; };
 		4955AD1B210C93A3008E2BA6 /* LocationDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */; };
+		4955AD1D210E29B3008E2BA6 /* ModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4955AD1C210E29B3008E2BA6 /* ModeManager.swift */; };
 		49561112202F451B00464A53 /* WebUplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49561111202F451B00464A53 /* WebUplink.swift */; };
-		495FDD392100A97600A4EA90 /* Scanners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495FDD382100A97600A4EA90 /* Scanners.swift */; };
+		4968CB9921163FDA00F3081C /* Surge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4968CB9821163FDA00F3081C /* Surge.framework */; };
 		496BCFB42027A157001C6B48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFB32027A157001C6B48 /* AppDelegate.swift */; };
 		496BCFB62027A157001C6B48 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFB52027A157001C6B48 /* MapViewController.swift */; };
 		496BCFBB2027A157001C6B48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 496BCFB92027A157001C6B48 /* Main.storyboard */; };
@@ -42,7 +57,6 @@
 		496BCFC92027A234001C6B48 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 496BCFC82027A234001C6B48 /* MapKit.framework */; };
 		496BCFCE2028807A001C6B48 /* LocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BCFCD2028807A001C6B48 /* LocationTracker.swift */; };
 		496BCFD02029AB1B001C6B48 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 496BCFCF2029AB1B001C6B48 /* CoreData.framework */; };
-		4996AD562104C60200C10884 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4996AD552104C60200C10884 /* ScannerViewController.swift */; };
 		4998316720F0567500C69215 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998316620F0567500C69215 /* AppDelegate.swift */; };
 		4998316920F0567500C69215 /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998316820F0567500C69215 /* MainMapViewController.swift */; };
 		4998316C20F0567500C69215 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4998316A20F0567500C69215 /* Main.storyboard */; };
@@ -62,13 +76,12 @@
 		49C288C42030B13A00D5C212 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288C32030B13A00D5C212 /* Configuration.swift */; };
 		49C288CB203103FD00D5C212 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C288CA203103FD00D5C212 /* MainTabController.swift */; };
 		49D85CC520345A000088B633 /* WeatherStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CC420345A000088B633 /* WeatherStatus.swift */; };
-		49D85CC7203482240088B633 /* AudioAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CC6203482240088B633 /* AudioAlerts.swift */; };
 		49D85CCB203879560088B633 /* LocationStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CCA203879560088B633 /* LocationStats.swift */; };
 		49D85CCD203C53E40088B633 /* TrafficCams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CCC203C53E40088B633 /* TrafficCams.swift */; };
 		49D85CCF203F11D70088B633 /* TrafficCamController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D85CCE203F11D70088B633 /* TrafficCamController.swift */; };
-		49FEF86A210B62BC0006F0F9 /* LocationSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF869210B62BC0006F0F9 /* LocationSummary.swift */; };
-		49FEF86B210B62BC0006F0F9 /* LocationSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF869210B62BC0006F0F9 /* LocationSummary.swift */; };
-		49FEF86C210B62BC0006F0F9 /* LocationSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF869210B62BC0006F0F9 /* LocationSummary.swift */; };
+		49FEF86A210B62BC0006F0F9 /* GroupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF869210B62BC0006F0F9 /* GroupData.swift */; };
+		49FEF86B210B62BC0006F0F9 /* GroupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF869210B62BC0006F0F9 /* GroupData.swift */; };
+		49FEF86C210B62BC0006F0F9 /* GroupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF869210B62BC0006F0F9 /* GroupData.swift */; };
 		49FEF87E210C10500006F0F9 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF87D210C10500006F0F9 /* StatisticsViewController.swift */; };
 		49FFC68B20C5777700DC6D5A /* TwilioVoice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FFC68A20C5777700DC6D5A /* TwilioVoice.framework */; };
 		49FFC68E20C579F700DC6D5A /* CommsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FFC68D20C579F700DC6D5A /* CommsController.swift */; };
@@ -110,6 +123,13 @@
 
 /* Begin PBXFileReference section */
 		49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDatabase.swift; sourceTree = "<group>"; };
+		4913894B2124FF780033D98C /* Traffic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Traffic.swift; sourceTree = "<group>"; };
+		4913894D2125002B0033D98C /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		491389502125019A0033D98C /* ForecastPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastPeriod.swift; sourceTree = "<group>"; };
+		49138952212503470033D98C /* MeshConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshConnection.swift; sourceTree = "<group>"; };
+		491389552125037E0033D98C /* MeshPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshPacket.swift; sourceTree = "<group>"; };
+		4913895A212505F20033D98C /* TrafficCam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCam.swift; sourceTree = "<group>"; };
+		4913895D212506B70033D98C /* Acceleration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Acceleration.swift; sourceTree = "<group>"; };
 		4922D7FE2101FF2D00E14B3D /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		4922D800210208BB00E14B3D /* BiometricTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricTracker.swift; sourceTree = "<group>"; };
 		4922D8022102AF5800E14B3D /* Biometrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Biometrics.swift; sourceTree = "<group>"; };
@@ -127,8 +147,9 @@
 		493E653420FE012E0054797D /* LocationSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSegment.swift; sourceTree = "<group>"; };
 		494B49D7210748E0001F248B /* Jukebox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jukebox.framework; path = Carthage/Build/iOS/Jukebox.framework; sourceTree = SOURCE_ROOT; };
 		4955AD15210C8571008E2BA6 /* RideStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideStatistics.swift; sourceTree = "<group>"; };
+		4955AD1C210E29B3008E2BA6 /* ModeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeManager.swift; sourceTree = "<group>"; };
 		49561111202F451B00464A53 /* WebUplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUplink.swift; sourceTree = "<group>"; };
-		495FDD382100A97600A4EA90 /* Scanners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanners.swift; sourceTree = "<group>"; };
+		4968CB9821163FDA00F3081C /* Surge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Surge.framework; path = Carthage/Build/tvOS/Surge.framework; sourceTree = SOURCE_ROOT; };
 		496BCFB02027A157001C6B48 /* iOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		496BCFB32027A157001C6B48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		496BCFB52027A157001C6B48 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -140,7 +161,6 @@
 		496BCFCA2027A2C6001C6B48 /* iOSCopilot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOSCopilot.entitlements; sourceTree = "<group>"; };
 		496BCFCD2028807A001C6B48 /* LocationTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTracker.swift; sourceTree = "<group>"; };
 		496BCFCF2029AB1B001C6B48 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		4996AD552104C60200C10884 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		4998316420F0567500C69215 /* tvOSCopilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tvOSCopilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4998316620F0567500C69215 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4998316820F0567500C69215 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
@@ -165,7 +185,7 @@
 		49D85CCC203C53E40088B633 /* TrafficCams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCams.swift; sourceTree = "<group>"; };
 		49D85CCE203F11D70088B633 /* TrafficCamController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCamController.swift; sourceTree = "<group>"; };
 		49FEF867210B61B60006F0F9 /* CopilotToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CopilotToday.entitlements; sourceTree = "<group>"; };
-		49FEF869210B62BC0006F0F9 /* LocationSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSummary.swift; sourceTree = "<group>"; };
+		49FEF869210B62BC0006F0F9 /* GroupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupData.swift; sourceTree = "<group>"; };
 		49FEF87D210C10500006F0F9 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		49FFC68A20C5777700DC6D5A /* TwilioVoice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwilioVoice.framework; path = Carthage/Build/iOS/TwilioVoice.framework; sourceTree = "<group>"; };
 		49FFC68D20C579F700DC6D5A /* CommsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommsController.swift; sourceTree = "<group>"; };
@@ -196,6 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4968CB9921163FDA00F3081C /* Surge.framework in Frameworks */,
 				4998317B20F05ADA00C69215 /* MapKit.framework in Frameworks */,
 				4922D807210356F300E14B3D /* Charts.framework in Frameworks */,
 			);
@@ -204,6 +225,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4913894A2124FF680033D98C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				493E653420FE012E0054797D /* LocationSegment.swift */,
+				49381EC120FB6AF100F7982D /* CopilotApi.swift */,
+				4913894B2124FF780033D98C /* Traffic.swift */,
+				4913894D2125002B0033D98C /* Account.swift */,
+				491389502125019A0033D98C /* ForecastPeriod.swift */,
+				49138952212503470033D98C /* MeshConnection.swift */,
+				491389552125037E0033D98C /* MeshPacket.swift */,
+				4913895A212505F20033D98C /* TrafficCam.swift */,
+				4913895D212506B70033D98C /* Acceleration.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		4928CF02210B5F57009E65B1 /* CopilotToday */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,7 +292,7 @@
 				4998318520F0EC5700C69215 /* NetworkingViewController.swift */,
 				49381EC920FB6CB800F7982D /* LoginViewController.swift */,
 				4922D800210208BB00E14B3D /* BiometricTracker.swift */,
-				4996AD552104C60200C10884 /* ScannerViewController.swift */,
+				4955AD1C210E29B3008E2BA6 /* ModeManager.swift */,
 			);
 			path = iOSCopilot;
 			sourceTree = "<group>";
@@ -278,6 +315,7 @@
 		4998316520F0567500C69215 /* tvOSCopilot */ = {
 			isa = PBXGroup;
 			children = (
+				4968CB9821163FDA00F3081C /* Surge.framework */,
 				4922D806210356F300E14B3D /* Charts.framework */,
 				4998318020F070B500C69215 /* AudioAlerts.swift */,
 				4998317E20F0707C00C69215 /* WebUplink.swift */,
@@ -296,6 +334,7 @@
 		4998317320F0567D00C69215 /* CopilotCommon */ = {
 			isa = PBXGroup;
 			children = (
+				4913894A2124FF680033D98C /* Models */,
 				49C288C1203085C200D5C212 /* TrafficStatus.swift */,
 				49C288C32030B13A00D5C212 /* Configuration.swift */,
 				49D85CCA203879560088B633 /* LocationStats.swift */,
@@ -306,13 +345,10 @@
 				49D85CCC203C53E40088B633 /* TrafficCams.swift */,
 				4998318220F0DB8800C69215 /* MeshDiscovery.swift */,
 				4998318920F24B6F00C69215 /* Settings.bundle */,
-				49381EC120FB6AF100F7982D /* CopilotApi.swift */,
 				49381EC520FB6B0D00F7982D /* JWT.swift */,
 				49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */,
-				493E653420FE012E0054797D /* LocationSegment.swift */,
-				495FDD382100A97600A4EA90 /* Scanners.swift */,
 				4922D8022102AF5800E14B3D /* Biometrics.swift */,
-				49FEF869210B62BC0006F0F9 /* LocationSummary.swift */,
+				49FEF869210B62BC0006F0F9 /* GroupData.swift */,
 				4955AD15210C8571008E2BA6 /* RideStatistics.swift */,
 			);
 			path = CopilotCommon;
@@ -491,9 +527,11 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/tvOS/Charts.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/Surge.framework",
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Charts.framework",
+				"$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Surge.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -526,8 +564,9 @@
 				4955AD19210C9348008E2BA6 /* Biometrics.swift in Sources */,
 				4955AD1B210C93A3008E2BA6 /* LocationDatabase.swift in Sources */,
 				4928CF04210B5F57009E65B1 /* TodayViewController.swift in Sources */,
-				49FEF86C210B62BC0006F0F9 /* LocationSummary.swift in Sources */,
+				49FEF86C210B62BC0006F0F9 /* GroupData.swift in Sources */,
 				4955AD18210C8571008E2BA6 /* RideStatistics.swift in Sources */,
+				49138960212506D70033D98C /* Acceleration.swift in Sources */,
 				4955AD1A210C9390008E2BA6 /* LocationSegment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -536,20 +575,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4955AD1D210E29B3008E2BA6 /* ModeManager.swift in Sources */,
 				49381ECA20FB6CB800F7982D /* LoginViewController.swift in Sources */,
 				493E653520FE012E0054797D /* LocationSegment.swift in Sources */,
 				49C288C2203085C200D5C212 /* TrafficStatus.swift in Sources */,
+				49138959212505950033D98C /* AudioAlerts.swift in Sources */,
 				49137BC620FD6FB300DE6B90 /* LocationDatabase.swift in Sources */,
+				4913894E2125002B0033D98C /* Account.swift in Sources */,
 				4998318620F0EC5700C69215 /* NetworkingViewController.swift in Sources */,
 				49C288CB203103FD00D5C212 /* MainTabController.swift in Sources */,
+				4913895B212505F20033D98C /* TrafficCam.swift in Sources */,
 				49FFC68E20C579F700DC6D5A /* CommsController.swift in Sources */,
 				49381EC620FB6B0D00F7982D /* JWT.swift in Sources */,
 				4955AD16210C8571008E2BA6 /* RideStatistics.swift in Sources */,
-				495FDD392100A97600A4EA90 /* Scanners.swift in Sources */,
+				49138953212503470033D98C /* MeshConnection.swift in Sources */,
 				4998318320F0DB8800C69215 /* MeshDiscovery.swift in Sources */,
 				49D85CC520345A000088B633 /* WeatherStatus.swift in Sources */,
+				491389512125019A0033D98C /* ForecastPeriod.swift in Sources */,
+				4913894C2124FF780033D98C /* Traffic.swift in Sources */,
+				4913895E212506B70033D98C /* Acceleration.swift in Sources */,
 				49561112202F451B00464A53 /* WebUplink.swift in Sources */,
-				49D85CC7203482240088B633 /* AudioAlerts.swift in Sources */,
 				49D85CCB203879560088B633 /* LocationStats.swift in Sources */,
 				496BCFCE2028807A001C6B48 /* LocationTracker.swift in Sources */,
 				496BCFB42027A157001C6B48 /* AppDelegate.swift in Sources */,
@@ -559,10 +604,10 @@
 				4922D801210208BB00E14B3D /* BiometricTracker.swift in Sources */,
 				49C288C42030B13A00D5C212 /* Configuration.swift in Sources */,
 				49D85CCD203C53E40088B633 /* TrafficCams.swift in Sources */,
-				4996AD562104C60200C10884 /* ScannerViewController.swift in Sources */,
+				491389562125037E0033D98C /* MeshPacket.swift in Sources */,
 				496BCFB62027A157001C6B48 /* MapViewController.swift in Sources */,
 				49B69D3B2031B32700ACD609 /* WeatherController.swift in Sources */,
-				49FEF86A210B62BC0006F0F9 /* LocationSummary.swift in Sources */,
+				49FEF86A210B62BC0006F0F9 /* GroupData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,16 +620,21 @@
 				4955AD17210C8571008E2BA6 /* RideStatistics.swift in Sources */,
 				4998317920F0583800C69215 /* Configuration.swift in Sources */,
 				49381EC320FB6AF100F7982D /* CopilotApi.swift in Sources */,
+				4913894F212500530033D98C /* Account.swift in Sources */,
 				49137BC720FD6FB300DE6B90 /* LocationDatabase.swift in Sources */,
+				49138954212503680033D98C /* MeshConnection.swift in Sources */,
 				4998318120F070B500C69215 /* AudioAlerts.swift in Sources */,
 				4998317F20F0707C00C69215 /* WebUplink.swift in Sources */,
+				491389572125037E0033D98C /* MeshPacket.swift in Sources */,
 				49381EC720FB6B0D00F7982D /* JWT.swift in Sources */,
 				4998316920F0567500C69215 /* MainMapViewController.swift in Sources */,
 				4998316720F0567500C69215 /* AppDelegate.swift in Sources */,
 				493E653620FE012E0054797D /* LocationSegment.swift in Sources */,
 				4998317D20F0706C00C69215 /* TrafficCams.swift in Sources */,
-				49FEF86B210B62BC0006F0F9 /* LocationSummary.swift in Sources */,
+				49FEF86B210B62BC0006F0F9 /* GroupData.swift in Sources */,
 				49FEF87E210C10500006F0F9 /* StatisticsViewController.swift in Sources */,
+				4913895C212505F20033D98C /* TrafficCam.swift in Sources */,
+				4913895F212506B70033D98C /* Acceleration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -829,7 +879,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch Image";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
@@ -854,7 +904,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch Image";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;

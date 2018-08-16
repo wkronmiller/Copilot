@@ -11,6 +11,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import Charts
+import Surge
 
 class StatisticsViewController: DarkMapController, MKMapViewDelegate {
     private let labelQueue = DispatchQueue(label: "StatsLabelQueue")
@@ -88,7 +89,7 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
             }
             let pulseLine = LineChartDataSet(values: pulseChartData, label: "Pulse")
             pulseLine.colors = [
-                .init(red: CGFloat(69.0 / 255), green: 0, blue: CGFloat(38.0 / 255), alpha: 1.0)
+                .red
             ]
             pulseLine.circleRadius = 0
             pulseLine.lineWidth = 2.0
@@ -98,18 +99,30 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
             }
             let speedLine = LineChartDataSet(values: speedChartData, label: "Speed")
             speedLine.colors = [
-                .init(red: CGFloat(20.0 / 255), green: CGFloat(7.0 / 255), blue: CGFloat(58.0 / 255), alpha: 1.0)
+                .white
             ]
             speedLine.circleRadius = 0
-            speedLine.lineWidth = 2.0
+            speedLine.lineWidth = 4.0
             
-            let accelerationChartData = rideStatistics.accelerationData.map{ acceleration in
-                return ChartDataEntry(x: acceleration.epochMs / 1000, y: acceleration.magnitude)
+            let binSize = 50
+            var initial: [[Acceleration]] = [[]]
+            let accelerationChartData = rideStatistics.accelerationData.reduce(into: initial, { (result, acceleration) in
+                if result.last!.count < binSize {
+                    var last = result.popLast()!
+                    last.append(acceleration)
+                    result.append(last)
+                } else {
+                    result.append([acceleration])
+                }
+            })
+            .map{ bin -> ChartDataEntry in
+                let epochMs = Surge.mean(bin.map{ elem in return elem.epochMs })
+                let maxMagnitude = Surge.max(bin.map{ elem in return elem.magnitude })
+                return ChartDataEntry(x: epochMs / 1000, y: maxMagnitude)
             }
             let accelerationLine = LineChartDataSet(values: accelerationChartData, label: "Acceleration")
             accelerationLine.colors = [
-                .init(red: CGFloat(38.0 / 255), green: CGFloat(3.0 / 255), blue: CGFloat(57.0 / 255), alpha: 0.5),
-                .init(red: CGFloat(61.0 / 255), green: CGFloat(18.0 / 255), blue: CGFloat(85.0 / 255), alpha: 0.5)
+                .yellow
             ]
             accelerationLine.circleRadius = 0
             accelerationLine.lineWidth = 1.0
@@ -145,7 +158,7 @@ class StatisticsViewController: DarkMapController, MKMapViewDelegate {
         }
         self.labelQueue.async {
             NSLog("Calculating speed label")
-            let speeds = stats.locationTrace.locations.map { location in return location.speed.metersPerSecondToMPH }
+            let speeds = stats.locationTrace.locations.map { location in return location.speed.metersPerSecondToMPH }.filter{ speed in speed > 0 }
             if speeds.isEmpty {
                 self.speedLabel.text = "Unknown"
             } else {

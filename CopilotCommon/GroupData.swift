@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class LocationStatsSummary {
+public class GroupData {
     private let sharedDefaults: UserDefaults = UserDefaults.init(suiteName: "group.net.kronmiller.william.copilot")!
     
     var policeNearby: Int {

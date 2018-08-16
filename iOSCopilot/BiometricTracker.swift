@@ -9,7 +9,6 @@
 import Foundation
 import HealthKit
 
-
 class BiometricTracker: NSObject {
     private var authorized = false
     private let hkHealthStore = HKHealthStore()

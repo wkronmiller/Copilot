@@ -54,6 +54,67 @@
             </objects>
             <point key="canvasLocation" x="-682.39999999999998" y="-1040.3298350824589"/>
         </scene>
+        <!--Mode Controller-->
+        <scene sceneID="N5x-c8-sNM">
+            <objects>
+                <viewController title="Mode Controller" id="oMD-zr-EoE" customClass="ModeManagerViewController" customModule="iOSCopilot" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IO5-aP-eY2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Mev-kC-ssr">
+                                <rect key="frame" x="16" y="82" width="343" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Background"/>
+                                    <segment title="Active"/>
+                                    <segment title="Aggressive"/>
+                                </segments>
+                                <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="modeChanged:" destination="oMD-zr-EoE" eventType="valueChanged" id="bWa-nZ-E1E"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghM-JZ-8Lc">
+                                <rect key="frame" x="165" y="38" width="53" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Speech" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKh-ff-WJ9">
+                                <rect key="frame" x="152" y="146" width="70" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dF4-Nb-D3Y">
+                                <rect key="frame" x="16" y="187" width="343" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Silent"/>
+                                    <segment title="Alerts"/>
+                                    <segment title="Jarvis"/>
+                                </segments>
+                                <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="modeChanged:" destination="oMD-zr-EoE" eventType="valueChanged" id="dP7-3U-B3h"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="gvp-w4-wab"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Mode" id="eoK-xj-BAh" customClass="MainTabBarItem" customModule="iOSCopilot" customModuleProvider="target"/>
+                    <connections>
+                        <outlet property="modeButtons" destination="Mev-kC-ssr" id="gxT-fP-3SB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jUL-iR-Dbu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="749.60000000000002" y="-1040.3298350824589"/>
+        </scene>
         <!--Map-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
@@ -402,52 +463,6 @@
             </objects>
             <point key="canvasLocation" x="749.60000000000002" y="367.24137931034483"/>
         </scene>
-        <!--Scanner-->
-        <scene sceneID="KyB-9g-dO5">
-            <objects>
-                <tableViewController title="Scanner" id="7xk-Tl-0gb" customClass="ScannerViewController" customModule="iOSCopilot" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6qy-uB-DX4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="sectionIndexColor" cocoaTouchSystemColor="lightTextColor"/>
-                        <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="scannerCell" rowHeight="129" id="7Ho-Pk-gHa" customClass="ScannerCell" customModule="iOSCopilot" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="129"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Ho-Pk-gHa" id="4gP-h8-VmI">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="128.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJl-0T-RdM">
-                                            <rect key="frame" x="69" y="11" width="236" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="title" destination="VJl-0T-RdM" id="O1l-aH-VKW"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="7xk-Tl-0gb" id="8JH-WH-QX6"/>
-                            <outlet property="delegate" destination="7xk-Tl-0gb" id="jX0-6W-M5m"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="Scanner" id="Zbd-6o-5A8" customClass="MainTabBarItem" customModule="iOSCopilot" customModuleProvider="target"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ML2-Dz-Btv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2.3999999999999999" y="841.52923538230891"/>
-        </scene>
         <!--Cameras-->
         <scene sceneID="FUo-jf-jpm">
             <objects>
@@ -547,6 +562,7 @@
                         <segue destination="srs-vG-Ze1" kind="relationship" relationship="viewControllers" id="NbX-N0-efk"/>
                         <segue destination="gDu-yx-qp2" kind="relationship" relationship="viewControllers" id="H10-hh-f5l"/>
                         <segue destination="EhT-PF-xMZ" kind="relationship" relationship="viewControllers" id="Oh6-dm-Uh9"/>
+                        <segue destination="oMD-zr-EoE" kind="relationship" relationship="viewControllers" id="vJF-wK-iyg"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>

@@ -9,36 +9,6 @@
 import Foundation
 import CoreLocation
 
-struct TrafficJam {
-    var line: [CLLocation]
-    var severity: Int
-    var speed: Double
-}
-
-struct TrafficAlert {
-    let type: String
-    let uuid: String
-    let location: CLLocation
-    let waypoint: Waypoint
-}
-
-struct TrafficConditions {
-    var jams: [TrafficJam]
-    var alerts: [TrafficAlert]
-    
-    func getPoliceLocations() -> [TrafficAlert] {
-        return alerts.filter { alert in
-            return (alert.type == "POLICE")
-        }
-    }
-    
-    func getPoliceNearby(location: CLLocation, radius: CLLocationDistance) -> [TrafficAlert] {
-        return self.getPoliceLocations().filter{ policeLocation in
-            return location.distance(from: location) < radius
-        }
-    }
-}
-
 class TrafficStatus: NSObject {
     private let receiverConfig: LocationReceiverConfig
     private let webUplink: WebUplink

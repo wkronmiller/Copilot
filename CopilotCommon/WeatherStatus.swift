@@ -9,13 +9,6 @@
 import Foundation
 import CoreLocation
 
-public struct ForecastPeriod {
-    var startTime: Date
-    var endTime: Date
-    var temperature: Int
-    var description: String
-}
-
 public class WeatherStatus: NSObject {
     private let receiverConfig: LocationReceiverConfig
     private let endpoint = "https://api.weather.gov"

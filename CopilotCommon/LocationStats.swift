@@ -18,7 +18,7 @@ public class LocationStats: NSObject {
     private var lastLocation: CLLocation? = nil
     private var lastWaypoint: Waypoint? = nil
     
-    private let summary = LocationStatsSummary()
+    private let groupData = GroupData()
     
     private let trafficStatus = TrafficStatus()
     private let weatherStatus = WeatherStatus()
@@ -50,9 +50,9 @@ public class LocationStats: NSObject {
     
     private func refreshSummary() {
         if let policeNearby = self.trafficStatus.getLastStatus()?.getPoliceNearby(location: self.lastLocation!, radius: CLLocationDistance(exactly: 5000)!).count {
-            self.summary.policeNearby = policeNearby
+            self.groupData.policeNearby = policeNearby
         }
-        self.summary.lastUpdated = Date()
+        self.groupData.lastUpdated = Date()
         //TODO
     }
     

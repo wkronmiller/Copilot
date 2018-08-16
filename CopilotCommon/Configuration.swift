@@ -17,20 +17,13 @@ struct RootSettingKeys {
     static let enableMeshNetworking = "preference_enable_mesh"
 }
 
-public struct Account {
-    let username: String
-    let password: String
-}
-
 public class Configuration: NSObject {
     let apiGatewayCore = "https://0kkgejw01g.execute-api.us-east-1.amazonaws.com/dev"
-    //let apiGatewayCore = "http://192.168.11.218:3000"
+    //let apiGatewayCore = "http://192.168.11.218:3000" // Local testing
     
     //let baseMapTileUrl = "http://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
     let baseMapTileUrl = "http://statichosting.kronmiller.net:32771/dark_all/{z}/{x}/{y}.png"
-    //let baseMapTileUrl = "http://statichosting.kronmiller.net:8080/styles/dark-matter/{z}/{x}/{y}.png"
 
-    //http://mesonet.agron.iastate.edu/ogc/
     let radarTileUrl = "https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png"
     
     let defaultZoomMeters: CLLocationDistance = CLLocationDistance(8000)

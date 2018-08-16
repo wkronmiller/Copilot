@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Connection to API Server
 class CopilotAPI: WebUplink {
     private var jwt: JWT? = nil
     
