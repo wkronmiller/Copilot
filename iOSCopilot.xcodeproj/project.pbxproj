@@ -23,6 +23,12 @@
 		4913895E212506B70033D98C /* Acceleration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913895D212506B70033D98C /* Acceleration.swift */; };
 		4913895F212506B70033D98C /* Acceleration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913895D212506B70033D98C /* Acceleration.swift */; };
 		49138960212506D70033D98C /* Acceleration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913895D212506B70033D98C /* Acceleration.swift */; };
+		4913896521250EAF0033D98C /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913896421250EAF0033D98C /* Vehicle.swift */; };
+		4913896621250EAF0033D98C /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913896421250EAF0033D98C /* Vehicle.swift */; };
+		4913896821250EC00033D98C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913896721250EC00033D98C /* User.swift */; };
+		4913896921250EC00033D98C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913896721250EC00033D98C /* User.swift */; };
+		4913896A21250EE80033D98C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913896721250EC00033D98C /* User.swift */; };
+		4913896B21250EEB0033D98C /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4913896421250EAF0033D98C /* Vehicle.swift */; };
 		4922D7FF2101FF2D00E14B3D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4922D7FE2101FF2D00E14B3D /* HealthKit.framework */; };
 		4922D801210208BB00E14B3D /* BiometricTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D800210208BB00E14B3D /* BiometricTracker.swift */; };
 		4922D8032102AF5800E14B3D /* Biometrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922D8022102AF5800E14B3D /* Biometrics.swift */; };
@@ -130,6 +136,8 @@
 		491389552125037E0033D98C /* MeshPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshPacket.swift; sourceTree = "<group>"; };
 		4913895A212505F20033D98C /* TrafficCam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCam.swift; sourceTree = "<group>"; };
 		4913895D212506B70033D98C /* Acceleration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Acceleration.swift; sourceTree = "<group>"; };
+		4913896421250EAF0033D98C /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		4913896721250EC00033D98C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4922D7FE2101FF2D00E14B3D /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		4922D800210208BB00E14B3D /* BiometricTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricTracker.swift; sourceTree = "<group>"; };
 		4922D8022102AF5800E14B3D /* Biometrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Biometrics.swift; sourceTree = "<group>"; };
@@ -228,6 +236,7 @@
 		4913894A2124FF680033D98C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				49381EC520FB6B0D00F7982D /* JWT.swift */,
 				493E653420FE012E0054797D /* LocationSegment.swift */,
 				49381EC120FB6AF100F7982D /* CopilotApi.swift */,
 				4913894B2124FF780033D98C /* Traffic.swift */,
@@ -237,8 +246,30 @@
 				491389552125037E0033D98C /* MeshPacket.swift */,
 				4913895A212505F20033D98C /* TrafficCam.swift */,
 				4913895D212506B70033D98C /* Acceleration.swift */,
+				4913896421250EAF0033D98C /* Vehicle.swift */,
+				4913896721250EC00033D98C /* User.swift */,
+				4955AD15210C8571008E2BA6 /* RideStatistics.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4913896321250E310033D98C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */,
+				4922D8022102AF5800E14B3D /* Biometrics.swift */,
+				49FEF869210B62BC0006F0F9 /* GroupData.swift */,
+				49C288C1203085C200D5C212 /* TrafficStatus.swift */,
+				49C288C32030B13A00D5C212 /* Configuration.swift */,
+				49D85CCA203879560088B633 /* LocationStats.swift */,
+				496BCFCD2028807A001C6B48 /* LocationTracker.swift */,
+				49561111202F451B00464A53 /* WebUplink.swift */,
+				49D85CC420345A000088B633 /* WeatherStatus.swift */,
+				49D85CC6203482240088B633 /* AudioAlerts.swift */,
+				49D85CCC203C53E40088B633 /* TrafficCams.swift */,
+				4998318220F0DB8800C69215 /* MeshDiscovery.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		4928CF02210B5F57009E65B1 /* CopilotToday */ = {
@@ -334,22 +365,9 @@
 		4998317320F0567D00C69215 /* CopilotCommon */ = {
 			isa = PBXGroup;
 			children = (
+				4913896321250E310033D98C /* Controllers */,
 				4913894A2124FF680033D98C /* Models */,
-				49C288C1203085C200D5C212 /* TrafficStatus.swift */,
-				49C288C32030B13A00D5C212 /* Configuration.swift */,
-				49D85CCA203879560088B633 /* LocationStats.swift */,
-				496BCFCD2028807A001C6B48 /* LocationTracker.swift */,
-				49561111202F451B00464A53 /* WebUplink.swift */,
-				49D85CC420345A000088B633 /* WeatherStatus.swift */,
-				49D85CC6203482240088B633 /* AudioAlerts.swift */,
-				49D85CCC203C53E40088B633 /* TrafficCams.swift */,
-				4998318220F0DB8800C69215 /* MeshDiscovery.swift */,
 				4998318920F24B6F00C69215 /* Settings.bundle */,
-				49381EC520FB6B0D00F7982D /* JWT.swift */,
-				49137BC520FD6FB300DE6B90 /* LocationDatabase.swift */,
-				4922D8022102AF5800E14B3D /* Biometrics.swift */,
-				49FEF869210B62BC0006F0F9 /* GroupData.swift */,
-				4955AD15210C8571008E2BA6 /* RideStatistics.swift */,
 			);
 			path = CopilotCommon;
 			sourceTree = "<group>";
@@ -561,10 +579,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4913896B21250EEB0033D98C /* Vehicle.swift in Sources */,
 				4955AD19210C9348008E2BA6 /* Biometrics.swift in Sources */,
 				4955AD1B210C93A3008E2BA6 /* LocationDatabase.swift in Sources */,
 				4928CF04210B5F57009E65B1 /* TodayViewController.swift in Sources */,
 				49FEF86C210B62BC0006F0F9 /* GroupData.swift in Sources */,
+				4913896A21250EE80033D98C /* User.swift in Sources */,
 				4955AD18210C8571008E2BA6 /* RideStatistics.swift in Sources */,
 				49138960212506D70033D98C /* Acceleration.swift in Sources */,
 				4955AD1A210C9390008E2BA6 /* LocationSegment.swift in Sources */,
@@ -588,6 +608,7 @@
 				49FFC68E20C579F700DC6D5A /* CommsController.swift in Sources */,
 				49381EC620FB6B0D00F7982D /* JWT.swift in Sources */,
 				4955AD16210C8571008E2BA6 /* RideStatistics.swift in Sources */,
+				4913896821250EC00033D98C /* User.swift in Sources */,
 				49138953212503470033D98C /* MeshConnection.swift in Sources */,
 				4998318320F0DB8800C69215 /* MeshDiscovery.swift in Sources */,
 				49D85CC520345A000088B633 /* WeatherStatus.swift in Sources */,
@@ -599,6 +620,7 @@
 				496BCFCE2028807A001C6B48 /* LocationTracker.swift in Sources */,
 				496BCFB42027A157001C6B48 /* AppDelegate.swift in Sources */,
 				49381EC220FB6AF100F7982D /* CopilotApi.swift in Sources */,
+				4913896521250EAF0033D98C /* Vehicle.swift in Sources */,
 				49D85CCF203F11D70088B633 /* TrafficCamController.swift in Sources */,
 				4922D8032102AF5800E14B3D /* Biometrics.swift in Sources */,
 				4922D801210208BB00E14B3D /* BiometricTracker.swift in Sources */,
@@ -625,6 +647,7 @@
 				49138954212503680033D98C /* MeshConnection.swift in Sources */,
 				4998318120F070B500C69215 /* AudioAlerts.swift in Sources */,
 				4998317F20F0707C00C69215 /* WebUplink.swift in Sources */,
+				4913896921250EC00033D98C /* User.swift in Sources */,
 				491389572125037E0033D98C /* MeshPacket.swift in Sources */,
 				49381EC720FB6B0D00F7982D /* JWT.swift in Sources */,
 				4998316920F0567500C69215 /* MainMapViewController.swift in Sources */,
@@ -633,6 +656,7 @@
 				4998317D20F0706C00C69215 /* TrafficCams.swift in Sources */,
 				49FEF86B210B62BC0006F0F9 /* GroupData.swift in Sources */,
 				49FEF87E210C10500006F0F9 /* StatisticsViewController.swift in Sources */,
+				4913896621250EAF0033D98C /* Vehicle.swift in Sources */,
 				4913895C212505F20033D98C /* TrafficCam.swift in Sources */,
 				4913895F212506B70033D98C /* Acceleration.swift in Sources */,
 			);

@@ -26,14 +26,14 @@ struct TrafficConditions {
     var jams: [TrafficJam]
     var alerts: [TrafficAlert]
     
-    func getPoliceLocations() -> [TrafficAlert] {
+    func getSpeedTrapPositions() -> [TrafficAlert] {
         return alerts.filter { alert in
             return (alert.type == "POLICE")
         }
     }
     
-    func getPoliceNearby(location: CLLocation, radius: CLLocationDistance) -> [TrafficAlert] {
-        return self.getPoliceLocations().filter{ policeLocation in
+    func getSpeedTrapsNearby(location: CLLocation, radius: CLLocationDistance) -> [TrafficAlert] {
+        return self.getSpeedTrapPositions().filter{ policeLocation in
             return location.distance(from: location) < radius
         }
     }

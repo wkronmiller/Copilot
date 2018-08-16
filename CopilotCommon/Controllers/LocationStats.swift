@@ -49,8 +49,8 @@ public class LocationStats: NSObject {
     }
     
     private func refreshSummary() {
-        if let policeNearby = self.trafficStatus.getLastStatus()?.getPoliceNearby(location: self.lastLocation!, radius: CLLocationDistance(exactly: 5000)!).count {
-            self.groupData.policeNearby = policeNearby
+        if let policeNearby = self.trafficStatus.getLastStatus()?.getSpeedTrapsNearby(location: self.lastLocation!, radius: CLLocationDistance(exactly: 5000)!).count {
+            self.groupData.speedTrapsNearby = policeNearby
         }
         self.groupData.lastUpdated = Date()
         //TODO

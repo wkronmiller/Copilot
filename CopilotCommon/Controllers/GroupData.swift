@@ -11,14 +11,16 @@ import Foundation
 public class GroupData {
     private let sharedDefaults: UserDefaults = UserDefaults.init(suiteName: "group.net.kronmiller.william.copilot")!
     
-    var policeNearby: Int {
+    var speedTrapsNearby: Int {
         get {
-            return sharedDefaults.integer(forKey: "policeNearby")
+            return sharedDefaults.integer(forKey: "speedTrapsNearby")
         }
         set(number) {
-            sharedDefaults.set(number, forKey: "policeNearby")
+            sharedDefaults.set(number, forKey: "speedTrapsNearby")
         }
     }
+    
+    //TODO: app mode, jams nearby
     
     var lastUpdated: Date? {
         get {

@@ -8,18 +8,6 @@
 
 import Foundation
 
-struct Vehicle: Codable { //TODO: vehicle database
-    let vin: String? = nil
-    let plate: String? = nil
-    let make = "BMW"
-    let model = "S1000RR"
-    let year = 2016
-}
-
-struct User: Codable { //TODO
-    let nickname = "Rory"
-}
-
 struct RideStatistics: Codable {
     let user = User() //TODO
     let vehicle = Vehicle() //TODO

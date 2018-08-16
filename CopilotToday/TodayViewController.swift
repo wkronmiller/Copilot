@@ -35,7 +35,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
         DispatchQueue.main.async {
-            self.policeNearby.text = "\(self.summary.policeNearby)"
+            self.policeNearby.text = "\(self.summary.speedTrapsNearby)"
             if let lastUpdated = self.summary.lastUpdated {
                 self.lastUpdated.text = self.dateFormatter.string(for: lastUpdated)
             } else {

@@ -154,7 +154,7 @@ class MapViewController: UIViewController, LocationTrackerDelegate, MKMapViewDel
     private func updatePoliceAnnotations(trafficConditions: TrafficConditions) {
         NSLog("Updating police locations")
         
-        let police = trafficConditions.getPoliceLocations()
+        let police = trafficConditions.getSpeedTrapPositions()
         
         let newAnnotations: [SpeedTrapAnnotation] = police.map{alert in
             SpeedTrapAnnotation(uuid: alert.uuid, location: alert.location)
